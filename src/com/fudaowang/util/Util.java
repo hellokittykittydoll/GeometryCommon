@@ -32,10 +32,10 @@ public class Util {
      * @return 两点之间的距离
      */
     public static double distance(Point p1, Point p2) {
-        validateNull(p1);
-        validateNull(p2);
-
-        return java.awt.geom.Point2D.distance(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+        if (p1 == null || p2 == null) {
+            return Double.NaN;
+        }
+        return distance(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     /**
@@ -46,8 +46,9 @@ public class Util {
      * @return 两点之间的中点
      */
     public static Point getMidPoint(Point p1, Point p2) {
-        validateNull(p1);
-        validateNull(p2);
+        if (p1 == null || p2 == null) {
+            return null;
+        }
 
         return getMidPoint(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
@@ -75,8 +76,9 @@ public class Util {
      * @return 给定点相对于中心点的中心对称点
      */
     public static Point getCenterSymmetricalPoint(Point point, Point center) {
-        validateNull(point);
-        validateNull(center);
+        if (point == null || center == null) {
+            return null;
+        }
 
         return getCenterSymmetricalPoint(point.getX(), point.getY(), center.getX(), center.getY());
     }
@@ -117,20 +119,11 @@ public class Util {
      * @return 角的弧度值
      */
     public static double getAngleRadians(Point center, Point p1, Point p2) {
-        validateNull(center);
-        validateNull(p1);
-        validateNull(p2);
+        if (center == null || p1 == null || p2 == null) {
+            return Double.NaN;
+        }
 
         return getAngleRadians(center.getX(), center.getY(), p1.getX(), p1.getY(), p2.getX(), p2.getY());
-//        validateCoincide(center, p1);
-//        validateCoincide(center, p2);
-//
-//        double a = distance(p1,p2);
-//        double b = distance(center, p1);
-//        double c = distance(center, p2);
-//
-//        double cos = (b * b + c * c - a * a) / 2 * b * c;
-//        return Math.acos(cos);
     }
 
     /**
@@ -221,18 +214,11 @@ public class Util {
      * @return 将point以center为中心旋转angle角度并拉伸到ratio倍距离后的坐标值
      */
     public static Point rotateAndStretch(Point point, Point center, double angle, double ratio) {
-        validateNull(point);
-        validateNull(center);
+        if (point == null || center == null) {
+            return null;
+        }
 
         return rotateAndStretch(point.getX(), point.getY(), center.getX(), center.getY(), angle, ratio);
-//        validateCoincide(point, center);
-//
-//        double p = distance(point, center) * ratio;
-//        double theta = Math.atan2( point.getY() - center.getY(),point.getX() - center.getX());
-//        double rotateTheta = theta + angle;
-//        double x = p * Math.cos(rotateTheta);
-//        double y = p * Math.sin(rotateTheta);
-//        return new Point(x + center.getX(), y + center.getY());
     }
 
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
@@ -273,29 +259,6 @@ public class Util {
     }
 
     /**
-     * 当点为null时,抛出NullPointerException异常
-     *
-     * @param point 给定的点
-     */
-    public static void validateNull(Point point) {
-        if (point == null) {
-            throw new NullPointerException("点不能为null");
-        }
-    }
-
-    /**
-     * 当两个点为同一对象时,抛出IllegalArgumentException异常
-     *
-     * @param p1 第一个点
-     * @param p2 第二个点
-     */
-    public static void validateEqual(Point p1, Point p2) {
-        if (p1 == p2) {
-            throw new IllegalArgumentException("两个点不能相等");
-        }
-    }
-
-    /**
      * 当两个点重合时,抛出IllegalArgumentException异常
      *
      * @param p1 第一个点
@@ -333,9 +296,10 @@ public class Util {
 
     /**
      * 将给定的点沿横坐标正方向平移x,沿纵坐标方向平移y
+     *
      * @param point 点
-     * @param x 横坐标平移的长度
-     * @param y 纵坐标平移的长度
+     * @param x     横坐标平移的长度
+     * @param y     纵坐标平移的长度
      * @return 平移后得到的点
      */
     public static Point translation(Point point, double x, double y) {
@@ -347,10 +311,11 @@ public class Util {
 
     /**
      * 将点(x0,y0)沿横坐标正方向平移x,沿纵坐标方向平移y
+     *
      * @param x0 原横坐标
      * @param y0 原纵坐标
-     * @param x 横坐标平移的长度
-     * @param y 纵坐标平移的长度
+     * @param x  横坐标平移的长度
+     * @param y  纵坐标平移的长度
      * @return 平移后得到的点
      */
     public static Point translation(double x0, double y0, double x, double y) {
