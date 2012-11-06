@@ -99,6 +99,33 @@ public class Util {
     }
 
     /**
+     * 求点相对于直线的轴对称点
+     * @param point 点
+     * @param line 直线
+     * @return 轴对称点
+     */
+    public static Point getAxialSymmetricalPoint(Point point, Line line) {
+        if (point == null || line == null) {
+            return null;
+        }
+        return getAxialSymmetricalPoint(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
+    }
+
+    /**
+     * 求点(x,y)相对于直线ax+by+c=0的轴对称点
+     * @param x 点的横坐标
+     * @param y 点的纵坐标
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @param c 直线的系数c
+     * @return 轴对称点
+     */
+    public static Point getAxialSymmetricalPoint(double x, double y, double a, double b, double c) {
+        Point point = LineUtil.verticalPoint(x, y, a, b, c);
+        return getCenterSymmetricalPoint(x, y, point.getX(), point.getY());
+    }
+
+    /**
      * 判断两个数值之差是否小于给定的精度值
      *
      * @param d1        第一个数值
