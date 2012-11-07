@@ -33,4 +33,11 @@ public class Segment {
     public Point getP2() {
         return p2;
     }
+
+    public String toString() {
+        return "Segment{" +
+                "p1=" + p1 +
+                ", p2=" + p2 +
+                '}';
+    }
 }

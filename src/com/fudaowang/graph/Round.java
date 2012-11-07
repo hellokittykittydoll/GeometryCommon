@@ -32,4 +32,10 @@ public class Round {
         return radius;
     }
 
+    public String toString() {
+        return "Round{" +
+                "center=" + center +
+                ", radius=" + radius +
+                '}';
+    }
 }

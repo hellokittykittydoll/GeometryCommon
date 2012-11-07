@@ -24,6 +24,14 @@ public class Parabola {
         return c;
     }
 
+    public String toString() {
+        return "Parabola{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                '}';
+    }
+
     public Parabola(double a, double b, double c) {
         if (a == 0) {
             throw new IllegalArgumentException("a == 0");

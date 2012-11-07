@@ -3,8 +3,6 @@ package com.fudaowang.util;
 import com.fudaowang.graph.Line;
 import com.fudaowang.graph.Point;
 import com.fudaowang.graph.Segment;
-import com.sun.tools.internal.ws.processor.generator.SeiGenerator;
-import sun.jvm.hotspot.debugger.windbg.DLL;
 
 
 /**
@@ -570,16 +568,11 @@ public class LineUtil {
      * @return 过两点的直线方程
      */
     public static Line getLine(Point p1, Point p2) {
-        Util.validateNull(p1);
-        Util.validateNull(p2);
+        if (p1 == null || p2 == null) {
+            return null;
+        }
 
         return getLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-//        validateCoincide(p1, p2);
-//
-//        double a = p2.getY() - p1.getY();
-//        double b = p1.getX() - p2.getX();
-//        double c = p2.getX() * p1.getY() - p1.getX() * p2.getY();
-//        return new Line(a, b, c);
     }
 
     /**
@@ -670,5 +663,30 @@ public class LineUtil {
         Point p1 = new Point(x1 + x, y1 + y);
         Point p2 = new Point(x2 + x, y2 + y);
         return new Segment(p1, p2);
+    }
+
+    /**
+     * 计算point相对于center的倾角
+     * @param center 中心点
+     * @param point 给定的点
+     * @return 给定点相对于中心点的倾角
+     */
+    public static double getAngle(Point center, Point point) {
+        if (center == null || point == null) {
+            return Double.NaN;
+        }
+        return getAngle(center.getX(), center.getY(), point.getX(), point.getY());
+    }
+
+    /**
+     * 计算点()相对于点()的倾角
+     * @param cx 中心点的横坐标
+     * @param cy 中心点的纵坐标
+     * @param px 给定点的横坐标
+     * @param py 给定点的纵坐标
+     * @return 给定点相对于中心点的倾角
+     */
+    public static double getAngle(double cx, double cy, double px, double py) {
+        return Math.atan2(py - cy, px - cx);
     }
 }

@@ -33,4 +33,12 @@ public class Line {
     public double getC() {
         return c;
     }
+
+    public String toString() {
+        return "Line{" +
+                "a=" + a +
+                ", b=" + b +
+                ", c=" + c +
+                '}';
+    }
 }
