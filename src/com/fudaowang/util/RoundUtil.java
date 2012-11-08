@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 对圆进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 11/1/12
@@ -207,6 +208,8 @@ public class RoundUtil {
      * @return 平移后的圆
      */
     public static Round translation(double cx, double cy, double radius, double x, double y) {
-        return new Round(cx + x, cy + y, radius);
+        Point center = new Point(cx + x, cy + y);
+        return new Round(center, radius);
     }
+
 }

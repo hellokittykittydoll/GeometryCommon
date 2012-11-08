@@ -4,6 +4,7 @@ import com.fudaowang.graph.Angle;
 import com.fudaowang.graph.Point;
 
 /**
+ * 对角进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 11/7/12

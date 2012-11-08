@@ -6,6 +6,7 @@ import com.fudaowang.graph.Segment;
 
 
 /**
+ * 对直线和线段进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 10/26/12

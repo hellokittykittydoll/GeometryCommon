@@ -1,6 +1,7 @@
 package com.fudaowang.graph;
 
 /**
+ * 描述四边形的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 11/7/12

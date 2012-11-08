@@ -13,6 +13,7 @@ import org.apache.commons.collections.*;
 
 
 /**
+ * 对抛物线进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 10/31/12

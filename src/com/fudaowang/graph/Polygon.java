@@ -1,0 +1,43 @@
+package com.fudaowang.graph;
+
+import java.util.Arrays;
+
+/**
+ * 表示多边形的类
+ * Created with IntelliJ IDEA.
+ * User: dongxin
+ * Date: 11/8/12
+ * Time: 4:51 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public class Polygon {
+    private Point[] points;
+
+    /**
+     * 利用已知点集来构造多边形,点集的长度不能小于3
+     * @param points 给定的点集
+     */
+    public Polygon(Point[] points) {
+        if (points == null) {
+            throw new NullPointerException("多边形点集不能为空");
+        }
+        if (points.length > 3) {
+            throw new IllegalArgumentException("多边形点的个数必须大于2");
+        }
+        this.points = points;
+    }
+
+    /**
+     * 获得多边形的点集
+     * @return 点集
+     */
+    public Point[] getPoints() {
+        return points;
+    }
+
+    public String toString() {
+        return "Polygon{" +
+                "points=" + (points == null ? null : Arrays.asList(points)) +
+                '}';
+    }
+}

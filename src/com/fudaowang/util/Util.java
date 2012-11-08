@@ -3,6 +3,7 @@ package com.fudaowang.util;
 import com.fudaowang.graph.*;
 
 /**
+ * 通用基础方法
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 10/24/12

@@ -1,6 +1,7 @@
 package com.fudaowang.util;
 
 /**
+ * 对四边形进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 11/7/12
