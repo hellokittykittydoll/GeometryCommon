@@ -87,8 +87,12 @@ public class AngleUtil {
      * @return 若点在夹角内,则返回true
      */
     public static boolean pointInAngle(Point point, Angle angle) {
-        if (point == null || angle == null) {
-            return false;
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
+        }
+
+        if (angle == null) {
+            throw new NullPointerException("判断的角为null");
         }
         return pointInAngle(point, angle.getVertex(), angle.getP1(), angle.getP2());
     }
@@ -102,9 +106,18 @@ public class AngleUtil {
      * @return 若点在夹角内,则返回true
      */
     public static boolean pointInAngle(Point point, Point vertex, Point p1, Point p2) {
-        if (point == null || vertex == null || p1 == null || p2 == null) {
-            return false;
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
         }
+
+        if (vertex == null) {
+            throw new NullPointerException("角的顶点为null");
+        }
+
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("角的端点为null");
+        }
+
         return pointInAngle(point.getX(), point.getY(), vertex.getX(), vertex.getY(),
                 p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
