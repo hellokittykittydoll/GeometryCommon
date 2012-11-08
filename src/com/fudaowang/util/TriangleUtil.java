@@ -1,7 +1,14 @@
 package com.fudaowang.util;
 
 import com.fudaowang.graph.Point;
+import com.fudaowang.graph.Segment;
 import com.fudaowang.graph.Triangle;
+import com.sun.deploy.pings.Pings;
+import com.sun.deploy.util.ArrayUtil;
+import com.sun.tools.javac.code.Lint;
+import org.apache.commons.collections.CollectionUtils;
+
+import java.util.*;
 
 /**
  * 对三角形进行操作的类
@@ -14,6 +21,7 @@ import com.fudaowang.graph.Triangle;
 public class TriangleUtil {
     /**
      * 计算三角形的面积
+     *
      * @param triangle 三角形
      * @return 三角形的面积
      */
@@ -26,6 +34,7 @@ public class TriangleUtil {
 
     /**
      * 计算三角形的面积
+     *
      * @param p1 三角形的第一个点
      * @param p2 三角形的第二个点
      * @param p3 三角形的第三个点
@@ -40,6 +49,7 @@ public class TriangleUtil {
 
     /**
      * 计算三角形的面积
+     *
      * @param x1 三角形的第一个点的横坐标
      * @param y1 三角形的第一个点的纵坐标
      * @param x2 三角形的第二个点的横坐标
@@ -56,5 +66,80 @@ public class TriangleUtil {
         double p = (a + b + c) / 2.0;
         double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
         return s;
+    }
+
+    /**
+     * 判断给定的点是否在三角形内
+     * @param point 点
+     * @param triangle 三角形
+     * @return 若点在三角形内则返回true
+     */
+    public static boolean inTriangle(Point point, Triangle triangle) {
+        if (point == null) {
+            throw new NullPointerException("判断的点为null");
+        }
+
+        if (triangle == null) {
+            throw new NullPointerException("判断的三角形为null");
+        }
+
+        return inTriangle(point, triangle.getP1(), triangle.getP2(), triangle.getP3());
+    }
+
+    /**
+     * 判断给定的点是否在三角形内
+     * @param point 给定的点
+     * @param p1 三角形的顶点
+     * @param p2 三角形的顶点
+     * @param p3 三角形的顶点
+     * @return 若点在三角形内则返回true
+     */
+    public static boolean inTriangle(final Point point, final Point p1, final Point p2, final Point p3) {
+        if (point == null || p1 == null || p2 == null || p3 == null) {
+            throw new NullPointerException("判断的点为null");
+        }
+
+        ArrayList list = new ArrayList(3);
+        list.add(p1);
+        list.add(p2);
+        list.add(p3);
+
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                double d1 = Util.distance(point, (Point) o1);
+                double d2 = Util.distance(point, (Point) o2);
+
+                if (d1 < d2) {
+                    return -1;
+                }
+                if (d1 > d2) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
+        Segment s1 = new Segment((Point)list.get(0), (Point)list.get(1));
+        Segment s2 = new Segment(point, (Point) list.get(2));
+
+        list = null;
+
+        return !LineUtil.linesIntersect(s1, s2);
+    }
+
+    /**
+     * 判断给定的点是否在三角形内
+     * @param x 给定点的横坐标
+     * @param y 给定点的纵坐标
+     * @param x1 三角形的第一个端点的横坐标
+     * @param y1 三角形的第一个端点的纵坐标
+     * @param x2 三角形的第二个端点的横坐标
+     * @param y2 三角形的第二个端点的纵坐标
+     * @param x3 三角形的第三个端点的横坐标
+     * @param y3 三角形的第三个端点的纵坐标
+     * @return 若点在三角形内则返回true
+     */
+    public static boolean inTriangle(double x, double y, double x1, double y1, double x2, double y2, double x3, double y3) {
+        return inTriangle(new Point(x, y), new Point(x1, y1), new Point(x2, y2), new Point(x3, y3));
     }
 }
