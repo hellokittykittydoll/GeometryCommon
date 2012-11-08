@@ -299,8 +299,12 @@ public class ParabolaUtil {
      * @return 若点到抛物线的最短距离小于给定的精度,则返回true
      */
     public static boolean onParabola(Point point, Parabola parabola, double precision) {
-        if (point == null || parabola == null) {
-            return false;
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
+        }
+
+        if (parabola == null) {
+            throw new NullPointerException("抛物线为null");
         }
 
         return onParabola(point.getX(), point.getY(), parabola.getA(), parabola.getB(), parabola.getC(), precision);
