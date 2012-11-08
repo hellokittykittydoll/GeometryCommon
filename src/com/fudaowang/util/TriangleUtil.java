@@ -3,10 +3,6 @@ package com.fudaowang.util;
 import com.fudaowang.graph.Point;
 import com.fudaowang.graph.Segment;
 import com.fudaowang.graph.Triangle;
-import com.sun.deploy.pings.Pings;
-import com.sun.deploy.util.ArrayUtil;
-import com.sun.tools.javac.code.Lint;
-import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
 
