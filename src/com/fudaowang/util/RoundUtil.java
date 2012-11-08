@@ -161,8 +161,11 @@ public class RoundUtil {
      * @return 若点到圆的距离小于精度则返回true
      */
     public static boolean onRound(Point point, Round round, double precision) {
-        if (point == null || round == null) {
-            return false;
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
+        }
+        if (point == null) {
+            throw new NullPointerException("圆为null");
         }
         return onRound(point.getX(), point.getY(),
                 round.getCenter().getX(), round.getCenter().getY(), round.getRadius(), precision);
