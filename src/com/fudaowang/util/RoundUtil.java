@@ -215,4 +215,49 @@ public class RoundUtil {
         return new Round(center, radius);
     }
 
+    /**
+     * 判断给定的点是否在圆内
+     * @param point 点
+     * @param round 圆
+     * @return 若点在圆范围内则返回true
+     */
+    public static boolean inRound(Point point, Round round) {
+        if (point == null) {
+            throw new NullPointerException("判定的点为null");
+        }
+        if (round == null) {
+            throw new NullPointerException("判定的圆为null");
+        }
+        return inRound(point, round.getCenter(), round.getRadius());
+    }
+
+    /**
+     * 判断给定的点是否在圆内
+     * @param point 给定的点
+     * @param center 圆心点
+     * @param radius 圆的半径
+     * @return 若点在圆范围内则返回true
+     */
+    public static boolean inRound(Point point, Point center, double radius) {
+        if (point == null) {
+            throw new NullPointerException("判定的点为null");
+        }
+        if (center == null) {
+            throw new NullPointerException("圆心点为null");
+        }
+        return inRound(point.getX(), point.getY(), center.getX(), center.getY(), radius);
+    }
+
+    /**
+     * 判断给定的点是否在圆内
+     * @param px 给定点的横坐标
+     * @param py 给定点的纵坐标
+     * @param cx 圆心的横坐标
+     * @param cy 圆心的纵坐标
+     * @param radius 圆的半径
+     * @return 若点在圆范围内则返回true
+     */
+    public static boolean inRound(double px, double py, double cx, double cy, double radius) {
+        return Util.distance(px, py, cx, cy) < radius;
+    }
 }
