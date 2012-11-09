@@ -7,6 +7,7 @@ import com.fudaowang.graph.Segment;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import sun.security.util.DisabledAlgorithmConstraints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -189,9 +190,10 @@ public class RoundUtil {
 
     /**
      * 将圆沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param round 圆
-     * @param x 横坐标的平移长度
-     * @param y 纵坐标的平移长度
+     * @param x     横坐标的平移长度
+     * @param y     纵坐标的平移长度
      * @return 平移后的圆
      */
     public static Round translation(Round round, double x, double y) {
@@ -203,11 +205,12 @@ public class RoundUtil {
 
     /**
      * 将圆沿横坐标正方向平移x,沿纵坐标正方向平移y
-     * @param cx 圆心的横坐标
-     * @param cy 圆心的纵坐标
+     *
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
      * @param radius 圆的半径
-     * @param x 横坐标的平移长度
-     * @param y 纵坐标的平移长度
+     * @param x      横坐标的平移长度
+     * @param y      纵坐标的平移长度
      * @return 平移后的圆
      */
     public static Round translation(double cx, double cy, double radius, double x, double y) {
@@ -217,6 +220,7 @@ public class RoundUtil {
 
     /**
      * 判断给定的点是否在圆内
+     *
      * @param point 点
      * @param round 圆
      * @return 若点在圆范围内则返回true
@@ -233,7 +237,8 @@ public class RoundUtil {
 
     /**
      * 判断给定的点是否在圆内
-     * @param point 给定的点
+     *
+     * @param point  给定的点
      * @param center 圆心点
      * @param radius 圆的半径
      * @return 若点在圆范围内则返回true
@@ -250,14 +255,74 @@ public class RoundUtil {
 
     /**
      * 判断给定的点是否在圆内
-     * @param px 给定点的横坐标
-     * @param py 给定点的纵坐标
-     * @param cx 圆心的横坐标
-     * @param cy 圆心的纵坐标
+     *
+     * @param px     给定点的横坐标
+     * @param py     给定点的纵坐标
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
      * @param radius 圆的半径
      * @return 若点在圆范围内则返回true
      */
     public static boolean inRound(double px, double py, double cx, double cy, double radius) {
         return Util.distance(px, py, cx, cy) < radius;
+    }
+
+    /**
+     * 求给定点与圆的切线
+     *
+     * @param point 给定的点
+     * @param round 圆
+     * @return 若给定点在圆外, 则计算出两个对应的切点
+     */
+    public static Point[] tangentPoint(Point point, Round round) {
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
+        }
+        if (round == null) {
+            throw new NullPointerException("给定的圆为null");
+        }
+        return tangentPoint(point, round.getCenter(), round.getRadius());
+    }
+
+    /**
+     * 求给定点与圆的切线
+     *
+     * @param point  给定的点
+     * @param center 圆心点
+     * @param radius 圆的半径
+     * @return 若给定点在圆外, 则计算出两个对应的切点
+     */
+    public static Point[] tangentPoint(Point point, Point center, double radius) {
+        if (point == null) {
+            throw new NullPointerException("给定的点为null");
+        }
+        if (center == null) {
+            throw new NullPointerException("圆心点为null");
+        }
+        return tangentPoint(point.getX(), point.getY(), center.getX(), center.getY(), radius);
+    }
+
+    /**
+     * 求给定点与圆的切线
+     *
+     * @param px     给定点的横坐标
+     * @param py     给定点的纵坐标
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
+     * @param radius 圆的半径
+     * @return 若给定点在圆外, 则计算出两个对应的切点
+     */
+    public static Point[] tangentPoint(double px, double py, double cx, double cy, double radius) {
+        double distance = Util.distance(px, py, cx, cy);
+
+        if (distance <= radius) {
+            return new Point[0];
+        }
+
+        double d = radius / distance;
+        double theta = Math.acos(d);
+        Point p1 = Util.rotateAndStretch(px, py, cx, cy, theta, d);
+        Point p2 = Util.rotateAndStretch(px, py, cx, cy, -theta, d);
+        return new Point[]{p1, p2};
     }
 }
