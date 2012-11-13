@@ -1,8 +1,8 @@
-package com.fudaowang.util;
+package com.fudaowang.common.util;
 
-import com.fudaowang.graph.Line;
-import com.fudaowang.graph.Point;
-import com.fudaowang.graph.Segment;
+import com.fudaowang.common.graph.Line;
+import com.fudaowang.common.graph.Point;
+import com.fudaowang.common.graph.Segment;
 
 
 /**

@@ -1,12 +1,13 @@
-package com.fudaowang.util;
+package com.fudaowang.common.graph;
 
 /**
- * 对四边形进行操作的类
+ * 描述四边形的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 11/7/12
- * Time: 9:48 AM
+ * Time: 9:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class QuadrilateralUtil {
+public class Quadrilateral {
+
 }

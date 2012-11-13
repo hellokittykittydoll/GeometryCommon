@@ -1,4 +1,4 @@
-package com.fudaowang.graph;
+package com.fudaowang.common.graph;
 
 /**
  * 表示平面直角坐标系中的一个点

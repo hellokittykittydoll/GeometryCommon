@@ -1,4 +1,4 @@
-package com.fudaowang.graph;
+package com.fudaowang.common.graph;
 
 /**
  * 表示角的类,由顶点和两个点构成

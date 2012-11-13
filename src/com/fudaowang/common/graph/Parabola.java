@@ -1,4 +1,4 @@
-package com.fudaowang.graph;
+package com.fudaowang.common.graph;
 
 /**
  * 表示抛物线的一般式方程y=ax^2+bx+c

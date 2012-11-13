@@ -1,4 +1,4 @@
-package com.fudaowang.graph;
+package com.fudaowang.common.graph;
 
 /**
  * 表示ax+by+c=0的一般式直线方程

@@ -1,6 +1,6 @@
-package com.fudaowang.util;
+package com.fudaowang.common.util;
 
-import com.fudaowang.graph.*;
+import com.fudaowang.common.graph.*;
 
 /**
  * 通用基础方法

@@ -1,4 +1,4 @@
-package com.fudaowang.graph;
+package com.fudaowang.common.graph;
 
 /**
  * 使用两个点表示的线段

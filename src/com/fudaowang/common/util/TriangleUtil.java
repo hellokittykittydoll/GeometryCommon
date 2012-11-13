@@ -1,8 +1,8 @@
-package com.fudaowang.util;
+package com.fudaowang.common.util;
 
-import com.fudaowang.graph.Point;
-import com.fudaowang.graph.Segment;
-import com.fudaowang.graph.Triangle;
+import com.fudaowang.common.graph.Point;
+import com.fudaowang.common.graph.Segment;
+import com.fudaowang.common.graph.Triangle;
 
 import java.util.*;
 

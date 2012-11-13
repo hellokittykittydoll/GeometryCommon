@@ -1,7 +1,7 @@
-package com.fudaowang.util;
+package com.fudaowang.common.util;
 
-import com.fudaowang.graph.Angle;
-import com.fudaowang.graph.Point;
+import com.fudaowang.common.graph.Angle;
+import com.fudaowang.common.graph.Point;
 
 /**
  * 对角进行操作的类
