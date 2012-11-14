@@ -185,6 +185,14 @@ public class ParabolaUtil {
     public static List intersect(double la, double lb, double lc, double pa, double pb, double pc) {
         List list = new ArrayList(2);
 
+        if (la == 0 && lb == 0) {
+            return list;
+        }
+
+        if (pa == 0) {
+            return list;
+        }
+
         if (lb == 0) {
             double x = -lc / la;
             double y = getY(pa, pb, pc, x);
