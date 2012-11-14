@@ -2,6 +2,8 @@ package com.fudaowang.common.util;
 
 import com.fudaowang.common.graph.*;
 
+import java.lang.reflect.GenericArrayType;
+
 /**
  * 通用基础方法
  * Created with IntelliJ IDEA.
@@ -101,8 +103,9 @@ public class Util {
 
     /**
      * 求点相对于直线的轴对称点
+     *
      * @param point 点
-     * @param line 直线
+     * @param line  直线
      * @return 轴对称点
      */
     public static Point getAxialSymmetricalPoint(Point point, Line line) {
@@ -114,6 +117,7 @@ public class Util {
 
     /**
      * 求点(x,y)相对于直线ax+by+c=0的轴对称点
+     *
      * @param x 点的横坐标
      * @param y 点的纵坐标
      * @param a 直线的系数a
@@ -136,6 +140,19 @@ public class Util {
      */
     public static boolean equal(double d1, double d2, double precision) {
         return Math.abs(d1 - d2) < precision;
+    }
+
+    /**
+     * 判断两个点在精度范围内是否重合
+     *
+     * @param p1        第一个点
+     * @param p2        第二个点
+     * @param precision 给定的精度
+     * @return 若两点横纵坐标之差均小于给定精度, 则返回true
+     */
+    public static boolean equal(Point p1, Point p2, double precision) {
+        return !(p1 == null || p2 == null)
+                && equal(p1.getX(), p2.getX(), precision) && equal(p1.getY(), p2.getY(), precision);
     }
 
     /**
