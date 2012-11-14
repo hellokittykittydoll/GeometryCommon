@@ -16,6 +16,9 @@ public class Hyperbola {
      * @param k 系数k
      */
     public Hyperbola(double k) {
+        if (k == 0) {
+            throw new IllegalArgumentException("反比例函数的系数k不能为0");
+        }
         this.k = k;
     }
 
