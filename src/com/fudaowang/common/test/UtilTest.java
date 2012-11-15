@@ -3,7 +3,11 @@ package com.fudaowang.common.test;
 import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.util.Util;
+
 import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Util的测试类
@@ -25,7 +29,7 @@ public class UtilTest extends TestCase {
     private Point p_1010;
     private Point p10_10;
 
-
+    @Before
     public void setUp() throws Exception {
         precision = 0.0001;
         p00 = new Point(0, 0);
@@ -39,6 +43,7 @@ public class UtilTest extends TestCase {
         p10_10 = new Point(10, -10);
     }
 
+    @After
     public void tearDown() throws Exception {
         p00 = null;
         p11 = null;
@@ -56,6 +61,7 @@ public class UtilTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDistance() throws Exception {
         double d1 = Util.distance(p11, p_1_1);
         double d2 = Util.distance(1, 1, -1, -1);
