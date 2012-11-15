@@ -194,7 +194,7 @@ public class UtilTest extends TestCase {
         assertTrue(Util.valueInRange(0, 2, 1));
         assertTrue(Util.valueInRange(-1, 1, 0));
         assertTrue(Util.valueInRange(-2, 0, -1));
-        assertFalse(Util.valueInRange(0,2,2));
+        assertFalse(Util.valueInRange(0, 2, 2));
     }
 
     /**
@@ -203,6 +203,7 @@ public class UtilTest extends TestCase {
      * @throws Exception
      */
     public void testTranslation() throws Exception {
-
+        Point p1 = Util.translation(p11, 9, -11);
+        assertTrue(Util.coincide(p1, p10_10));
     }
 }
