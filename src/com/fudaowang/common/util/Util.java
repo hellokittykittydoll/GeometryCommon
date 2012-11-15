@@ -2,8 +2,6 @@ package com.fudaowang.common.util;
 
 import com.fudaowang.common.graph.*;
 
-import java.lang.reflect.GenericArrayType;
-
 /**
  * 通用基础方法
  * Created with IntelliJ IDEA.
@@ -199,7 +197,9 @@ public class Util {
     }
 
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
-        validateCoincide(px, py, cx, cy);
+        if (coincide(px, py, cx, cy)) {
+            return null;
+        }
 
         double p = distance(px, py, cx, cy) * ratio;
         double theta = Math.atan2(py - cy, px - cx);
@@ -236,27 +236,27 @@ public class Util {
     }
 
     /**
-     * 当两个点重合时,抛出IllegalArgumentException异常
+     * 判定两个点是否重合
      *
      * @param p1 第一个点
      * @param p2 第二个点
+     * @return 只有当两点的横纵坐标完全相同时, 才返回true
      */
-    public static void validateCoincide(Point p1, Point p2) {
-        validateCoincide(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    public static boolean coincide(Point p1, Point p2) {
+        return coincide(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     /**
-     * 当点(p1x,p1y)与点(p2x,p2y)重合时,抛出IllegalArgumentException异常
+     * 判定点(p1x,p1y)与点(p2x,p2y)是否重合时
      *
      * @param p1x 第一个点的横坐标
      * @param p1y 第一个点的纵坐标
      * @param p2x 第二个点的横坐标
      * @param p2y 第二个点的纵坐标
+     * @return 只有当两点的横纵坐标完全相同时, 才返回true
      */
-    public static void validateCoincide(double p1x, double p1y, double p2x, double p2y) {
-        if (p1x == p2x && p1y == p2y) {
-            throw new IllegalArgumentException("两个点不能重合");
-        }
+    public static boolean coincide(double p1x, double p1y, double p2x, double p2y) {
+        return p1x == p2x && p1y == p2y;
     }
 
     /**

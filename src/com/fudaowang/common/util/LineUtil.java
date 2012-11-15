@@ -586,7 +586,9 @@ public class LineUtil {
      * @return 过两点的直线方程
      */
     public static Line getLine(double x1, double y1, double x2, double y2) {
-        Util.validateCoincide(x1, y1, x2, y2);
+        if (Util.coincide(x1, y1, x2, y2)) {
+            return null;
+        }
 
         double a = y2 - y1;
         double b = x1 - x2;

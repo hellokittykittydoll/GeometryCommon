@@ -40,8 +40,9 @@ public class AngleUtil {
      * @return 角的弧度值
      */
     public static double getAngleRadians(double cx, double cy, double p1x, double p1y, double p2x, double p2y) {
-        Util.validateCoincide(cx, cy, p1x, p1y);
-        Util.validateCoincide(cx, cy, p2x, p2y);
+        if (Util.coincide(cx, cy, p1x, p1y) || Util.coincide(cx, cy, p2x, p2y)) {
+            return Double.NaN;
+        }
 
         double a = Util.distance(p1x, p1y, p2x, p2y);
         double b = Util.distance(cx, cy, p1x, p1y);
