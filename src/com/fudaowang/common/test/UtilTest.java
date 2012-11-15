@@ -191,7 +191,10 @@ public class UtilTest extends TestCase {
      * @throws Exception
      */
     public void testValueInRange() throws Exception {
-
+        assertTrue(Util.valueInRange(0, 2, 1));
+        assertTrue(Util.valueInRange(-1, 1, 0));
+        assertTrue(Util.valueInRange(-2, 0, -1));
+        assertFalse(Util.valueInRange(0,2,2));
     }
 
     /**
