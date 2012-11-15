@@ -201,7 +201,7 @@ public class Util {
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
         validateCoincide(px, py, cx, cy);
 
-        double p = distance(px, py, cx, cy);
+        double p = distance(px, py, cx, cy) * ratio;
         double theta = Math.atan2(py - cy, px - cx);
         double rotateTheta = theta + angle;
         double x = p * Math.cos(rotateTheta);
