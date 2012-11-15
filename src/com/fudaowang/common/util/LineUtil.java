@@ -132,7 +132,7 @@ public class LineUtil {
         if (segment == null || line == null) {
             return null;
         }
-        return intersect(segment, line, inSegment);
+        return intersect(segment.getP1(), segment.getP2(), line, inSegment);
     }
 
     /**
@@ -598,9 +598,10 @@ public class LineUtil {
 
     /**
      * 将直线沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param line 直线
-     * @param x 横坐标的平移长度
-     * @param y 纵坐标平移的长度
+     * @param x    横坐标的平移长度
+     * @param y    纵坐标平移的长度
      * @return 平移后的直线
      */
     public static Line translation(Line line, double x, double y) {
@@ -612,6 +613,7 @@ public class LineUtil {
 
     /**
      * 将直线ax+by+c=0沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param a 直线的系数a
      * @param b 直线的系数b
      * @param c 直线的系数c
@@ -625,9 +627,10 @@ public class LineUtil {
 
     /**
      * 将线段沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param segment 线段
-     * @param x 横坐标的平移长度
-     * @param y 纵坐标的平移长度
+     * @param x       横坐标的平移长度
+     * @param y       纵坐标的平移长度
      * @return 平移后的线段
      */
     public static Segment translation(Segment segment, double x, double y) {
@@ -639,10 +642,11 @@ public class LineUtil {
 
     /**
      * 将线段(p1,p2)沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param p1 线段的端点一
      * @param p2 线段的端点二
-     * @param x 横坐标平移的长度
-     * @param y 纵坐标平移的长度
+     * @param x  横坐标平移的长度
+     * @param y  纵坐标平移的长度
      * @return 平移后的线段
      */
     public static Segment translation(Point p1, Point p2, double x, double y) {
@@ -654,12 +658,13 @@ public class LineUtil {
 
     /**
      * 将由点()和点()构成的线段沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param x1 线段的第一个端点的横坐标
      * @param y1 线段的第一个端点的纵坐标
      * @param x2 线段的第二个端点的横坐标
      * @param y2 线段的第二个端点的纵坐标
-     * @param x 横坐标平移的长度
-     * @param y 纵坐标平移的长度
+     * @param x  横坐标平移的长度
+     * @param y  纵坐标平移的长度
      * @return 平移后的线段
      */
     public static Segment translation(double x1, double y1, double x2, double y2, double x, double y) {
@@ -670,8 +675,9 @@ public class LineUtil {
 
     /**
      * 计算point相对于center的倾角
+     *
      * @param center 中心点
-     * @param point 给定的点
+     * @param point  给定的点
      * @return 给定点相对于中心点的倾角
      */
     public static double getAngle(Point center, Point point) {
@@ -683,6 +689,7 @@ public class LineUtil {
 
     /**
      * 计算点(px,py)相对于点(cx,cy)的倾角
+     *
      * @param cx 中心点的横坐标
      * @param cy 中心点的纵坐标
      * @param px 给定点的横坐标
@@ -695,6 +702,7 @@ public class LineUtil {
 
     /**
      * 判断两条线段是否在线段范围内有交点
+     *
      * @param segment1 第一条线段
      * @param segment2 第二条线段
      * @return 若线段内有交点则返回true
@@ -708,6 +716,7 @@ public class LineUtil {
 
     /**
      * 判断线段(p1,p2)和线段(p3,p4)在线段范围内是否有交点
+     *
      * @param p1 第一条线段的第一个端点
      * @param p2 第一条线段的第二个端点
      * @param p3 第二条线段的第一个端点
@@ -723,6 +732,7 @@ public class LineUtil {
 
     /**
      * 判断由点(x1,y1)和点(x2,y2)构成的线段,与点(x3,y3)和点(x4,y4)构成的线段,在范围内是否有交点
+     *
      * @param x1 线段一的第一个端点的横坐标
      * @param y1 线段一的第二个端点的纵坐标
      * @param x2 线段二的第一个端点的横坐标
