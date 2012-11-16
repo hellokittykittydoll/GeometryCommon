@@ -227,11 +227,12 @@ public class LineUtil {
     /**
      * 求点到线段的距离
      *
-     * @param segment 线段
+     *
      * @param point   点
+     * @param segment 线段
      * @return 点到线段的距离
      */
-    public static double distance(Segment segment, Point point) {
+    public static double distance(Point point, Segment segment) {
         if (point == null || segment == null) {
             return Double.NaN;
         }
@@ -243,12 +244,13 @@ public class LineUtil {
     /**
      * 求点point到线段(p1,p2)的距离
      *
-     * @param p1    线段的端点
-     * @param p2    线段的端点
+     *
      * @param point 给定的点
+     * @param p2    线段的端点
+     * @param p1    线段的端点
      * @return 点到线段的距离
      */
-    public static double distance(Point p1, Point p2, Point point) {
+    public static double distance(Point point, Point p2, Point p1) {
         if (p1 == null || p2 == null || point == null) {
             return Double.NaN;
         }
@@ -259,44 +261,47 @@ public class LineUtil {
     /**
      * 求点(px,py)到以点(x1,y1)和点(x2,y2)为端点的线段的距离
      *
-     * @param x1 线段第一个端点的横坐标
-     * @param y1 线段第一个端点的纵坐标
-     * @param x2 线段第二个端点的横坐标
-     * @param y2 线段第二个端点的纵坐标
+     *
      * @param px 给定点的横坐标
      * @param py 给定点的纵坐标
+     * @param x2 线段第二个端点的横坐标
+     * @param y2 线段第二个端点的纵坐标
+     * @param x1 线段第一个端点的横坐标
+     * @param y1 线段第一个端点的纵坐标
      * @return 点到线段的距离
      */
-    public static double distance(double x1, double y1, double x2, double y2, double px, double py) {
+    public static double distance(double px, double py, double x2, double y2, double x1, double y1) {
         return java.awt.geom.Line2D.ptLineDist(x1, y1, x2, y2, px, py);
     }
 
     /**
      * 求点(px,py)到直线ax+by+c=0的距离
      *
-     * @param a  直线的系数a
-     * @param b  直线的系数b
-     * @param c  直线的系数c
+     *
      * @param px 点的横坐标
      * @param py 点的纵坐标
+     * @param c  直线的系数c
+     * @param a  直线的系数a
+     * @param b  直线的系数b
      * @return 点到直线的距离
      */
-    public static double distance(double a, double b, double c, double px, double py) {
+    public static double distance(double px, double py, double c, double a, double b) {
         return Math.abs(a * px + b * py + c) / Math.sqrt(a * a + b * b);
     }
 
     /**
      * 求点到直线的距离
      *
-     * @param line  直线
+     *
      * @param point 点
+     * @param line  直线
      * @return 点到直线的距离
      */
-    public static double distance(Line line, Point point) {
+    public static double distance(Point point, Line line) {
         if (line == null || point == null) {
             return Double.NaN;
         }
-        return distance(line.getA(), line.getB(), line.getC(), point.getX(), point.getY());
+        return distance(point.getX(), point.getY(), line.getC(), line.getA(), line.getB());
     }
 
     /**
@@ -326,7 +331,7 @@ public class LineUtil {
      * @return 若点在直线上则返回true
      */
     public static boolean onLine(double x, double y, double a, double b, double c, double precision) {
-        return distance(a, b, c, x, y) < precision;
+        return distance(x, y, c, a, b) < precision;
     }
 
     /**

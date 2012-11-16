@@ -47,7 +47,7 @@ public class RoundUtil {
      */
     public static List intersect(double la, double lb, double lc, double cx, double cy, double radius) {
         List list = new ArrayList(2);
-        double distance = LineUtil.distance(cx, cy, la, lb, lc);
+        double distance = LineUtil.distance(lb, lc, la, cx, cy);
         if (distance > radius) {
             return list;
         }
