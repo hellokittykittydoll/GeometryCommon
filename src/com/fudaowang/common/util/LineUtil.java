@@ -192,7 +192,7 @@ public class LineUtil {
      * @return 若点在线段坐标范围内则返回true
      */
     public static boolean inSegment(double x1, double y1, double x2, double y2, double x, double y) {
-        return Util.valueInRange(x1, x2, x) && Util.valueInRange(y1, y2, y);
+        return Util.valueInRange(x1, x2, x) || Util.valueInRange(y1, y2, y);
     }
 
     /**
@@ -592,7 +592,7 @@ public class LineUtil {
 
         double a = y2 - y1;
         double b = x1 - x2;
-        double c = x2 * y1 - x1 * y2;
+        double c = -a * x1 - b * y1;
         return new Line(a, b, c);
     }
 
