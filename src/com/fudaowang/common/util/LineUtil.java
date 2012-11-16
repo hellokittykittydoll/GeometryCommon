@@ -110,8 +110,8 @@ public class LineUtil {
         }
 
         if (inSegment) {
-            if (inSegment(x1, y1, x2, y2, point.getX(), point.getY())
-                    && inSegment(x3, y3, x4, y4, point.getX(), point.getY())) {
+            if (inSegment(point.getX(), point.getY(), x1, y1, x2, y2)
+                    && inSegment(point.getX(), point.getY(), x3, y3, x4, y4)) {
                 return point;
             }
             return null;
@@ -172,7 +172,7 @@ public class LineUtil {
             return null;
         }
         if (inSegment) {
-            if (inSegment(x1, y1, x2, y2, point.getX(), point.getY())) {
+            if (inSegment(point.getX(), point.getY(), x1, y1, x2, y2)) {
                 return point;
             }
             return null;
@@ -183,45 +183,45 @@ public class LineUtil {
     /**
      * 判断点(x,y)是否在由点(x1,y1)和点(x2,y2)构成的线段坐标范围内,不判断点到线段的距离
      *
+     * @param x  给定点的横坐标
+     * @param y  给定点的纵坐标
      * @param x1 线段的第一个点的横坐标
      * @param y1 线段的第一个点的纵坐标
      * @param x2 线段的第二个点的横坐标
      * @param y2 线段的第二个点的纵坐标
-     * @param x  给定点的横坐标
-     * @param y  给定点的纵坐标
      * @return 若点在线段坐标范围内则返回true
      */
-    public static boolean inSegment(double x1, double y1, double x2, double y2, double x, double y) {
+    public static boolean inSegment(double x, double y, double x1, double y1, double x2, double y2) {
         return Util.valueInRange(x1, x2, x) || Util.valueInRange(y1, y2, y);
     }
 
     /**
      * 不判断点到线段的距离,点是否在线段所在的直线上,单纯判断点是否在线段坐标范围内
      *
-     * @param segment 线段
      * @param point   点
+     * @param segment 线段
      * @return 若点在线段的坐标范围内则返回true
      */
-    public static boolean inSegment(Segment segment, Point point) {
+    public static boolean inSegment(Point point, Segment segment) {
         if (segment == null || point == null) {
             return false;
         }
-        return inSegment(segment.getP1(), segment.getP2(), point);
+        return inSegment(point, segment.getP1(), segment.getP2());
     }
 
     /**
      * 判断点是否在线段(p1,p2)的两点范围之内,不判断点到线段的距离
      *
+     * @param point 给定的点
      * @param p1    线段的端点1
      * @param p2    线段的端点2
-     * @param point 给定的点
      * @return 若点在线段的坐标范围内则返回true
      */
-    public static boolean inSegment(Point p1, Point p2, Point point) {
+    public static boolean inSegment(Point point, Point p1, Point p2) {
         if (p1 == null || p2 == null || point == null) {
             return false;
         }
-        return inSegment(p1.getX(), p1.getY(), p2.getX(), p2.getY(), point.getX(), point.getY());
+        return inSegment(point.getX(), point.getY(), p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     /**

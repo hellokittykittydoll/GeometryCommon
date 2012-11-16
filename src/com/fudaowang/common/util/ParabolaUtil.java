@@ -267,7 +267,7 @@ public class ParabolaUtil {
         CollectionUtils.filter(list, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
-                return LineUtil.inSegment(x1, y1, x2, y2, p.getX(), p.getY());
+                return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
         return list;
