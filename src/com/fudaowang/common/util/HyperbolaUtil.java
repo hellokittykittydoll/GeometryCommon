@@ -46,10 +46,16 @@ public class HyperbolaUtil {
         }
 
         if (a == 0) {
+            if (c == 0) {
+                return new Point[0];
+            }
             double x = -k * b / c;
             double y = -c / b;
             return new Point[]{new Point(x, y)};
         } else if (b == 0) {
+            if (c == 0) {
+                return new Point[0];
+            }
             double x = -c / a;
             double y = -k * a / c;
             return new Point[]{new Point(x, y)};
