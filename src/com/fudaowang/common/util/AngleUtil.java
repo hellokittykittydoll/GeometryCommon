@@ -136,10 +136,6 @@ public class AngleUtil {
      * @return 若点在夹角内,则返回true
      */
     public static boolean pointInAngle(double x, double y, double vx, double vy, double x1, double y1, double x2, double y2) {
-        double angle1 = getAngleRadians(vx, vy, x, y, x1, y1);
-        double angle2 = getAngleRadians(vx, vy, x, y, x2, y2);
-        double angle = getAngleRadians(vx, vy, x1, y1, x2, y2);
-
-        return angle > angle1 && angle > angle2;
+        return java.awt.geom.Line2D.linesIntersect(x, y, vx, vy, x1, y1, x2, y2);
     }
 }
