@@ -5,7 +5,9 @@ import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.util.LineUtil;
 import com.fudaowang.common.util.Util;
-import junit.framework.TestCase;
+
+import static junit.framework.TestCase.*;
+
 import org.junit.Test;
 
 /**
@@ -16,7 +18,7 @@ import org.junit.Test;
  * Time: 3:33 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LineUtilTest extends TestCase {
+public class LineUtilTest {
     private double precision = 0.0001;
 
     private Line l1 = new Line(1, -1, 1);
