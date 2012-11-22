@@ -48,7 +48,7 @@ public class AngleUtil {
         double b = Util.distance(cx, cy, p1x, p1y);
         double c = Util.distance(cx, cy, p2x, p2y);
 
-        double cos = (b * b + c * c - a * a) / 2 * b * c;
+        double cos = (b * b + c * c - a * a) / (2 * b * c);
         return Math.acos(cos);
     }
 
@@ -83,9 +83,10 @@ public class AngleUtil {
 
     /**
      * 判断点是否在角的范围内
+     *
      * @param point 点
      * @param angle 角
-     * @return 若点在夹角内,则返回true
+     * @return 若点在夹角内, 则返回true
      */
     public static boolean pointInAngle(Point point, Angle angle) {
         if (point == null) {
@@ -100,11 +101,12 @@ public class AngleUtil {
 
     /**
      * 判断点是否在角的范围内
-     * @param point 点
+     *
+     * @param point  点
      * @param vertex 角的顶点
-     * @param p1 角的第一个端点
-     * @param p2 角的第二个端点
-     * @return 若点在夹角内,则返回true
+     * @param p1     角的第一个端点
+     * @param p2     角的第二个端点
+     * @return 若点在夹角内, 则返回true
      */
     public static boolean pointInAngle(Point point, Point vertex, Point p1, Point p2) {
         if (point == null) {
@@ -125,15 +127,16 @@ public class AngleUtil {
 
     /**
      * 判断点是否在角的范围内
-     * @param x 点的横坐标
-     * @param y 点的纵坐标
+     *
+     * @param x  点的横坐标
+     * @param y  点的纵坐标
      * @param vx 角的顶点的横坐标
      * @param vy 角的顶点的纵坐标
      * @param x1 角的第一个端点的横坐标
      * @param y1 角的第一个端点的纵坐标
      * @param x2 角的第二个端点的横坐标
      * @param y2 角的第二个端点的纵坐标
-     * @return 若点在夹角内,则返回true
+     * @return 若点在夹角内, 则返回true
      */
     public static boolean pointInAngle(double x, double y, double vx, double vy, double x1, double y1, double x2, double y2) {
         return java.awt.geom.Line2D.linesIntersect(x, y, vx, vy, x1, y1, x2, y2);

@@ -111,8 +111,8 @@ public class ParabolaUtil {
             return null;
         }
 
-        double x = -b / 2.0 * a;
-        double y = (4.0 * a * c - b * b) / 4.0 * a;
+        double x = -b / (2.0 * a);
+        double y = (4.0 * a * c - b * b) / (4.0 * a);
         return new Point(x, y);
     }
 
@@ -224,7 +224,8 @@ public class ParabolaUtil {
 
     /**
      * 求线段与抛物线的交点
-     * @param segment 线段
+     *
+     * @param segment  线段
      * @param parabola 抛物线
      * @return 交点集合
      */
@@ -237,8 +238,9 @@ public class ParabolaUtil {
 
     /**
      * 求线段(p1,p2)与抛物线的交点
-     * @param p1 线段的第一个端点
-     * @param p2 线段的第二个端点
+     *
+     * @param p1       线段的第一个端点
+     * @param p2       线段的第二个端点
      * @param parabola 抛物线
      * @return 交点集合
      */
@@ -251,6 +253,7 @@ public class ParabolaUtil {
 
     /**
      * 求由点(x1,y1)和点(x2,y2)构成的线段与抛物线y=pax^2+pbx+pc的交点
+     *
      * @param x1 线段的第一个端点的横坐标
      * @param y1 线段的第一个端点的纵坐标
      * @param x2 线段的第二个端点的横坐标
@@ -275,7 +278,8 @@ public class ParabolaUtil {
 
     /**
      * 求点到抛物线的最短距离
-     * @param point 点
+     *
+     * @param point    点
      * @param parabola 抛物线
      * @return 点到抛物线的最短距离
      */
@@ -288,6 +292,7 @@ public class ParabolaUtil {
 
     /**
      * 求点(x,y)到抛物线y=ax^2+bx+c的最短距离
+     *
      * @param x 点的横坐标
      * @param y 点的纵坐标
      * @param a 抛物线的系数a
@@ -301,10 +306,11 @@ public class ParabolaUtil {
 
     /**
      * 在指定的精度范围内,判定点是否在抛物线上
-     * @param point 点
-     * @param parabola 抛物线
+     *
+     * @param point     点
+     * @param parabola  抛物线
      * @param precision 指定的精度
-     * @return 若点到抛物线的最短距离小于给定的精度,则返回true
+     * @return 若点到抛物线的最短距离小于给定的精度, 则返回true
      */
     public static boolean onParabola(Point point, Parabola parabola, double precision) {
         if (point == null) {
@@ -320,13 +326,14 @@ public class ParabolaUtil {
 
     /**
      * 在指定的精度范围内,判定点(x,y)是否在抛物线y=ax^2+bx+c上
-     * @param x 点的横坐标
-     * @param y 点的纵坐标
-     * @param a 抛物线的系数a
-     * @param b 抛物线的系数b
-     * @param c 抛物线的系数c
+     *
+     * @param x         点的横坐标
+     * @param y         点的纵坐标
+     * @param a         抛物线的系数a
+     * @param b         抛物线的系数b
+     * @param c         抛物线的系数c
      * @param precision 指定的精度
-     * @return 若点到抛物线的最短距离小于给定的精度,则返回true
+     * @return 若点到抛物线的最短距离小于给定的精度, 则返回true
      */
     public static boolean onParabola(double x, double y, double a, double b, double c, double precision) {
         return distance(x, y, a, b, c) < precision;
@@ -334,9 +341,10 @@ public class ParabolaUtil {
 
     /**
      * 将抛物线沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param parabola 抛物线
-     * @param x 横坐标平移的长度
-     * @param y 纵坐标平移的长度
+     * @param x        横坐标平移的长度
+     * @param y        纵坐标平移的长度
      * @return 平移后的抛物线
      */
     public static Parabola translation(Parabola parabola, double x, double y) {
@@ -348,6 +356,7 @@ public class ParabolaUtil {
 
     /**
      * 将抛物线y=ax^2+bx+c沿横坐标正方向平移x,沿纵坐标正方向平移y
+     *
      * @param a 抛物线的系数a
      * @param b 抛物线的系数b
      * @param c 抛物线的系数c
