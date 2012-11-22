@@ -5,7 +5,6 @@ import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.util.LineUtil;
 import com.fudaowang.common.util.Util;
-import com.sun.tools.internal.ws.processor.generator.SeiGenerator;
 import junit.framework.TestCase;
 import org.junit.Test;
 
