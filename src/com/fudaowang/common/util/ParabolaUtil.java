@@ -365,6 +365,6 @@ public class ParabolaUtil {
      * @return 平移后的抛物线
      */
     public static Parabola translation(double a, double b, double c, double x, double y) {
-        return new Parabola(a, b - 2.0 * a * x, a * x * x - b * x + c - y);
+        return new Parabola(a, b - 2.0 * a * x, a * x * x - b * x + c + y);
     }
 }
