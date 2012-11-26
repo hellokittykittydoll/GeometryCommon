@@ -24,11 +24,11 @@ public class RoundUtil {
      *
      * @param line  直线
      * @param round 圆
-     * @return 交点集合, 可能是0-2个点
+     * @return 交点集, 可能是0-2个点
      */
-    public static List intersect(Line line, Round round) {
+    public static Point[] intersect(Line line, Round round) {
         if (line == null || round == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
         return intersect(line.getA(), line.getB(), line.getC(),
                 round.getCenter().getX(), round.getCenter().getY(), round.getRadius());
@@ -43,30 +43,25 @@ public class RoundUtil {
      * @param cx     圆心的横坐标
      * @param cy     圆心的纵坐标
      * @param radius 圆的半径
-     * @return 交点集合, 可能有0-2个点
+     * @return 交点集, 可能有0-2个点
      */
-    public static List intersect(double la, double lb, double lc, double cx, double cy, double radius) {
-        List list = new ArrayList(2);
+    public static Point[] intersect(double la, double lb, double lc, double cx, double cy, double radius) {
         double distance = LineUtil.distance(lb, lc, la, cx, cy);
         if (distance > radius) {
-            return list;
+            return new Point[0];
         }
 
         Point vertex = LineUtil.verticalPoint(cx, cy, la, lb, lc);
 
         if (distance == radius) {
-            list.add(vertex);
-            return list;
+            return new Point[]{vertex};
         }
 
         double angle = Math.acos(distance / radius);
         Point p1 = Util.rotateAndStretch(vertex.getX(), vertex.getY(), cx, cy, angle, radius / distance);
         Point p2 = Util.rotateAndStretch(vertex.getX(), vertex.getY(), cx, cy, -angle, radius / distance);
 
-        list.add(p1);
-        list.add(p2);
-
-        return list;
+        return new Point[]{p1, p2};
     }
 
     /**
@@ -74,11 +69,11 @@ public class RoundUtil {
      *
      * @param segment 线段
      * @param round   圆
-     * @return 交点集合, 可能有0-2个点
+     * @return 交点集, 可能有0-2个点
      */
-    public static List intersect(Segment segment, Round round) {
+    public static Point[] intersect(Segment segment, Round round) {
         if (segment == null || round == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
         return intersect(segment.getP1(), segment.getP2(), round.getCenter(), round.getRadius());
     }
@@ -90,17 +85,17 @@ public class RoundUtil {
      * @param p2     线段的第二个端点
      * @param center 圆心点
      * @param radius 圆的半径
-     * @return 交点集合, 可能有0-2个点
+     * @return 交点集, 可能有0-2个点
      */
-    public static List intersect(Point p1, Point p2, Point center, double radius) {
+    public static Point[] intersect(Point p1, Point p2, Point center, double radius) {
         if (p1 == null || p2 == null || center == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
         return intersect(p1.getX(), p1.getY(), p2.getX(), p2.getY(), center.getX(), center.getY(), radius);
     }
 
     /**
-     * 求由点()和点()构成的线段与圆(x-cx)^2+(y-cy)^2=radius^2的交点
+     * 求由点(x1,x2)和点(x2,y2)构成的线段与圆(x-cx)^2+(y-cy)^2=radius^2的交点
      *
      * @param x1     线段的第一个点的横坐标
      * @param y1     线段的第一个点的纵坐标
@@ -111,16 +106,17 @@ public class RoundUtil {
      * @param radius 圆的半径
      * @return 交点集合, 可能有0-2个点
      */
-    public static List intersect(final double x1, final double y1, final double x2, final double y2, double cx, double cy, double radius) {
+    public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double cx, double cy, double radius) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
-        List list = intersect(line.getA(), line.getB(), line.getC(), cx, cy, radius);
+        Point[] points = intersect(line.getA(), line.getB(), line.getC(), cx, cy, radius);
+        List list = Util.toList(points);
         CollectionUtils.filter(list, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
                 return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
-        return list;
+        return Util.toArray(list);
     }
 
     /**
