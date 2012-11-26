@@ -1,6 +1,8 @@
 package com.fudaowang.common.util;
 
 import com.fudaowang.common.graph.*;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -329,6 +331,24 @@ public class Util {
         if (list == null) {
             return new Point[0];
         }
+
         return (Point[]) list.toArray(new Point[list.size()]);
+    }
+
+    /**
+     * 根据给定的过滤条件对点的数组进行过滤
+     *
+     * @param points    点的数组
+     * @param predicate 给定的过滤条件
+     * @return 过滤后的点数组
+     */
+    public static Point[] filter(Point[] points, Predicate predicate) {
+        if (points == null || predicate == null) {
+            return points;
+        }
+
+        List list = toList(points);
+        CollectionUtils.filter(list, predicate);
+        return toArray(list);
     }
 }
