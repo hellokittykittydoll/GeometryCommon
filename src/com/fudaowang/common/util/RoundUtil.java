@@ -158,7 +158,7 @@ public class RoundUtil {
         if (point == null) {
             throw new NullPointerException("给定的点为null");
         }
-        if (point == null) {
+        if (round == null) {
             throw new NullPointerException("圆为null");
         }
         return onRound(point.getX(), point.getY(),
