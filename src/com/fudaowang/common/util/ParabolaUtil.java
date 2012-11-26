@@ -4,12 +4,8 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Parabola;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
+import org.apache.commons.collections.Predicate;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.List;
-
-import org.apache.commons.collections.*;
-
 
 /**
  * 对抛物线进行操作的类
@@ -220,7 +216,7 @@ public class ParabolaUtil {
      *
      * @param segment  线段
      * @param parabola 抛物线
-     * @return 交点集合
+     * @return 交点数组
      */
     public static Point[] intersect(Segment segment, Parabola parabola) {
         if (segment == null || parabola == null) {
@@ -235,7 +231,7 @@ public class ParabolaUtil {
      * @param p1       线段的第一个端点
      * @param p2       线段的第二个端点
      * @param parabola 抛物线
-     * @return 交点集合
+     * @return 交点数组
      */
     public static Point[] intersect(Point p1, Point p2, Parabola parabola) {
         if (p1 == null || p2 == null || parabola == null) {
@@ -254,7 +250,7 @@ public class ParabolaUtil {
      * @param pa 抛物线的系数a
      * @param pb 抛物线的系数b
      * @param pc 抛物线的系数c
-     * @return 交点集合
+     * @return 交点数组
      */
     public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double pa, double pb, double pc) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
