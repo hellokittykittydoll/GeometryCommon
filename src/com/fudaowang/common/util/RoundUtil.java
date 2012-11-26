@@ -4,10 +4,7 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Round;
 import com.fudaowang.common.graph.Segment;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-
-import java.util.List;
 
 /**
  * 对圆进行操作的类
@@ -108,14 +105,12 @@ public class RoundUtil {
     public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double cx, double cy, double radius) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
         Point[] points = intersect(line.getA(), line.getB(), line.getC(), cx, cy, radius);
-        List list = Util.toList(points);
-        CollectionUtils.filter(list, new Predicate() {
+        return Util.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
                 return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
-        return Util.toArray(list);
     }
 
     /**
