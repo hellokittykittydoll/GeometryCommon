@@ -6,7 +6,6 @@ import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.*;
@@ -163,9 +162,9 @@ public class ParabolaUtil {
      * @param parabola 抛物线
      * @return 直线与抛物线的交点, 可能有0-2个点
      */
-    public static List intersect(Line line, Parabola parabola) {
+    public static Point[] intersect(Line line, Parabola parabola) {
         if (line == null || parabola == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
 
         return intersect(line.getA(), line.getB(), line.getC(), parabola.getA(), parabola.getB(), parabola.getC());
@@ -182,44 +181,38 @@ public class ParabolaUtil {
      * @param pc 抛物线的系数c
      * @return 直线与抛物线的交点, 可能有0-2个点
      */
-    public static List intersect(double la, double lb, double lc, double pa, double pb, double pc) {
-        List list = new ArrayList(2);
-
+    public static Point[] intersect(double la, double lb, double lc, double pa, double pb, double pc) {
         if (la == 0 && lb == 0) {
-            return list;
+            return new Point[0];
         }
 
         if (pa == 0) {
-            return list;
+            return new Point[0];
         }
 
         if (lb == 0) {
             double x = -lc / la;
             double y = getY(pa, pb, pc, x);
-            list.add(new Point(x, y));
-            return list;
+            return new Point[]{new Point(x, y)};
         }
 
         double delta = (Math.pow(pb * lb + la, 2) - 4.0 * pa * lb * (pc * lb + lc)) / Math.pow(lb, 2);
 
         if (delta < 0) {
-            return list;
+            return new Point[0];
         }
 
         if (delta == 0) {
             double x = (pb + la / lb) / (-2.0 * pa);
             double y = getY(pa, pb, pc, x);
-            list.add(new Point(x, y));
-            return list;
+            return new Point[]{new Point(x, y)};
         }
 
         double x1 = (-pb - la / lb + Math.sqrt(delta)) / (2.0 * pa);
         double y1 = getY(pa, pb, pc, x1);
         double x2 = (-pb - la / lb - Math.sqrt(delta)) / (2.0 * pa);
         double y2 = getY(pa, pb, pc, x2);
-        list.add(new Point(x1, y1));
-        list.add(new Point(x2, y2));
-        return list;
+        return new Point[]{new Point(x1, y1), new Point(x2, y2)};
     }
 
     /**
@@ -229,9 +222,9 @@ public class ParabolaUtil {
      * @param parabola 抛物线
      * @return 交点集合
      */
-    public static List intersect(Segment segment, Parabola parabola) {
+    public static Point[] intersect(Segment segment, Parabola parabola) {
         if (segment == null || parabola == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
         return intersect(segment.getP1(), segment.getP2(), parabola);
     }
@@ -244,9 +237,9 @@ public class ParabolaUtil {
      * @param parabola 抛物线
      * @return 交点集合
      */
-    public static List intersect(Point p1, Point p2, Parabola parabola) {
+    public static Point[] intersect(Point p1, Point p2, Parabola parabola) {
         if (p1 == null || p2 == null || parabola == null) {
-            return new ArrayList(0);
+            return new Point[0];
         }
         return intersect(p1.getX(), p1.getY(), p2.getX(), p2.getY(), parabola.getA(), parabola.getB(), parabola.getC());
     }
@@ -263,17 +256,15 @@ public class ParabolaUtil {
      * @param pc 抛物线的系数c
      * @return 交点集合
      */
-    public static List intersect(final double x1, final double y1, final double x2, final double y2, double pa, double pb, double pc) {
+    public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double pa, double pb, double pc) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
-        List list = intersect(line.getA(), line.getB(), line.getC(), pa, pb, pc);
-
-        CollectionUtils.filter(list, new Predicate() {
+        Point[] points = intersect(line.getA(), line.getB(), line.getC(), pa, pb, pc);
+        return Util.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
                 return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
-        return list;
     }
 
     /**
