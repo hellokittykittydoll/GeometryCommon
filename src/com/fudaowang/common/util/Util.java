@@ -2,6 +2,9 @@ package com.fudaowang.common.util;
 
 import com.fudaowang.common.graph.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 通用基础方法
  * Created with IntelliJ IDEA.
@@ -297,5 +300,35 @@ public class Util {
      */
     public static Point translation(double x0, double y0, double x, double y) {
         return new Point(x0 + x, y0 + y);
+    }
+
+    /**
+     * 将Point数组转化为list
+     *
+     * @param points Point的数组
+     * @return Point的list
+     */
+    public static List toList(Point[] points) {
+        List list = new ArrayList();
+        if (points == null) {
+            return list;
+        }
+        for (int i = 0; i < points.length; i++) {
+            list.add(points[i]);
+        }
+        return list;
+    }
+
+    /**
+     * 将Point的list转化为数组
+     *
+     * @param list Point的list
+     * @return Point的数组
+     */
+    public static Point[] toArray(List list) {
+        if (list == null) {
+            return new Point[0];
+        }
+        return (Point[]) list.toArray(new Point[list.size()]);
     }
 }
