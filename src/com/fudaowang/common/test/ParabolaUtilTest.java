@@ -79,13 +79,11 @@ public class ParabolaUtilTest {
     public void testIntersect() throws Exception {
         Line line = new Line(1, 1, 0);
         Parabola parabola = new Parabola(-1, 2, -2);
-        List points = ParabolaUtil.intersect(line, parabola);
-        assertEquals(2, points.size());
-        Point p1 = (Point) points.get(0);
-        Point p2 = (Point) points.get(1);
+        Point[] points = ParabolaUtil.intersect(line, parabola);
+        assertEquals(2, points.length);
 
-        assertTrue(LineUtil.onLine(p1, line, precision));
-        assertTrue(LineUtil.onLine(p2, line, precision));
+        assertTrue(LineUtil.onLine(points[0], line, precision));
+        assertTrue(LineUtil.onLine(points[1], line, precision));
     }
 
     /**
