@@ -42,7 +42,7 @@ public class RoundUtil {
      * @return 交点集, 可能有0-2个点
      */
     public static Point[] intersect(double la, double lb, double lc, double cx, double cy, double radius) {
-        double distance = LineUtil.distance(lb, lc, la, cx, cy);
+        double distance = LineUtil.distance(cx, cy, la, lb, lc);
         if (distance > radius) {
             return new Point[0];
         }
