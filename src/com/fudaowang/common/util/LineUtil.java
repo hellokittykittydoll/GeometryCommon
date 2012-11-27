@@ -227,7 +227,6 @@ public class LineUtil {
     /**
      * 求点到线段的距离
      *
-     *
      * @param point   点
      * @param segment 线段
      * @return 点到线段的距离
@@ -243,7 +242,6 @@ public class LineUtil {
 
     /**
      * 求点point到线段(p1,p2)的距离
-     *
      *
      * @param point 给定的点
      * @param p2    线段的端点
@@ -261,7 +259,6 @@ public class LineUtil {
     /**
      * 求点(px,py)到以点(x1,y1)和点(x2,y2)为端点的线段的距离
      *
-     *
      * @param px 给定点的横坐标
      * @param py 给定点的纵坐标
      * @param x2 线段第二个端点的横坐标
@@ -277,7 +274,6 @@ public class LineUtil {
     /**
      * 求点(px,py)到直线ax+by+c=0的距离
      *
-     *
      * @param px 点的横坐标
      * @param py 点的纵坐标
      * @param c  直线的系数c
@@ -291,7 +287,6 @@ public class LineUtil {
 
     /**
      * 求点到直线的距离
-     *
      *
      * @param point 点
      * @param line  直线
@@ -703,6 +698,34 @@ public class LineUtil {
      */
     public static double getAngle(double cx, double cy, double px, double py) {
         return Math.atan2(py - cy, px - cx);
+    }
+
+    /**
+     * 求直线的倾角
+     *
+     * @param line 给定的直线
+     * @return 直线的倾角
+     */
+    public static double getAngle(Line line) {
+        if (line == null) {
+            return Double.NaN;
+        }
+        return getAngle(line.getA(), line.getB(), line.getC());
+    }
+
+    /**
+     * 求直线ax+by+c=0的倾角
+     *
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @param c 直线的系数c
+     * @return 直线的倾角
+     */
+    public static double getAngle(double a, double b, double c) {
+        if (a == 0 && b == 0) {
+            return Double.NaN;
+        }
+        return Math.atan(-a / b);
     }
 
     /**

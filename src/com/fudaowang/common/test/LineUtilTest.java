@@ -186,6 +186,22 @@ public class LineUtilTest {
         assertEquals(a, -Math.PI / 2);
         a = LineUtil.getAngle(p00, p_10);
         assertEquals(a, Math.PI);
+
+        a = LineUtil.getAngle(l1);
+        assertEquals(a, Math.PI / 4);
+        a = LineUtil.getAngle(l_1);
+        assertEquals(a, Math.PI / 4);
+        a = LineUtil.getAngle(_l1);
+        assertEquals(a, -Math.PI / 4);
+        a = LineUtil.getAngle(_l_);
+        assertEquals(a, -Math.PI / 4);
+
+        Line l = new Line(1, 0, 0);
+        a = LineUtil.getAngle(l);
+        assertEquals(a, -Math.PI / 2);
+        l = new Line(0, 1, 0);
+        a = LineUtil.getAngle(l);
+        assertEquals(a, -0.0);
     }
 
     /**
