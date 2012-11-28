@@ -28,7 +28,7 @@ public class LineUtil {
      */
     public static Point intersect(double a1, double b1, double c1, double a2, double b2, double c2) {
         double denominator = a1 * b2 - a2 * b1;
-        if (denominator == 0) {
+        if (NumberUtil.isZero(denominator)) {
             return null;
         }
 
@@ -274,7 +274,6 @@ public class LineUtil {
     /**
      * 求点(px,py)到直线ax+by+c=0的距离
      *
-     *
      * @param px 点的横坐标
      * @param py 点的纵坐标
      * @param a  直线的系数a
@@ -327,6 +326,9 @@ public class LineUtil {
      * @return 若点在直线上则返回true
      */
     public static boolean onLine(double x, double y, double a, double b, double c, double precision) {
+        if (precision < NumberUtil.MIN_VALUE) {
+            precision = NumberUtil.MIN_VALUE;
+        }
         return distance(x, y, a, b, c) < precision;
     }
 
@@ -723,7 +725,7 @@ public class LineUtil {
      * @return 直线的倾角
      */
     public static double getAngle(double a, double b, double c) {
-        if (a == 0 && b == 0) {
+        if (NumberUtil.isZero(a) && NumberUtil.isZero(b)) {
             return Double.NaN;
         }
         return Math.atan(-a / b);
