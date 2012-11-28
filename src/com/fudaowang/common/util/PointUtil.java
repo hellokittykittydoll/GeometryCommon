@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 4:53 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Util {
+public class PointUtil {
 
     /**
      * 计算从点(x1,y1)到点(x2,y2)的距离
@@ -134,31 +134,6 @@ public class Util {
     }
 
     /**
-     * 判断两个数值之差是否小于给定的精度值
-     *
-     * @param d1        第一个数值
-     * @param d2        第二个数值
-     * @param precision 给定的精度值
-     * @return 若两数值之差小于精度, 则返回true
-     */
-    public static boolean equal(double d1, double d2, double precision) {
-        return Math.abs(d1 - d2) < precision;
-    }
-
-    /**
-     * 判断两个点在精度范围内是否重合
-     *
-     * @param p1        第一个点
-     * @param p2        第二个点
-     * @param precision 给定的精度
-     * @return 若两点横纵坐标之差均小于给定精度, 则返回true
-     */
-    public static boolean equal(Point p1, Point p2, double precision) {
-        return !(p1 == null || p2 == null)
-                && equal(p1.getX(), p2.getX(), precision) && equal(p1.getY(), p2.getY(), precision);
-    }
-
-    /**
      * 将point以center为中心旋转angle角度后的坐标值
      *
      * @param point  给定的点
@@ -248,32 +223,52 @@ public class Util {
      * @return 只有当两点的横纵坐标完全相同时, 才返回true
      */
     public static boolean coincide(Point p1, Point p2) {
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("点为null");
+        }
         return coincide(p1.getX(), p1.getY(), p2.getX(), p2.getY());
     }
 
     /**
      * 判定点(p1x,p1y)与点(p2x,p2y)是否重合时
      *
-     * @param p1x 第一个点的横坐标
-     * @param p1y 第一个点的纵坐标
-     * @param p2x 第二个点的横坐标
-     * @param p2y 第二个点的纵坐标
-     * @return 只有当两点的横纵坐标完全相同时, 才返回true
+     * @param x1 第一个点的横坐标
+     * @param y1 第一个点的纵坐标
+     * @param x2 第二个点的横坐标
+     * @param y2 第二个点的纵坐标
+     * @return 只有当两点的横纵坐标之差都在最小精度范围内时, 才返回true
      */
-    public static boolean coincide(double p1x, double p1y, double p2x, double p2y) {
-        return p1x == p2x && p1y == p2y;
+    public static boolean coincide(double x1, double y1, double x2, double y2) {
+        return NumberUtil.equal(x1, x2) && NumberUtil.equal(y1, y2);
     }
 
     /**
-     * 判断给定的数值大小是否在给定的范围内
+     * 判断两个点在精度范围内是否重合
      *
-     * @param d1 数值的上限或者下限
-     * @param d2 数值的上限或者下限
-     * @param d  需要判断的数值
-     * @return 若给定的数值在范围之内, 则返回true
+     * @param p1        第一个点
+     * @param p2        第二个点
+     * @param precision 给定的精度
+     * @return 若两点横纵坐标之差均小于给定精度, 则返回true
      */
-    public static boolean valueInRange(double d1, double d2, double d) {
-        return d > Math.min(d1, d2) && d < Math.max(d1, d2);
+    public static boolean coincide(Point p1, Point p2, double precision) {
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("点为null");
+        }
+        return coincide(p1.getX(), p1.getY(), p2.getX(), p2.getY(), precision);
+    }
+
+    /**
+     * 判断两个点在精度范围内是否重合
+     *
+     * @param x1        第一个点的横坐标
+     * @param y1        第一个点的纵坐标
+     * @param x2        第二个点的横坐标
+     * @param y2        第二个点的纵坐标
+     * @param precision 给定的精度
+     * @return 若两点横纵坐标之差均小于给定精度, 则返回true
+     */
+    public static boolean coincide(double x1, double y1, double x2, double y2, double precision) {
+        return NumberUtil.equal(x1, x2, precision) && NumberUtil.equal(y1, y2, precision);
     }
 
     /**

@@ -37,23 +37,23 @@ public class HyperbolaUtil {
      * @return 反比例函数与直线的交点
      */
     public static Point[] intersect(double k, double a, double b, double c) {
-        if (k == 0) {
+        if (NumberUtil.isZero(k)) {
             return new Point[0];
         }
 
-        if (a == 0 && b == 0) {
+        if (NumberUtil.isZero(a) && NumberUtil.isZero(b)) {
             return new Point[0];
         }
 
-        if (a == 0) {
-            if (c == 0) {
+        if (NumberUtil.isZero(a)) {
+            if (NumberUtil.isZero(c)) {
                 return new Point[0];
             }
             double x = -k * b / c;
             double y = -c / b;
             return new Point[]{new Point(x, y)};
-        } else if (b == 0) {
-            if (c == 0) {
+        } else if (NumberUtil.isZero(b)) {
+            if (NumberUtil.isZero(c)) {
                 return new Point[0];
             }
             double x = -c / a;

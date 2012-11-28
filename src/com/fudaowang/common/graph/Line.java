@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.NumberUtil;
+
 /**
  * 表示ax+by+c=0的一般式直线方程
  * Created with IntelliJ IDEA.
@@ -16,12 +18,13 @@ public class Line {
     /**
      * 利用直线方程的系数abc来构造直线方程
      * a,b不能同时为0
+     *
      * @param a 直线方程的系数a
      * @param b 直线方程的系数b
      * @param c 直线方程的系数c
      */
     public Line(double a, double b, double c) {
-        if (a == 0 && b == 0) {
+        if (NumberUtil.isZero(a) && NumberUtil.isZero(b)) {
             throw new IllegalArgumentException("直线方程的系数a和系数b不能同时为0");
         }
 
@@ -32,6 +35,7 @@ public class Line {
 
     /**
      * 获得方程的系数a
+     *
      * @return 方程的系数a
      */
     public double getA() {
@@ -40,6 +44,7 @@ public class Line {
 
     /**
      * 获得方程的系数b
+     *
      * @return 方程的系数b
      */
     public double getB() {
@@ -48,6 +53,7 @@ public class Line {
 
     /**
      * 获得方程的系数c
+     *
      * @return 方程的系数c
      */
     public double getC() {

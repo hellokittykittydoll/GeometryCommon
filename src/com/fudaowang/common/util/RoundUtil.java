@@ -53,9 +53,10 @@ public class RoundUtil {
             return new Point[]{vertex};
         }
 
-        double angle = Math.acos(distance / radius);
-        Point p1 = Util.rotateAndStretch(vertex.getX(), vertex.getY(), cx, cy, angle, radius / distance);
-        Point p2 = Util.rotateAndStretch(vertex.getX(), vertex.getY(), cx, cy, -angle, radius / distance);
+        double side = Math.sqrt(distance * distance + radius * radius);
+        double angle = LineUtil.getAngle(la, lb, lc);
+        Point p1 = new Point(side * Math.cos(angle), side * Math.sin(angle));
+        Point p2 = new Point(side * Math.cos(angle + Math.PI), side * Math.sin(angle + Math.PI));
 
         return new Point[]{p1, p2};
     }
@@ -105,7 +106,7 @@ public class RoundUtil {
     public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double cx, double cy, double radius) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
         Point[] points = intersect(line.getA(), line.getB(), line.getC(), cx, cy, radius);
-        return Util.filter(points, new Predicate() {
+        return PointUtil.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
                 return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
@@ -138,7 +139,7 @@ public class RoundUtil {
      * @return 点到圆的最短距离
      */
     public static double distance(double px, double py, double cx, double cy, double radius) {
-        return Math.abs(radius - Util.distance(px, py, cx, cy));
+        return Math.abs(radius - PointUtil.distance(px, py, cx, cy));
     }
 
     /**
@@ -252,7 +253,7 @@ public class RoundUtil {
      * @return 若点在圆范围内则返回true
      */
     public static boolean inRound(double px, double py, double cx, double cy, double radius) {
-        return Util.distance(px, py, cx, cy) < radius;
+        return PointUtil.distance(px, py, cx, cy) < radius;
     }
 
     /**
@@ -301,7 +302,7 @@ public class RoundUtil {
      * @return 若给定点在圆外, 则计算出两个对应的切点
      */
     public static Point[] tangentPoint(double px, double py, double cx, double cy, double radius) {
-        double distance = Util.distance(px, py, cx, cy);
+        double distance = PointUtil.distance(px, py, cx, cy);
 
         if (distance <= radius) {
             return new Point[0];
@@ -309,8 +310,8 @@ public class RoundUtil {
 
         double d = radius / distance;
         double theta = Math.acos(d);
-        Point p1 = Util.rotateAndStretch(px, py, cx, cy, theta, d);
-        Point p2 = Util.rotateAndStretch(px, py, cx, cy, -theta, d);
+        Point p1 = PointUtil.rotateAndStretch(px, py, cx, cy, theta, d);
+        Point p2 = PointUtil.rotateAndStretch(px, py, cx, cy, -theta, d);
         return new Point[]{p1, p2};
     }
 }

@@ -192,7 +192,7 @@ public class LineUtil {
      * @return 若点在线段坐标范围内则返回true
      */
     public static boolean inSegment(double x, double y, double x1, double y1, double x2, double y2) {
-        return Util.valueInRange(x1, x2, x) || Util.valueInRange(y1, y2, y);
+        return NumberUtil.valueInRange(x1, x2, x) || NumberUtil.valueInRange(y1, y2, y);
     }
 
     /**
@@ -274,14 +274,15 @@ public class LineUtil {
     /**
      * 求点(px,py)到直线ax+by+c=0的距离
      *
+     *
      * @param px 点的横坐标
      * @param py 点的纵坐标
-     * @param c  直线的系数c
      * @param a  直线的系数a
      * @param b  直线的系数b
+     * @param c  直线的系数c
      * @return 点到直线的距离
      */
-    public static double distance(double px, double py, double c, double a, double b) {
+    public static double distance(double px, double py, double a, double b, double c) {
         return Math.abs(a * px + b * py + c) / Math.sqrt(a * a + b * b);
     }
 
@@ -296,7 +297,7 @@ public class LineUtil {
         if (line == null || point == null) {
             return Double.NaN;
         }
-        return distance(point.getX(), point.getY(), line.getC(), line.getA(), line.getB());
+        return distance(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
     }
 
     /**
@@ -326,7 +327,7 @@ public class LineUtil {
      * @return 若点在直线上则返回true
      */
     public static boolean onLine(double x, double y, double a, double b, double c, double precision) {
-        return distance(x, y, c, a, b) < precision;
+        return distance(x, y, a, b, c) < precision;
     }
 
     /**
@@ -586,7 +587,7 @@ public class LineUtil {
      * @return 过两点的直线方程
      */
     public static Line getLine(double x1, double y1, double x2, double y2) {
-        if (Util.coincide(x1, y1, x2, y2)) {
+        if (PointUtil.coincide(x1, y1, x2, y2)) {
             return null;
         }
 

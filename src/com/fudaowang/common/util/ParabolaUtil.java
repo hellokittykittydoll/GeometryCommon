@@ -47,7 +47,7 @@ public class ParabolaUtil {
      * @return 生成的抛物线
      */
     public static Parabola getParabola(double x1, double y1, double x2, double y2, double x3, double y3) {
-        if (x1 == x2 || x2 == x3 || x1 == x3) {
+        if (NumberUtil.equal(x1, x2) || NumberUtil.equal(x2, x3) || NumberUtil.equal(x1, x3)) {
             return null; //任意两个横坐标相等的话都构造不出抛物线来
         }
 
@@ -83,7 +83,7 @@ public class ParabolaUtil {
      * @return 生成的抛物线
      */
     public static Parabola getParabola(double vx, double vy, double px, double py) {
-        if (vx == px || vy == py) {
+        if (NumberUtil.equal(vx, px) || NumberUtil.equal(vy, py)) {
             return null;
         }
 
@@ -102,7 +102,7 @@ public class ParabolaUtil {
      * @return 抛物线的顶点
      */
     public static Point vertexPoint(double a, double b, double c) {
-        if (a == 0) {
+        if (NumberUtil.isZero(a)) {
             return null;
         }
 
@@ -178,15 +178,15 @@ public class ParabolaUtil {
      * @return 直线与抛物线的交点, 可能有0-2个点
      */
     public static Point[] intersect(double la, double lb, double lc, double pa, double pb, double pc) {
-        if (la == 0 && lb == 0) {
+        if (NumberUtil.isZero(la) && NumberUtil.isZero(lb)) {
             return new Point[0];
         }
 
-        if (pa == 0) {
+        if (NumberUtil.isZero(pa)) {
             return new Point[0];
         }
 
-        if (lb == 0) {
+        if (NumberUtil.isZero(lb)) {
             double x = -lc / la;
             double y = getY(pa, pb, pc, x);
             return new Point[]{new Point(x, y)};
@@ -255,7 +255,7 @@ public class ParabolaUtil {
     public static Point[] intersect(final double x1, final double y1, final double x2, final double y2, double pa, double pb, double pc) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
         Point[] points = intersect(line.getA(), line.getB(), line.getC(), pa, pb, pc);
-        return Util.filter(points, new Predicate() {
+        return PointUtil.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
                 return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);

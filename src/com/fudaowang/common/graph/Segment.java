@@ -1,6 +1,6 @@
 package com.fudaowang.common.graph;
 
-import com.fudaowang.common.util.Util;
+import com.fudaowang.common.util.PointUtil;
 
 /**
  * 使用两个点表示的线段
@@ -24,7 +24,7 @@ public class Segment {
         if (p1 == null || p2 == null) {
             throw new NullPointerException("线段端点为null");
         }
-        if (p1 == p2) {
+        if (PointUtil.coincide(p1, p2)) {
             throw new IllegalArgumentException("线段端点重复");
         }
 
@@ -41,7 +41,7 @@ public class Segment {
      * @param y2 第二个点的纵坐标
      */
     public Segment(double x1, double y1, double x2, double y2) {
-        if (Util.coincide(x1, y1, x2, y2)) {
+        if (PointUtil.coincide(x1, y1, x2, y2)) {
             throw new IllegalArgumentException("线段端点重复");
         }
 

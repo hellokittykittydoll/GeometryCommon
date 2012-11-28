@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.PointUtil;
+
 /**
  * 表示三角形的类
  * Created with IntelliJ IDEA.
@@ -15,6 +17,7 @@ public class Triangle {
 
     /**
      * 利用三个已知点构造三角形
+     *
      * @param p1 三角形的第一个点
      * @param p2 三角形的第二个点
      * @param p3 三角形的第三个点
@@ -23,7 +26,7 @@ public class Triangle {
         if (p1 == null || p2 == null || p3 == null) {
             throw new NullPointerException("三角形的端点为null");
         }
-        if (p1 == p2 || p2 == p3 || p1 == p3) {
+        if (PointUtil.coincide(p1, p2) || PointUtil.coincide(p2, p3) || PointUtil.coincide(p1, p3)) {
             throw new IllegalArgumentException("三角形的端点重合");
         }
 
@@ -34,6 +37,7 @@ public class Triangle {
 
     /**
      * 获得三角形的第一个端点
+     *
      * @return 三角形的第一个端点
      */
     public Point getP1() {
@@ -42,6 +46,7 @@ public class Triangle {
 
     /**
      * 获得三角形的第二个端点
+     *
      * @return 三角形的第二个端点
      */
     public Point getP2() {
@@ -50,6 +55,7 @@ public class Triangle {
 
     /**
      * 获得三角形的第三个端点
+     *
      * @return 三角形的第三个端点
      */
     public Point getP3() {

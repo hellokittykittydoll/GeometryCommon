@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.PointUtil;
+
 /**
  * 表示角的类,由顶点和两个点构成
  * Created with IntelliJ IDEA.
@@ -15,9 +17,10 @@ public class Angle {
 
     /**
      * 利用顶点和其他点构造三角形
+     *
      * @param vertex 顶点
-     * @param p1 第一个点
-     * @param p2 第二个点
+     * @param p1     第一个点
+     * @param p2     第二个点
      */
     public Angle(Point vertex, Point p1, Point p2) {
         if (vertex == null) {
@@ -28,7 +31,7 @@ public class Angle {
             throw new NullPointerException("角的端点为null");
         }
 
-        if (vertex == p1 || vertex == p2) {
+        if (PointUtil.coincide(vertex, p1) || PointUtil.coincide(vertex, p2)) {
             throw new IllegalArgumentException("角的顶点或端点重复");
         }
 
@@ -39,6 +42,7 @@ public class Angle {
 
     /**
      * 获得角的顶点
+     *
      * @return 角的顶点
      */
     public Point getVertex() {
@@ -47,6 +51,7 @@ public class Angle {
 
     /**
      * 获得角的第一个端点
+     *
      * @return 端点
      */
     public Point getP1() {
@@ -55,6 +60,7 @@ public class Angle {
 
     /**
      * 获得角的第二个端点
+     *
      * @return 端点
      */
     public Point getP2() {

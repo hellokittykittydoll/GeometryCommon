@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.NumberUtil;
+
 /**
  * 表示反比例函数的类
  * Created with IntelliJ IDEA.
@@ -13,10 +15,11 @@ public class Hyperbola {
 
     /**
      * 利用系数k构造反比例函数
+     *
      * @param k 系数k
      */
     public Hyperbola(double k) {
-        if (k == 0) {
+        if (NumberUtil.isZero(k)) {
             throw new IllegalArgumentException("反比例函数的系数k不能为0");
         }
         this.k = k;
@@ -24,6 +27,7 @@ public class Hyperbola {
 
     /**
      * 获得系数k
+     *
      * @return 系数k
      */
     public double getK() {

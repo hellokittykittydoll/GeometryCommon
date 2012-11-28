@@ -15,6 +15,7 @@ public class Polygon {
 
     /**
      * 利用已知点集来构造多边形,点集的长度不能小于3
+     *
      * @param points 给定的点集
      */
     public Polygon(Point[] points) {
@@ -29,6 +30,7 @@ public class Polygon {
 
     /**
      * 获得多边形的点集
+     *
      * @return 点集
      */
     public Point[] getPoints() {

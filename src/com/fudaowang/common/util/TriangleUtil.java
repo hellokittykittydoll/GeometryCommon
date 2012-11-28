@@ -55,9 +55,9 @@ public class TriangleUtil {
      * @return 三角形的面积
      */
     public static double getArea(double x1, double y1, double x2, double y2, double x3, double y3) {
-        double a = Util.distance(x1, y1, x2, y2);
-        double b = Util.distance(x1, y1, x3, y3);
-        double c = Util.distance(x2, y2, x3, y3);
+        double a = PointUtil.distance(x1, y1, x2, y2);
+        double b = PointUtil.distance(x1, y1, x3, y3);
+        double c = PointUtil.distance(x2, y2, x3, y3);
 
         double p = (a + b + c) / 2.0;
         double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
@@ -102,8 +102,8 @@ public class TriangleUtil {
 
         Collections.sort(list, new Comparator() {
             public int compare(Object o1, Object o2) {
-                double d1 = Util.distance(point, (Point) o1);
-                double d2 = Util.distance(point, (Point) o2);
+                double d1 = PointUtil.distance(point, (Point) o1);
+                double d2 = PointUtil.distance(point, (Point) o2);
 
                 if (d1 < d2) {
                     return -1;

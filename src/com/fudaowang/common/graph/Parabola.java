@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.NumberUtil;
+
 /**
  * 表示抛物线的一般式方程y=ax^2+bx+c
  * Created with IntelliJ IDEA.
@@ -15,6 +17,7 @@ public class Parabola {
 
     /**
      * 获得抛物线的系数a
+     *
      * @return 抛物线的系数a
      */
     public double getA() {
@@ -23,6 +26,7 @@ public class Parabola {
 
     /**
      * 获得抛物线的系数b
+     *
      * @return 抛物线的系数b
      */
     public double getB() {
@@ -31,6 +35,7 @@ public class Parabola {
 
     /**
      * 获得抛物线的系数b
+     *
      * @return 抛物线的系数b
      */
     public double getC() {
@@ -48,12 +53,13 @@ public class Parabola {
     /**
      * 利用抛物线一般式方程的系数构造抛物线
      * a不能为0
+     *
      * @param a 抛物线的系数a
      * @param b 抛物线的系数b
      * @param c 抛物线的系数c
      */
     public Parabola(double a, double b, double c) {
-        if (a == 0) {
+        if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线方程系数a不能为0");
         }
         this.a = a;

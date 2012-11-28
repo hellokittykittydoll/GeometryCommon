@@ -14,6 +14,7 @@ public class Point {
 
     /**
      * 利用点的横坐标和纵坐标来构造点
+     *
      * @param x 点的横坐标
      * @param y 点的纵坐标
      */
@@ -24,6 +25,7 @@ public class Point {
 
     /**
      * 获得点的横坐标
+     *
      * @return 点的横坐标
      */
     public double getX() {
@@ -32,6 +34,7 @@ public class Point {
 
     /**
      * 获得点的纵坐标
+     *
      * @return 点的纵坐标
      */
     public double getY() {
