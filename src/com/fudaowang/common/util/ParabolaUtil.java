@@ -47,11 +47,10 @@ public class ParabolaUtil {
      * @return 生成的抛物线
      */
     public static Parabola getParabola(double x1, double y1, double x2, double y2, double x3, double y3) {
-        if (NumberUtil.equal(x1, x2) || NumberUtil.equal(x2, x3) || NumberUtil.equal(x1, x3)) {
-            return null; //任意两个横坐标相等的话都构造不出抛物线来
-        }
-
         double denominator = (x1 - x2) * (x1 - x3) * (x2 - x3);
+        if (NumberUtil.isZero(denominator)) {
+            return null;//任意两个横坐标相等的话都构造不出抛物线来
+        }
         double a = ((y1 - y2) * (x1 - x3) - (y1 - y3) * (x1 - x2)) / denominator; //极小的几率这里会让a为0,但不清楚此条件的几何意义
         double b = ((y1 - y2) * (x1 * x1 - x3 * x3) - (y1 - y3) * (x1 * x1 - x2 * x2)) / -denominator;
         double c = y1 - a * x1 * x1 - b * x1;
@@ -194,11 +193,11 @@ public class ParabolaUtil {
 
         double delta = (Math.pow(pb * lb + la, 2) - 4.0 * pa * lb * (pc * lb + lc)) / Math.pow(lb, 2);
 
-        if (delta < 0) {
+        if (NumberUtil.isLessThanZero(delta)) {
             return new Point[0];
         }
 
-        if (delta == 0) {
+        if (NumberUtil.isZero(delta)) {
             double x = (pb + la / lb) / (-2.0 * pa);
             double y = getY(pa, pb, pc, x);
             return new Point[]{new Point(x, y)};
@@ -264,34 +263,6 @@ public class ParabolaUtil {
     }
 
     /**
-     * 求点到抛物线的最短距离
-     *
-     * @param point    点
-     * @param parabola 抛物线
-     * @return 点到抛物线的最短距离
-     */
-    public static double distance(Point point, Parabola parabola) {
-        if (point == null || parabola == null) {
-            return Double.NaN;
-        }
-        return distance(point.getX(), point.getY(), parabola.getA(), parabola.getB(), parabola.getC());
-    }
-
-    /**
-     * 求点(x,y)到抛物线y=ax^2+bx+c的最短距离
-     *
-     * @param x 点的横坐标
-     * @param y 点的纵坐标
-     * @param a 抛物线的系数a
-     * @param b 抛物线的系数b
-     * @param c 抛物线的系数c
-     * @return 点到抛物线的最短距离
-     */
-    public static double distance(double x, double y, double a, double b, double c) {
-        throw new NotImplementedException();
-    }
-
-    /**
      * 在指定的精度范围内,判定点是否在抛物线上
      *
      * @param point     点
@@ -323,7 +294,12 @@ public class ParabolaUtil {
      * @return 若点到抛物线的最短距离小于给定的精度, 则返回true
      */
     public static boolean onParabola(double x, double y, double a, double b, double c, double precision) {
-        return distance(x, y, a, b, c) < precision;
+        if (precision < NumberUtil.MIN_VALUE) {
+            precision = NumberUtil.MIN_VALUE;
+        }
+        double y1 = getY(a, b, c, x - precision);
+        double y2 = getY(a, b, c, x + precision);
+        return NumberUtil.valueInRange(y1, y2, y);
     }
 
     /**
