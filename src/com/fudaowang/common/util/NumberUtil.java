@@ -61,6 +61,28 @@ public class NumberUtil {
     }
 
     /**
+     * 判断d1是否在最小精度范围内小于d2
+     *
+     * @param d1 第一个数值
+     * @param d2 第二个数值
+     * @return 若d1与d2的差小于负的最小精度, 则返回true
+     */
+    public static boolean isLessThan(double d1, double d2) {
+        return isLessThanZero(d1 - d2);
+    }
+
+    /**
+     * 判断d1是否在最小精度范围内大于d2
+     *
+     * @param d1 第一个数值
+     * @param d2 第二个数值
+     * @return 若d1与d2的差大于最小精度, 则返回true
+     */
+    public static boolean isMoreThan(double d1, double d2) {
+        return isMoreThanZero(d1 - d2);
+    }
+
+    /**
      * 判断给定的数值在最小精度范围内是否大于0
      *
      * @param d 给定的数值
