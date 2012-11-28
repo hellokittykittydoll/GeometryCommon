@@ -1,5 +1,7 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.NumberUtil;
+
 /**
  * 描述圆的类
  * Created with IntelliJ IDEA.
@@ -23,7 +25,7 @@ public class Round {
             throw new NullPointerException("圆心为null");
         }
 
-        if (radius <= 0) {
+        if (!NumberUtil.isMoreThanZero(radius)) {
             throw new IllegalArgumentException("半径长必须大于0");
         }
 
