@@ -43,14 +43,14 @@ public class RoundUtil {
      */
     public static Point[] intersect(double la, double lb, double lc, double cx, double cy, double radius) {
         double distance = LineUtil.distance(cx, cy, la, lb, lc);
-        if (distance > radius) {
-            return new Point[0];
-        }
-
         Point vertex = LineUtil.verticalPoint(cx, cy, la, lb, lc);
 
-        if (distance == radius) {
+        if (NumberUtil.equal(distance, radius)) {
             return new Point[]{vertex};
+        }
+
+        if (distance > radius) {
+            return new Point[0];
         }
 
         double side = Math.sqrt(distance * distance + radius * radius);
@@ -173,6 +173,9 @@ public class RoundUtil {
      * @return 若点到圆的最短距离在精度范围内, 则返回true
      */
     public static boolean onRound(double px, double py, double cx, double cy, double radius, double precision) {
+        if (precision < NumberUtil.MIN_VALUE) {
+            precision = NumberUtil.MIN_VALUE;
+        }
         double distance = distance(px, py, cx, cy, radius);
         return distance < precision;
     }
@@ -253,7 +256,7 @@ public class RoundUtil {
      * @return 若点在圆范围内则返回true
      */
     public static boolean inRound(double px, double py, double cx, double cy, double radius) {
-        return PointUtil.distance(px, py, cx, cy) < radius;
+        return NumberUtil.isLessThan(PointUtil.distance(px, py, cx, cy), radius);
     }
 
     /**
@@ -303,8 +306,7 @@ public class RoundUtil {
      */
     public static Point[] tangentPoint(double px, double py, double cx, double cy, double radius) {
         double distance = PointUtil.distance(px, py, cx, cy);
-
-        if (distance <= radius) {
+        if (NumberUtil.isLessThan(distance, radius)) {
             return new Point[0];
         }
 
