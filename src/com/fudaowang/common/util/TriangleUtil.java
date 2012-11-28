@@ -60,13 +60,13 @@ public class TriangleUtil {
         double c = PointUtil.distance(x2, y2, x3, y3);
 
         double p = (a + b + c) / 2.0;
-        double s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
-        return s;
+        return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 
     /**
      * 判断给定的点是否在三角形内
-     * @param point 点
+     *
+     * @param point    点
      * @param triangle 三角形
      * @return 若点在三角形内则返回true
      */
@@ -84,10 +84,11 @@ public class TriangleUtil {
 
     /**
      * 判断给定的点是否在三角形内
+     *
      * @param point 给定的点
-     * @param p1 三角形的顶点
-     * @param p2 三角形的顶点
-     * @param p3 三角形的顶点
+     * @param p1    三角形的顶点
+     * @param p2    三角形的顶点
+     * @param p3    三角形的顶点
      * @return 若点在三角形内则返回true
      */
     public static boolean inTriangle(final Point point, final Point p1, final Point p2, final Point p3) {
@@ -115,7 +116,7 @@ public class TriangleUtil {
             }
         });
 
-        Segment s1 = new Segment((Point)list.get(0), (Point)list.get(1));
+        Segment s1 = new Segment((Point) list.get(0), (Point) list.get(1));
         Segment s2 = new Segment(point, (Point) list.get(2));
 
         list = null;
@@ -125,8 +126,9 @@ public class TriangleUtil {
 
     /**
      * 判断给定的点是否在三角形内
-     * @param x 给定点的横坐标
-     * @param y 给定点的纵坐标
+     *
+     * @param x  给定点的横坐标
+     * @param y  给定点的纵坐标
      * @param x1 三角形的第一个端点的横坐标
      * @param y1 三角形的第一个端点的纵坐标
      * @param x2 三角形的第二个端点的横坐标
