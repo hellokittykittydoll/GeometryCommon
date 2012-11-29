@@ -4,6 +4,7 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Parabola;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.util.LineUtil;
+import com.fudaowang.common.util.NumberUtil;
 import com.fudaowang.common.util.ParabolaUtil;
 import org.junit.Test;
 
@@ -20,8 +21,6 @@ import static junit.framework.TestCase.*;
  * To change this template use File | Settings | File Templates.
  */
 public class ParabolaUtilTest {
-    private double precision = 0.0001;
-
     /**
      * 测试生成抛物线
      *
@@ -52,7 +51,8 @@ public class ParabolaUtilTest {
     @Test
     public void testVertexPoint() throws Exception {
         Point p = ParabolaUtil.vertexPoint(new Parabola(1, 0, 0));
-        assertEquals(0, p.getX(), p.getY());
+        assertEquals(0.0, p.getX());
+        assertEquals(0.0, p.getY());
         p = ParabolaUtil.vertexPoint(new Parabola(-1, 2, -2));
         assertEquals(1.0, p.getX());
         assertEquals(-1.0, p.getY());
@@ -82,8 +82,8 @@ public class ParabolaUtilTest {
         Point[] points = ParabolaUtil.intersect(line, parabola);
         assertEquals(2, points.length);
 
-        assertTrue(LineUtil.onLine(points[0], line, precision));
-        assertTrue(LineUtil.onLine(points[1], line, precision));
+        assertTrue(LineUtil.onLine(points[0], line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(points[1], line, NumberUtil.MIN_VALUE));
     }
 
     /**
