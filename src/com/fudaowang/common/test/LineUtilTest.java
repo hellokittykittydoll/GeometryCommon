@@ -4,7 +4,8 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.util.LineUtil;
-import com.fudaowang.common.util.Util;
+import com.fudaowang.common.util.NumberUtil;
+import com.fudaowang.common.util.PointUtil;
 
 import static junit.framework.TestCase.*;
 
@@ -19,8 +20,6 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class LineUtilTest {
-    private double precision = 0.0001;
-
     private Line l1 = new Line(1, -1, 1);
     private Line l_1 = new Line(1, -1, -1);
     private Line _l1 = new Line(-1, -1, 1);
@@ -42,11 +41,11 @@ public class LineUtilTest {
     @Test
     public void testIntersect() throws Exception {
         Point p = LineUtil.intersect(l1, _l1);
-        assertTrue(Util.coincide(p, p01));
+        assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.intersect(l1, l_1);
         assertNull(p);
         p = LineUtil.intersect(segment, l1, true);
-        assertTrue(Util.coincide(p, p_10));
+        assertTrue(PointUtil.coincide(p, p_10));
     }
 
     /**
@@ -75,7 +74,7 @@ public class LineUtilTest {
     @Test
     public void testDistance() throws Exception {
         double d = LineUtil.distance(p00, l1);
-        assertTrue(Util.equal(d, Math.sqrt(2) / 2.0, precision));
+        assertTrue(NumberUtil.equal(d, Math.sqrt(2) / 2.0));
         d = LineUtil.distance(p11, segment);
         assertEquals(d, 1.0);
     }
@@ -87,9 +86,9 @@ public class LineUtilTest {
      */
     @Test
     public void testOnLine() throws Exception {
-        assertTrue(LineUtil.onLine(p01, l1, precision));
-        assertTrue(LineUtil.onLine(p_10, l1, precision));
-        assertFalse(LineUtil.onLine(p00, l1, precision));
+        assertTrue(LineUtil.onLine(p01, l1, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p_10, l1, NumberUtil.MIN_VALUE));
+        assertFalse(LineUtil.onLine(p00, l1, NumberUtil.MIN_VALUE));
     }
 
     /**
@@ -108,8 +107,8 @@ public class LineUtilTest {
         assertEquals(line.getB(), _l1.getB());
         assertEquals(line.getC(), _l1.getC());
         line = LineUtil.verticalLine(p00, segment);
-        assertTrue(LineUtil.onLine(p01, line, precision));
-        assertTrue(LineUtil.onLine(p0_1, line, precision));
+        assertTrue(LineUtil.onLine(p01, line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p0_1, line, NumberUtil.MIN_VALUE));
     }
 
     /**
@@ -120,13 +119,13 @@ public class LineUtilTest {
     @Test
     public void testVerticalPoint() throws Exception {
         Point p = LineUtil.verticalPoint(p10, l1);
-        assertTrue(Util.coincide(p, p01));
+        assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.verticalPoint(p10, l1);
-        assertTrue(Util.coincide(p, p01));
+        assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.verticalPoint(p00, segment);
-        assertTrue(Util.coincide(p, p00));
+        assertTrue(PointUtil.coincide(p, p00));
         p = LineUtil.verticalPoint(p0_1, segment);
-        assertTrue(Util.coincide(p, p00));
+        assertTrue(PointUtil.coincide(p, p00));
     }
 
     /**
@@ -154,9 +153,9 @@ public class LineUtilTest {
     public void testGetLine() throws Exception {
         Line line = LineUtil.getLine(p01, p_10);
         double d = LineUtil.distance(p10, line);
-        assertTrue(Util.equal(d, Math.sqrt(2), precision));
+        assertTrue(NumberUtil.equal(d, Math.sqrt(2)));
         d = LineUtil.distance(p0_1, line);
-        assertTrue(Util.equal(d, Math.sqrt(2), precision));
+        assertTrue(NumberUtil.equal(d, Math.sqrt(2)));
     }
 
     /**
@@ -167,8 +166,8 @@ public class LineUtilTest {
     @Test
     public void testTranslation() throws Exception {
         Line line = LineUtil.translation(l1, 1, -1);
-        assertTrue(LineUtil.onLine(p10, line, precision));
-        assertTrue(LineUtil.onLine(p0_1, line, precision));
+        assertTrue(LineUtil.onLine(p10, line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p0_1, line, NumberUtil.MIN_VALUE));
     }
 
     /**
