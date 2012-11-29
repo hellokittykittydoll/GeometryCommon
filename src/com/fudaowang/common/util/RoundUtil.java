@@ -55,8 +55,11 @@ public class RoundUtil {
 
         double side = Math.sqrt(distance * distance + radius * radius);
         double angle = LineUtil.getAngle(la, lb, lc);
-        Point p1 = new Point(side * Math.cos(angle), side * Math.sin(angle));
-        Point p2 = new Point(side * Math.cos(angle + Math.PI), side * Math.sin(angle + Math.PI));
+
+        double x = side * Math.cos(angle);
+        double y = side * Math.cos(angle);
+        Point p1 = PointUtil.translation(vertex, x, y);
+        Point p2 = PointUtil.translation(vertex, -x, -y);
 
         return new Point[]{p1, p2};
     }
