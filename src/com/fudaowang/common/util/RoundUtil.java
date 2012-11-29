@@ -309,7 +309,11 @@ public class RoundUtil {
      */
     public static Point[] tangentPoint(double px, double py, double cx, double cy, double radius) {
         double distance = PointUtil.distance(px, py, cx, cy);
-        if (NumberUtil.isLessThan(distance, radius)) {
+        if (NumberUtil.equal(distance, radius)) {
+            return new Point[]{new Point(px, py)};
+        }
+
+        if (distance < radius) {
             return new Point[0];
         }
 
