@@ -20,7 +20,6 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class PointUtilTest {
-    private double precision;
     private Point p00;
     private Point p11;
     private Point p1010;
@@ -33,7 +32,6 @@ public class PointUtilTest {
 
     @Before
     public void setUp() throws Exception {
-        precision = NumberUtil.MIN_VALUE;
         p00 = new Point(0, 0);
         p11 = new Point(1, 1);
         p1010 = new Point(10, 10);
@@ -87,10 +85,10 @@ public class PointUtilTest {
         Point p3 = PointUtil.getMidPoint(1, 1, -1, -1);
         Point p4 = PointUtil.getMidPoint(10, -10, -10, 10);
 
-        assertTrue(PointUtil.coincide(p1, p2, precision));
-        assertTrue(PointUtil.coincide(p1, p3, precision));
-        assertTrue(PointUtil.coincide(p1, p4, precision));
-        assertTrue(PointUtil.coincide(p1, p00, precision));
+        assertTrue(PointUtil.coincide(p1, p2));
+        assertTrue(PointUtil.coincide(p1, p3));
+        assertTrue(PointUtil.coincide(p1, p4));
+        assertTrue(PointUtil.coincide(p1, p00));
     }
 
     /**
@@ -101,10 +99,10 @@ public class PointUtilTest {
     @Test
     public void testGetCenterSymmetricalPoint() throws Exception {
         Point p1 = PointUtil.getCenterSymmetricalPoint(p11, p00);
-        assertTrue(PointUtil.coincide(p1, p_1_1, precision));
+        assertTrue(PointUtil.coincide(p1, p_1_1));
 
         Point p2 = PointUtil.getCenterSymmetricalPoint(p1010, p00);
-        assertTrue(PointUtil.coincide(p2, p_10_10, precision));
+        assertTrue(PointUtil.coincide(p2, p_10_10));
     }
 
     /**
@@ -119,13 +117,13 @@ public class PointUtilTest {
         Line l3 = new Line(0, 1, 0);
 
         Point p1 = PointUtil.getAxialSymmetricalPoint(p1_1, l1);
-        assertTrue(PointUtil.coincide(p1, p_11, precision));
+        assertTrue(PointUtil.coincide(p1, p_11));
 
         Point p2 = PointUtil.getAxialSymmetricalPoint(p11, l2);
-        assertTrue(PointUtil.coincide(p2, p_11, precision));
+        assertTrue(PointUtil.coincide(p2, p_11));
 
         Point p3 = PointUtil.getAxialSymmetricalPoint(p11, l3);
-        assertTrue(PointUtil.coincide(p3, p1_1, precision));
+        assertTrue(PointUtil.coincide(p3, p1_1));
     }
 
     /**
@@ -149,13 +147,13 @@ public class PointUtilTest {
     @Test
     public void testRotate() throws Exception {
         Point p1 = PointUtil.rotate(p11, p00, Math.PI / 2.0);
-        assertTrue(PointUtil.coincide(p1, p_11, precision));
+        assertTrue(PointUtil.coincide(p1, p_11));
 
         Point p2 = PointUtil.rotate(p11, p00, Math.PI / -2.0);
-        assertTrue(PointUtil.coincide(p2, p1_1, precision));
+        assertTrue(PointUtil.coincide(p2, p1_1));
 
         Point p3 = PointUtil.rotate(p11, p00, Math.PI);
-        assertTrue(PointUtil.coincide(p3, p_1_1, precision));
+        assertTrue(PointUtil.coincide(p3, p_1_1));
     }
 
     /**
@@ -166,13 +164,13 @@ public class PointUtilTest {
     @Test
     public void testRotateAndStretch() throws Exception {
         Point p1 = PointUtil.rotateAndStretch(p11, p00, Math.PI / 2.0, 10);
-        assertTrue(PointUtil.coincide(p1, p_1010, precision));
+        assertTrue(PointUtil.coincide(p1, p_1010));
 
         Point p2 = PointUtil.rotateAndStretch(p11, p00, Math.PI / -2.0, 10);
-        assertTrue(PointUtil.coincide(p2, p10_10, precision));
+        assertTrue(PointUtil.coincide(p2, p10_10));
 
         Point p3 = PointUtil.rotateAndStretch(p11, p00, Math.PI, 10);
-        assertTrue(PointUtil.coincide(p3, p_10_10, precision));
+        assertTrue(PointUtil.coincide(p3, p_10_10));
     }
 
     /**
@@ -183,13 +181,13 @@ public class PointUtilTest {
     @Test
     public void testStretch() throws Exception {
         Point p1 = PointUtil.stretch(p11, p00, 10);
-        assertTrue(PointUtil.coincide(p1, p1010, precision));
+        assertTrue(PointUtil.coincide(p1, p1010));
 
         Point p2 = PointUtil.stretch(p_10_10, p00, 0.1);
-        assertTrue(PointUtil.coincide(p2, p_1_1, precision));
+        assertTrue(PointUtil.coincide(p2, p_1_1));
 
         Point p3 = PointUtil.stretch(p11, p00, -10);
-        assertTrue(PointUtil.coincide(p3, p_10_10, precision));
+        assertTrue(PointUtil.coincide(p3, p_10_10));
     }
 
     /**
