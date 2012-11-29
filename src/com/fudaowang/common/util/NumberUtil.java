@@ -101,6 +101,8 @@ public class NumberUtil {
      * @return 若给定的数值在范围之内, 则返回true
      */
     public static boolean valueInRange(double d1, double d2, double d) {
-        return d > Math.min(d1, d2) && d < Math.max(d1, d2);
+        double min = Math.min(d1, d2);
+        double max = Math.max(d1, d2);
+        return isLessThan(d, max) && isMoreThan(d, min);
     }
 }
