@@ -5,6 +5,7 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.util.HyperbolaUtil;
 import com.fudaowang.common.util.LineUtil;
+import com.fudaowang.common.util.NumberUtil;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
@@ -18,10 +19,10 @@ import static junit.framework.TestCase.*;
  * To change this template use File | Settings | File Templates.
  */
 public class HyperbolaUtilTest {
-    private double precision = 0.0001;
 
     /**
      * 测试双曲线与直线相交
+     *
      * @throws Exception
      */
     @Test
@@ -34,8 +35,12 @@ public class HyperbolaUtilTest {
 
         Point[] points = HyperbolaUtil.intersect(hyperbola, l1);
         assertEquals(2, points.length);
-        assertTrue(LineUtil.onLine(points[0], l1, precision));
-        assertTrue(LineUtil.onLine(points[1], l1, precision));
+        assertTrue(LineUtil.onLine(points[0], l1, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(points[1], l1, NumberUtil.MIN_VALUE));
+        assertEquals(points[0].getX(), 1.0);
+        assertEquals(points[0].getY(), 1.0);
+        assertEquals(points[1].getX(), -1.0);
+        assertEquals(points[1].getY(), -1.0);
 
         points = HyperbolaUtil.intersect(hyperbola, l2);
         assertEquals(0, points.length);
