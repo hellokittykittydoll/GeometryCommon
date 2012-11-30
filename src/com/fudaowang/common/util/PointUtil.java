@@ -189,7 +189,7 @@ public class PointUtil {
      */
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
         if (coincide(px, py, cx, cy)) {
-            return null;
+            return new Point(px, py);
         }
 
         double p = distance(px, py, cx, cy) * ratio;
