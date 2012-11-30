@@ -887,8 +887,9 @@ public class LineUtil {
      */
     public static Line rotate(double a, double b, double c, double x, double y, double angle) {
         Point vertex = LineUtil.verticalPoint(x, y, a, b, c);
+        vertex = PointUtil.rotate(vertex.getX(), vertex.getY(), x, y, angle);
         double lineAngle = getAngle(a, b, c);
-        return getLine(vertex, lineAngle + angle);
+        return getLine(vertex, lineAngle + angle - Math.PI);
     }
 
     /**
