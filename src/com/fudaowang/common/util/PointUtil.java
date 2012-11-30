@@ -146,7 +146,7 @@ public class PointUtil {
     }
 
     /**
-     * 将点(px,py)以点(cx,cy)为中心,旋转angle角度
+     * 将点(px,py)以点(cx,cy)为中心,逆时针旋转angle角度
      *
      * @param px    给定点的横坐标
      * @param py    给定点的纵坐标
@@ -160,7 +160,7 @@ public class PointUtil {
     }
 
     /**
-     * 将point以center为中心,旋转angle角度,并将距离拉伸为ratio倍后的坐标值
+     * 将point以center为中心,逆时针旋转angle角度,并将距离拉伸为ratio倍后的坐标值
      *
      * @param point  给定的点
      * @param center 给定的中心点
@@ -176,6 +176,17 @@ public class PointUtil {
         return rotateAndStretch(point.getX(), point.getY(), center.getX(), center.getY(), angle, ratio);
     }
 
+    /**
+     * 将点(px,py)以点(cx,cy)为中心,逆时针旋转angle角度,并将两点之间的距离拉伸到ratio倍
+     *
+     * @param px    给定点的横坐标
+     * @param py    给定点的纵坐标
+     * @param cx    中心点的横坐标
+     * @param cy    中心点的纵坐标
+     * @param angle 旋转的角度
+     * @param ratio 拉伸的倍数
+     * @return 经过旋转和拉伸后得到的点
+     */
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
         if (coincide(px, py, cx, cy)) {
             return null;
