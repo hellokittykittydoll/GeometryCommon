@@ -4,7 +4,6 @@ import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 
-
 /**
  * 对直线和线段进行操作的类
  * Created with IntelliJ IDEA.
@@ -600,6 +599,39 @@ public class LineUtil {
     }
 
     /**
+     * 根据给定的点和直线倾角来构造直线
+     *
+     * @param point 给定的点
+     * @param angle 直线的倾角
+     * @return 直线
+     */
+    public static Line getLine(Point point, double angle) {
+        if (point == null) {
+            return null;
+        }
+        return getLine(point.getX(), point.getY(), angle);
+    }
+
+    /**
+     * 求过点(x,y)并且倾角为angle的直线方程
+     *
+     * @param x     点的横坐标
+     * @param y     点的纵坐标
+     * @param angle 直线的倾角
+     * @return 直线
+     */
+    public static Line getLine(double x, double y, double angle) {
+        if (NumberUtil.equal(Math.abs(angle), Math.PI / 2)) {
+            return new Line(1, 0, -x);
+        }
+        double k = Math.tan(angle);
+        if (NumberUtil.isZero(k)) {
+            return new Line(0, 1, -y);
+        }
+        return new Line(k, -1, y - k * x);
+    }
+
+    /**
      * 将直线沿横坐标正方向平移x,沿纵坐标正方向平移y
      *
      * @param line 直线
@@ -776,5 +808,146 @@ public class LineUtil {
      */
     public static boolean linesIntersect(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
         return java.awt.geom.Line2D.linesIntersect(x1, y1, x2, y2, x3, y3, x4, y4);
+    }
+
+    /**
+     * 将线段按照给定的中心点,逆时针旋转一个角度
+     *
+     * @param segment 给定的直线
+     * @param center  旋转的中心点
+     * @param angle   旋转的角度
+     * @return 旋转后的线段
+     */
+    public static Segment rotate(Segment segment, Point center, double angle) {
+        if (segment == null || center == null) {
+            return null;
+        }
+        return rotate(segment.getP1(), segment.getP2(), center, angle);
+    }
+
+    /**
+     * 将线段(p1,p2)按照给定的中心点,逆时针旋转一个角度
+     *
+     * @param p1     线段的第一个端点
+     * @param p2     线段的第二个端点
+     * @param center 旋转的中心点
+     * @param angle  旋转的角度
+     * @return 旋转后的线段
+     */
+    public static Segment rotate(Point p1, Point p2, Point center, double angle) {
+        if (p1 == null || p2 == null || center == null) {
+            return null;
+        }
+        return rotate(p1.getX(), p1.getY(), p2.getX(), p2.getY(), center.getX(), center.getY(), angle);
+    }
+
+    /**
+     * 将由点(x1,y1)和点(x2,y2)构成的线段,按照点(cx,cy)逆时针旋转angle角度
+     *
+     * @param x1    线段一的第一个端点的横坐标
+     * @param y1    线段一的第二个端点的纵坐标
+     * @param x2    线段二的第一个端点的横坐标
+     * @param y2    线段二的第二个端点的纵坐标
+     * @param cx    旋转的中心点的横坐标
+     * @param cy    旋转的中心点的纵坐标
+     * @param angle 旋转的角度
+     * @return 旋转后的线段
+     */
+    public static Segment rotate(double x1, double y1, double x2, double y2, double cx, double cy, double angle) {
+        Point p1 = PointUtil.rotate(x1, y1, cx, cy, angle);
+        Point p2 = PointUtil.rotate(x2, y2, cx, cy, angle);
+        return new Segment(p1, p2);
+    }
+
+    /**
+     * 将直线按照中心点逆时针旋转一个角度
+     *
+     * @param line   给定的直线
+     * @param center 旋转的中心点
+     * @param angle  旋转的角度
+     * @return 旋转后的直线
+     */
+    public static Line rotate(Line line, Point center, double angle) {
+        if (line == null || center == null) {
+            return null;
+        }
+        return rotate(line.getA(), line.getB(), line.getC(), center.getX(), center.getY(), angle);
+    }
+
+    /**
+     * 将直线ax+by+c=0按照点(x,y)为中心,逆时针旋转angle角度
+     *
+     * @param a     直线的系数a
+     * @param b     直线的系数b
+     * @param c     直线的系数c
+     * @param x     中心点的横坐标
+     * @param y     中心点的纵坐标
+     * @param angle 旋转的角度
+     * @return 旋转后的直线
+     */
+    public static Line rotate(double a, double b, double c, double x, double y, double angle) {
+        Point vertex = LineUtil.verticalPoint(x, y, a, b, c);
+        double lineAngle = getAngle(a, b, c);
+        return getLine(vertex, lineAngle + angle);
+    }
+
+    /**
+     * 根据给定的y值,求直线的x值
+     *
+     * @param line 直线
+     * @param y    y值
+     * @return x值
+     */
+    public static double getX(Line line, double y) {
+        if (line == null) {
+            return Double.NaN;
+        }
+        return getX(line.getA(), line.getB(), line.getC(), y);
+    }
+
+    /**
+     * 根据给定的y值,求直线的x值
+     *
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @param c 直线的系数c
+     * @param y y值
+     * @return x值
+     */
+    public static double getX(double a, double b, double c, double y) {
+        if (NumberUtil.isZero(a) || NumberUtil.isZero(b)) {
+            return Double.NaN;
+        }
+        return (-c - b * y) / a;
+    }
+
+    /**
+     * 根据给定的x值,求直线的y值
+     *
+     * @param line 直线
+     * @param x    x值
+     * @return y值
+     */
+    public static double getY(Line line, double x) {
+        if (line == null) {
+            return Double.NaN;
+        }
+        return getY(line.getA(), line.getB(), line.getC(), x);
+    }
+
+    /**
+     * 根据给定的x值,求直线的y值
+     *
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @param c 直线的系数c
+     * @param x x值
+     * @return y值
+     */
+    public static double getY(double a, double b, double c, double x) {
+        if (NumberUtil.isZero(a) || NumberUtil.isZero(b)) {
+            return Double.NaN;
+        }
+        return (-c - a * x) / b;
     }
 }
