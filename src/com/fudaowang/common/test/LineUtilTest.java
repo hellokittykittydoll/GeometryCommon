@@ -156,6 +156,18 @@ public class LineUtilTest {
         assertTrue(NumberUtil.equal(d, Math.sqrt(2)));
         d = LineUtil.distance(p0_1, line);
         assertTrue(NumberUtil.equal(d, Math.sqrt(2)));
+
+        line = LineUtil.getLine(p10, Math.PI / 4);
+        assertTrue(LineUtil.onLine(p10, line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p0_1, line, NumberUtil.MIN_VALUE));
+
+        line = LineUtil.getLine(p10, Math.PI / 2);
+        assertTrue(LineUtil.onLine(p10, line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p11, line, NumberUtil.MIN_VALUE));
+
+        line = LineUtil.getLine(p00, Math.PI);
+        assertTrue(LineUtil.onLine(p10, line, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p_10, line, NumberUtil.MIN_VALUE));
     }
 
     /**
@@ -216,5 +228,95 @@ public class LineUtilTest {
         s1 = new Segment(0, -1, 0, 1);
         s2 = new Segment(-1, 0, 1, 0);
         assertTrue(LineUtil.linesIntersect(s1, s2));
+    }
+
+    /**
+     * 测试线段的旋转
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testRotateSegment() throws Exception {
+        Segment s1 = new Segment(p_10, p01);
+        Segment s2 = LineUtil.rotate(s1, p00, Math.PI / 2);
+        assertTrue(PointUtil.coincide(s2.getP1(), p0_1));
+        assertTrue(PointUtil.coincide(s2.getP2(), p_10));
+
+        s2 = LineUtil.rotate(s1, p00, Math.PI);
+        assertTrue(PointUtil.coincide(s2.getP1(), p10));
+        assertTrue(PointUtil.coincide(s2.getP2(), p0_1));
+
+        s2 = LineUtil.rotate(s1, p01, Math.PI / 2);
+        assertTrue(PointUtil.coincide(s2.getP1(), p10));
+        assertTrue(PointUtil.coincide(s2.getP2(), p01));
+
+        s2 = LineUtil.rotate(s1, new Point(100, 99), Math.PI * 2);
+        assertTrue(PointUtil.coincide(s2.getP1(), s1.getP1()));
+        assertTrue(PointUtil.coincide(s2.getP2(), s1.getP2()));
+    }
+
+    /**
+     * 测试直线的旋转
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testRotateLine() throws Exception {
+        Line line = new Line(1, -1, 1); //y=x+1
+
+        Line l = LineUtil.rotate(line, p00, Math.PI / 2); //y=-x-1
+        assertTrue(LineUtil.onLine(p_10, l, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p0_1, l, NumberUtil.MIN_VALUE));
+
+        l = LineUtil.rotate(line, p00, Math.PI); //y=x-1
+        assertTrue(LineUtil.onLine(p10, l, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p0_1, l, NumberUtil.MIN_VALUE));
+
+        l = LineUtil.rotate(line, p01, Math.PI / 2); //y=-x+1
+        assertTrue(LineUtil.onLine(p01, l, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(p10, l, NumberUtil.MIN_VALUE));
+
+        l = LineUtil.rotate(line, p10, Math.PI / 4);
+        double d = -Math.sqrt(2) + 1;
+        assertTrue(LineUtil.onLine(new Point(d, 100), l, NumberUtil.MIN_VALUE));
+        assertTrue(LineUtil.onLine(new Point(d, -0.5), l, NumberUtil.MIN_VALUE));
+    }
+
+    /**
+     * 测试获取x值
+     * @throws Exception
+     */
+    @Test
+    public void testGetX() throws Exception {
+        Line line = new Line(3, -7, 6);
+        double x = LineUtil.getX(line, 9.0 / 7.0);
+        assertEquals(x, 1, NumberUtil.MIN_VALUE);
+
+        line = new Line(0, 1, 1);
+        x = LineUtil.getX(line, 5);
+        assertEquals(x, Double.NaN);
+
+        line = new Line(1, 0, 1);
+        x = LineUtil.getX(line, 5);
+        assertEquals(x, Double.NaN);
+    }
+
+    /**
+     * 测试获取y值
+     * @throws Exception
+     */
+    @Test
+    public void testGetY() throws Exception {
+        Line line = new Line(3, -7, 6);
+        double x = LineUtil.getX(line, 9.0 / 7.0);
+        assertEquals(x, 1, NumberUtil.MIN_VALUE);
+
+        line = new Line(0, 1, 1);
+        x = LineUtil.getX(line, 5);
+        assertEquals(x, Double.NaN);
+
+        line = new Line(1, 0, 1);
+        x = LineUtil.getX(line, 5);
+        assertEquals(x, Double.NaN);
     }
 }
