@@ -140,4 +140,57 @@ public class TriangleUtil {
     public static boolean inTriangle(double x, double y, double x1, double y1, double x2, double y2, double x3, double y3) {
         return inTriangle(new Point(x, y), new Point(x1, y1), new Point(x2, y2), new Point(x3, y3));
     }
+
+    /**
+     * 将三角形以center为中心,逆时针旋转angle角度
+     *
+     * @param triangle 给定的三角形
+     * @param center   旋转的中心点
+     * @param angle    逆时针旋转的角度
+     * @return 旋转后的三角形
+     */
+    public static Triangle rotate(Triangle triangle, Point center, double angle) {
+        if (triangle == null) {
+            return null;
+        }
+        return rotate(triangle.getP1(), triangle.getP2(), triangle.getP3(), center, angle);
+    }
+
+    /**
+     * 将三角形(p1,p2,p3)以center为中心,逆时针旋转angle角度
+     *
+     * @param p1     三角形的第一个点
+     * @param p2     三角形的第二个点
+     * @param p3     三角形的第三个点
+     * @param center 旋转的中心
+     * @param angle  逆时针旋转的角度
+     * @return 旋转后的三角形
+     */
+    public static Triangle rotate(Point p1, Point p2, Point p3, Point center, double angle) {
+        if (p1 == null || p2 == null || p3 == null) {
+            return null;
+        }
+        return rotate(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY(), center.getX(), center.getY(), angle);
+    }
+
+    /**
+     * 将由点(x1,y1),点(x2,y2)和点(x3,y3)构成的三角形,以点(cx,cy)为中心,逆时针旋转angle角度
+     *
+     * @param x1    三角形第一个点的横坐标
+     * @param y1    三角形第一个点的纵坐标
+     * @param x2    三角形第二个点的横坐标
+     * @param y2    三角形第二个点的纵坐标
+     * @param x3    三角形第三个点的横坐标
+     * @param y3    三角形第三个点的纵坐标
+     * @param cx    旋转中心点的横坐标
+     * @param cy    旋转中心点的纵坐标
+     * @param angle 旋转的角度
+     * @return 旋转后的三角形
+     */
+    public static Triangle rotate(double x1, double y1, double x2, double y2, double x3, double y3, double cx, double cy, double angle) {
+        Point p1 = PointUtil.rotate(x1, y1, cx, cy, angle);
+        Point p2 = PointUtil.rotate(x2, y2, cx, cy, angle);
+        Point p3 = PointUtil.rotate(x3, y3, cx, cy, angle);
+        return new Triangle(p1, p2, p3);
+    }
 }
