@@ -245,4 +245,55 @@ public class TriangleUtil {
         Point p3 = PointUtil.getAxialSymmetry(x3, y3, a, b, c);
         return new Triangle(p1, p2, p3);
     }
+
+    /**
+     * 求三角形相对于线段的轴对称图形
+     *
+     * @param triangle 三角形
+     * @param axis     对称轴
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(Triangle triangle, Segment axis) {
+        if (triangle == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(triangle.getP1(), triangle.getP2(), triangle.getP3(), axis.getP1(), axis.getP2());
+    }
+
+    /**
+     * 求三角形(p1,p2,p3)相对于线段(ap1,ap2)的轴对称图形
+     *
+     * @param p1  三角形的第一个点
+     * @param p2  三角形的第二个点
+     * @param p3  三角形的第三个点
+     * @param ap1 对称轴线段的第一个点
+     * @param ap2 对称轴线段的第二个点
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(Point p1, Point p2, Point p3, Point ap1, Point ap2) {
+        if (p1 == null || p2 == null || p3 == null || ap1 == null || ap2 == null) {
+            return null;
+        }
+        return getAxialSymmetry(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY(), ap1.getX(), ap1.getY(), ap2.getX(), ap2.getY());
+    }
+
+    /**
+     * 求由点(x1,y1),点(x2,y2)和点(x3,y3)构成的三角形,相对于由点(ax1,ay1)和点(ax2,ay2)构成的线段的轴对称图形
+     *
+     * @param x1  三角形的第一个点的横坐标
+     * @param y1  三角形的第一个点的纵坐标
+     * @param x2  三角形的第二个点的横坐标
+     * @param y2  三角形的第二个点的纵坐标
+     * @param x3  三角形的第三个点的横坐标
+     * @param y3  三角形的第三个点的纵坐标
+     * @param ax1 对称轴线段的第一个点的横坐标
+     * @param ay1 对称轴线段的第一个点的纵坐标
+     * @param ax2 对称轴线段的第二个点的横坐标
+     * @param ay2 对称轴线段的第二个点的纵坐标
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(double x1, double y1, double x2, double y2, double x3, double y3, double ax1, double ay1, double ax2, double ay2) {
+        Line line = LineUtil.getLine(ax1, ay1, ax2, ay2);
+        return getAxialSymmetry(x1, y1, x2, y2, x3, y3, line.getA(), line.getB(), line.getC());
+    }
 }
