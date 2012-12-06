@@ -2,6 +2,7 @@ package com.fudaowang.common.test;
 
 import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
+import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.graph.Triangle;
 import com.fudaowang.common.util.PointUtil;
 import com.fudaowang.common.util.TriangleUtil;
@@ -73,6 +74,12 @@ public class TriangleUtilTest {
     public void testGetAxialSymmetry() throws Exception {
         Line line = new Line(1, -1, 0);
         Triangle tri = TriangleUtil.getAxialSymmetry(triangle, line);
+        assertTrue(PointUtil.coincide(tri.getP1(), new Point(1, 0)));
+        assertTrue(PointUtil.coincide(tri.getP2(), new Point(-1, -1)));
+        assertTrue(PointUtil.coincide(tri.getP3(), new Point(-1, 1)));
+
+        Segment segment = new Segment(-1, -1, 1, 1);
+        tri = TriangleUtil.getAxialSymmetry(triangle, segment);
         assertTrue(PointUtil.coincide(tri.getP1(), new Point(1, 0)));
         assertTrue(PointUtil.coincide(tri.getP2(), new Point(-1, -1)));
         assertTrue(PointUtil.coincide(tri.getP3(), new Point(-1, 1)));

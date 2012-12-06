@@ -334,5 +334,10 @@ public class LineUtilTest {
         Segment s2 = LineUtil.getAxialSymmetry(s1, line);
         assertTrue(PointUtil.coincide(s2.getP1(), new Point(1, -2)));
         assertTrue(PointUtil.coincide(s2.getP2(), new Point(1, -1)));
+
+        Segment s3 = new Segment(-1, -1, 1, 1);
+        s2 = LineUtil.getAxialSymmetry(s1, s3);
+        assertTrue(PointUtil.coincide(s2.getP1(), new Point(1, -2)));
+        assertTrue(PointUtil.coincide(s2.getP2(), new Point(1, -1)));
     }
 }

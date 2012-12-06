@@ -2,6 +2,7 @@ package com.fudaowang.common.test;
 
 import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
+import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.util.NumberUtil;
 import com.fudaowang.common.util.PointUtil;
 
@@ -123,6 +124,19 @@ public class PointUtilTest {
         assertTrue(PointUtil.coincide(p2, p_11));
 
         Point p3 = PointUtil.getAxialSymmetry(p11, l3);
+        assertTrue(PointUtil.coincide(p3, p1_1));
+
+        Segment s1 = new Segment(p_1_1, p11);
+        Segment s2 = new Segment(0, 1, 0, -1);
+        Segment s3 = new Segment(-1, 0, 1, 0);
+
+        p1 = PointUtil.getAxialSymmetry(p1_1, s1);
+        assertTrue(PointUtil.coincide(p1, p_11));
+
+        p2 = PointUtil.getAxialSymmetry(p11, s2);
+        assertTrue(PointUtil.coincide(p2, p_11));
+
+        p3 = PointUtil.getAxialSymmetry(p11, s3);
         assertTrue(PointUtil.coincide(p3, p1_1));
     }
 
