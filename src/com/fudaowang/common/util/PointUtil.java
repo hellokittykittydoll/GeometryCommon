@@ -3,6 +3,7 @@ package com.fudaowang.common.util;
 import com.fudaowang.common.graph.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -400,5 +401,22 @@ public class PointUtil {
         List list = toList(points);
         CollectionUtils.filter(list, predicate);
         return toArray(list);
+    }
+
+    /**
+     * 根据给定的方法对点的数组进行变换
+     *
+     * @param points      点的数组
+     * @param transformer 给定的操作方法
+     * @return 变换后的点数组
+     */
+    public static Point[] collect(Point[] points, Transformer transformer) {
+        if (points == null || transformer == null) {
+            return points;
+        }
+
+        List list = toList(points);
+        Collection collection = CollectionUtils.collect(list, transformer);
+        return toArray(collection);
     }
 }
