@@ -98,10 +98,10 @@ public class PointUtilTest {
      */
     @Test
     public void testGetCenterSymmetricalPoint() throws Exception {
-        Point p1 = PointUtil.getCenterSymmetricalPoint(p11, p00);
+        Point p1 = PointUtil.getCentralSymmetry(p11, p00);
         assertTrue(PointUtil.coincide(p1, p_1_1));
 
-        Point p2 = PointUtil.getCenterSymmetricalPoint(p1010, p00);
+        Point p2 = PointUtil.getCentralSymmetry(p1010, p00);
         assertTrue(PointUtil.coincide(p2, p_10_10));
     }
 
@@ -116,13 +116,13 @@ public class PointUtilTest {
         Line l2 = new Line(1, 0, 0);
         Line l3 = new Line(0, 1, 0);
 
-        Point p1 = PointUtil.getAxialSymmetricalPoint(p1_1, l1);
+        Point p1 = PointUtil.getAxialSymmetry(p1_1, l1);
         assertTrue(PointUtil.coincide(p1, p_11));
 
-        Point p2 = PointUtil.getAxialSymmetricalPoint(p11, l2);
+        Point p2 = PointUtil.getAxialSymmetry(p11, l2);
         assertTrue(PointUtil.coincide(p2, p_11));
 
-        Point p3 = PointUtil.getAxialSymmetricalPoint(p11, l3);
+        Point p3 = PointUtil.getAxialSymmetry(p11, l3);
         assertTrue(PointUtil.coincide(p3, p1_1));
     }
 

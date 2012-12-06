@@ -81,12 +81,12 @@ public class PointUtil {
      * @param center 中心点
      * @return 给定点相对于中心点的中心对称点
      */
-    public static Point getCenterSymmetricalPoint(Point point, Point center) {
+    public static Point getCentralSymmetry(Point point, Point center) {
         if (point == null || center == null) {
             return null;
         }
 
-        return getCenterSymmetricalPoint(point.getX(), point.getY(), center.getX(), center.getY());
+        return getCentralSymmetry(point.getX(), point.getY(), center.getX(), center.getY());
     }
 
     /**
@@ -98,7 +98,7 @@ public class PointUtil {
      * @param cy 中心点的纵坐标
      * @return 给定点相对于中心点的中心对称点
      */
-    public static Point getCenterSymmetricalPoint(double px, double py, double cx, double cy) {
+    public static Point getCentralSymmetry(double px, double py, double cx, double cy) {
         double x = 2 * cx - px;
         double y = 2 * cy - py;
         return new Point(x, y);
@@ -111,11 +111,11 @@ public class PointUtil {
      * @param line  直线
      * @return 轴对称点
      */
-    public static Point getAxialSymmetricalPoint(Point point, Line line) {
+    public static Point getAxialSymmetry(Point point, Line line) {
         if (point == null || line == null) {
             return null;
         }
-        return getAxialSymmetricalPoint(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
+        return getAxialSymmetry(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
     }
 
     /**
@@ -128,9 +128,9 @@ public class PointUtil {
      * @param c 直线的系数c
      * @return 轴对称点
      */
-    public static Point getAxialSymmetricalPoint(double x, double y, double a, double b, double c) {
+    public static Point getAxialSymmetry(double x, double y, double a, double b, double c) {
         Point point = LineUtil.verticalPoint(x, y, a, b, c);
-        return getCenterSymmetricalPoint(x, y, point.getX(), point.getY());
+        return getCentralSymmetry(x, y, point.getX(), point.getY());
     }
 
     /**
