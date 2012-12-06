@@ -1,6 +1,9 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.PointUtil;
+
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * 表示多边形的类
@@ -26,6 +29,21 @@ public class Polygon {
             throw new IllegalArgumentException("多边形点的个数必须大于2");
         }
         this.points = points;
+    }
+
+    /**
+     * 利用已知点集合来构造多边形,点的数量不能小于3
+     *
+     * @param collection 点的集合
+     */
+    public Polygon(Collection collection) {
+        points = PointUtil.toArray(collection);
+        if (points == null) {
+            throw new NullPointerException("多边形点集不能为空");
+        }
+        if (points.length > 3) {
+            throw new IllegalArgumentException("多边形点的个数必须大于2");
+        }
     }
 
     /**
