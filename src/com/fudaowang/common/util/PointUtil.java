@@ -5,6 +5,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -366,24 +367,22 @@ public class PointUtil {
         if (points == null) {
             return list;
         }
-        for (int i = 0; i < points.length; i++) {
-            list.add(points[i]);
-        }
+        CollectionUtils.addAll(list, points);
         return list;
     }
 
     /**
      * 将Point的list转化为数组
      *
-     * @param list Point的list
+     * @param collection 点集合
      * @return Point的数组
      */
-    public static Point[] toArray(List list) {
-        if (list == null) {
+    public static Point[] toArray(Collection collection) {
+        if (collection == null) {
             return new Point[0];
         }
 
-        return (Point[]) list.toArray(new Point[list.size()]);
+        return (Point[]) collection.toArray(new Point[collection.size()]);
     }
 
     /**
