@@ -1,5 +1,6 @@
 package com.fudaowang.common.graph;
 
+import com.fudaowang.common.util.NumberUtil;
 import com.fudaowang.common.util.PointUtil;
 
 /**
@@ -33,6 +34,25 @@ public class Triangle {
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
+    }
+
+    /**
+     * 利用三个点的坐标来构造三角形
+     *
+     * @param x1 三角形的第一个点的横坐标
+     * @param y1 三角形的第一个点的纵坐标
+     * @param x2 三角形的第二个点的横坐标
+     * @param y2 三角形的第二个点的纵坐标
+     * @param x3 三角形的第三个点的横坐标
+     * @param y3 三角形的第三个点的纵坐标
+     */
+    public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
+        if (PointUtil.coincide(x1, y1, x2, y2) || PointUtil.coincide(x1, y1, x3, y3) || PointUtil.coincide(x2, y2, x3, y3)) {
+            throw new IllegalArgumentException("三角形的端点重合");
+        }
+        p1 = new Point(x1, y1);
+        p2 = new Point(x2, y2);
+        p3 = new Point(x3, y3);
     }
 
     /**
