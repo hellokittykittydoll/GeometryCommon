@@ -998,4 +998,52 @@ public class LineUtil {
         Point p2 = PointUtil.getAxialSymmetry(x2, y2, a, b, c);
         return new Segment(p1, p2);
     }
+
+    /**
+     * 求线段相对于对称轴线段的轴对称图形
+     *
+     * @param segment 线段
+     * @param axis    对称轴线段
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(Segment segment, Segment axis) {
+        if (segment == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(segment.getP1(), segment.getP2(), axis.getP1(), axis.getP2());
+    }
+
+    /**
+     * 求线段(p1,p2)相对于对称轴(ap1,ap2)的轴对称线段
+     *
+     * @param p1  线段的第一个点
+     * @param p2  线段的第二个点
+     * @param ap1 轴对称线段的第一个点
+     * @param ap2 轴对称线段的第二个点
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(Point p1, Point p2, Point ap1, Point ap2) {
+        if (p1 == null || p2 == null || ap1 == null || ap2 == null) {
+            return null;
+        }
+        return getAxialSymmetry(p1.getX(), p1.getY(), p2.getX(), p2.getY(), ap1.getX(), ap1.getY(), ap2.getX(), ap2.getY());
+    }
+
+    /**
+     * 求由点(x1,y1)和点(x2,y2)构成的线段,相对于由点(ax1,ay1)和点(ax2,ay2)构成的对称轴的轴对称线段
+     *
+     * @param x1  线段的第一个点的横坐标
+     * @param y1  线段的第一个点的纵坐标
+     * @param x2  线段的第二个点的横坐标
+     * @param y2  线段的第二个点的纵坐标
+     * @param ax1 对称轴线段的第一个点的横坐标
+     * @param ay1 对称轴线段的第一个点的纵坐标
+     * @param ax2 对称轴线段的第二个点的横坐标
+     * @param ay2 对称轴线段的第二个点的纵坐标
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(double x1, double y1, double x2, double y2, double ax1, double ay1, double ax2, double ay2) {
+        Line line = LineUtil.getLine(ax1, ay1, ax2, ay2);
+        return getAxialSymmetry(x1, y1, x2, y2, line.getA(), line.getB(), line.getC());
+    }
 }
