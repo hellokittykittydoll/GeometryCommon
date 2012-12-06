@@ -108,14 +108,59 @@ public class PointUtil {
      * 求点相对于直线的轴对称点
      *
      * @param point 点
-     * @param line  直线
+     * @param axis  直线
      * @return 轴对称点
      */
-    public static Point getAxialSymmetry(Point point, Line line) {
-        if (point == null || line == null) {
+    public static Point getAxialSymmetry(Point point, Line axis) {
+        if (point == null || axis == null) {
             return null;
         }
-        return getAxialSymmetry(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
+        return getAxialSymmetry(point.getX(), point.getY(), axis.getA(), axis.getB(), axis.getC());
+    }
+
+    /**
+     * 求点相对于线段的轴对称点
+     *
+     * @param point 点
+     * @param axis  对称轴
+     * @return 轴对称点
+     */
+    public static Point getAxialSymmetry(Point point, Segment axis) {
+        if (point == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(point, axis.getP1(), axis.getP2());
+    }
+
+    /**
+     * 求点相对于线段(p1,p2)的轴对称点
+     *
+     * @param point 点
+     * @param p1    对称轴线段的第一个点
+     * @param p2    对称轴线段的第二个点
+     * @return 轴对称点
+     */
+    public static Point getAxialSymmetry(Point point, Point p1, Point p2) {
+        if (point == null || p1 == null || p2 == null) {
+            return null;
+        }
+        return getAxialSymmetry(point.getX(), point.getY(), p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
+
+    /**
+     * 求点(x,y)相对于由点(x1,y1)和点(x2,y2)构成的线段的轴对称点
+     *
+     * @param x  对称轴线段的第一个点的横坐标
+     * @param y  对称轴线段的第一个点的纵坐标
+     * @param x1 对称轴线段的第二个点的横坐标
+     * @param y1 对称轴线段的第二个点的纵坐标
+     * @param x2 对称轴线段的第三个点的横坐标
+     * @param y2 对称轴线段的第三个点的纵坐标
+     * @return 轴对称点
+     */
+    public static Point getAxialSymmetry(double x, double y, double x1, double y1, double x2, double y2) {
+        Line line = LineUtil.getLine(x1, y1, x2, y2);
+        return getAxialSymmetry(x, y, line.getA(), line.getB(), line.getC());
     }
 
     /**
