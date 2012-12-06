@@ -1,5 +1,6 @@
 package com.fudaowang.common.util;
 
+import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import com.fudaowang.common.graph.Triangle;
@@ -191,6 +192,57 @@ public class TriangleUtil {
         Point p1 = PointUtil.rotate(x1, y1, cx, cy, angle);
         Point p2 = PointUtil.rotate(x2, y2, cx, cy, angle);
         Point p3 = PointUtil.rotate(x3, y3, cx, cy, angle);
+        return new Triangle(p1, p2, p3);
+    }
+
+    /**
+     * 获得三角形的轴对称图形
+     *
+     * @param triangle 三角形
+     * @param axis     对称轴
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(Triangle triangle, Line axis) {
+        if (triangle == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(triangle.getP1(), triangle.getP2(), triangle.getP3(), axis);
+    }
+
+    /**
+     * 获得三角形(p1,p2,p3)的轴对称图形
+     *
+     * @param p1   三角形的第一个点
+     * @param p2   三角形的第二个点
+     * @param p3   三角形的第三个点
+     * @param axis 对称轴
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(Point p1, Point p2, Point p3, Line axis) {
+        if (p1 == null || p2 == null || p3 == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY(), axis.getA(), axis.getB(), axis.getC());
+    }
+
+    /**
+     * 获得由点(x1,y1),点(x2,y2)和点(x3,y3)构成的三角形,以直线ax+by+c=0为对称轴的轴对称图形
+     *
+     * @param x1 三角形的第一个点的横坐标
+     * @param y1 三角形的第一个点的纵坐标
+     * @param x2 三角形的第二个点的横坐标
+     * @param y2 三角形的第二个点的纵坐标
+     * @param x3 三角形的第三个点的横坐标
+     * @param y3 三角形的第三个点的纵坐标
+     * @param a  直线的系数a
+     * @param b  直线的系数b
+     * @param c  直线的系数c
+     * @return 轴对称三角形
+     */
+    public static Triangle getAxialSymmetry(double x1, double y1, double x2, double y2, double x3, double y3, double a, double b, double c) {
+        Point p1 = PointUtil.getAxialSymmetry(x1, y1, a, b, c);
+        Point p2 = PointUtil.getAxialSymmetry(x2, y2, a, b, c);
+        Point p3 = PointUtil.getAxialSymmetry(x3, y3, a, b, c);
         return new Triangle(p1, p2, p3);
     }
 }
