@@ -951,4 +951,51 @@ public class LineUtil {
         }
         return (-c - a * x) / b;
     }
+
+    /**
+     * 获得线段相对于对称轴的轴对称线段
+     *
+     * @param segment 线段
+     * @param axis    对称轴
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(Segment segment, Line axis) {
+        if (segment == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(segment.getP1(), segment.getP2(), axis);
+    }
+
+    /**
+     * 获得线段(p1,p2)相对于对称轴的轴对称线段
+     *
+     * @param p1   线段的第一个端点
+     * @param p2   线段的第二个端点
+     * @param axis 对称轴
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(Point p1, Point p2, Line axis) {
+        if (p1 == null || p2 == null || axis == null) {
+            return null;
+        }
+        return getAxialSymmetry(p1.getX(), p1.getY(), p2.getX(), p2.getY(), axis.getA(), axis.getB(), axis.getC());
+    }
+
+    /**
+     * 获得由点(x1,y1)和点(x2,y2)构成的线段,以直线ax+by+c=0为对称轴的轴对称线段
+     *
+     * @param x1 线段的第一个点的横坐标
+     * @param y1 线段的第一个点的纵坐标
+     * @param x2 线段的第二个点的横坐标
+     * @param y2 线段的第二个点的纵坐标
+     * @param a  直线的系数a
+     * @param b  直线的系数b
+     * @param c  直线的系数c
+     * @return 轴对称线段
+     */
+    public static Segment getAxialSymmetry(double x1, double y1, double x2, double y2, double a, double b, double c) {
+        Point p1 = PointUtil.getAxialSymmetry(x1, y1, a, b, c);
+        Point p2 = PointUtil.getAxialSymmetry(x2, y2, a, b, c);
+        return new Segment(p1, p2);
+    }
 }

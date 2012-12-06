@@ -284,6 +284,7 @@ public class LineUtilTest {
 
     /**
      * 测试获取x值
+     *
      * @throws Exception
      */
     @Test
@@ -303,6 +304,7 @@ public class LineUtilTest {
 
     /**
      * 测试获取y值
+     *
      * @throws Exception
      */
     @Test
@@ -318,5 +320,19 @@ public class LineUtilTest {
         line = new Line(1, 0, 1);
         x = LineUtil.getX(line, 5);
         assertEquals(x, Double.NaN);
+    }
+
+    /**
+     * 测试计算对称线段
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetAxialSymmetry() throws Exception {
+        Segment s1 = new Segment(-2, 1, -1, 1);
+        Line line = new Line(1, -1, 0);
+        Segment s2 = LineUtil.getAxialSymmetry(s1, line);
+        assertTrue(PointUtil.coincide(s2.getP1(), new Point(1, -2)));
+        assertTrue(PointUtil.coincide(s2.getP2(), new Point(1, -1)));
     }
 }
