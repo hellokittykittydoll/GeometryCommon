@@ -25,7 +25,7 @@ public class Polygon {
         if (points == null) {
             throw new NullPointerException("多边形点集不能为空");
         }
-        if (points.length > 3) {
+        if (points.length < 3) {
             throw new IllegalArgumentException("多边形点的个数必须大于2");
         }
         this.points = points;
