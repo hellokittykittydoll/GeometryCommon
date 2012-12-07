@@ -419,4 +419,21 @@ public class PointUtil {
         Collection collection = CollectionUtils.collect(list, transformer);
         return toArray(collection);
     }
+
+    /**
+     * 根据给定的判定方法,判断是否存在符合要求的点
+     *
+     * @param points    点集合
+     * @param predicate 判定的方法
+     * @return 若存在符合条件的点, 则返回true
+     */
+    public static boolean exists(Point[] points, Predicate predicate) {
+        if (points == null) {
+            throw new NullPointerException("点集为null");
+        }
+        if (predicate == null) {
+            throw new NullPointerException("判定方法为null");
+        }
+        return CollectionUtils.exists(toList(points), predicate);
+    }
 }
