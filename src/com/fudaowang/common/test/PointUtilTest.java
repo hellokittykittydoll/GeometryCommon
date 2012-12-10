@@ -177,7 +177,7 @@ public class PointUtilTest {
      */
     @Test
     public void testRotateAndStretch() throws Exception {
-        Point p1 = PointUtil.rotateAndStretch(p11, p00, Math.PI / 2.0, 10);
+        Point p1 = PointUtil.rotateAndStretchTo(p11, p00, Math.PI / 2.0, 10);
         assertTrue(PointUtil.coincide(p1, p_1010));
 
         Point p2 = PointUtil.rotateAndStretch(p11, p00, Math.PI / -2.0, 10);

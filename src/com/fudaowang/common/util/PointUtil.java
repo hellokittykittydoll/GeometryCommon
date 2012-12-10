@@ -224,6 +224,23 @@ public class PointUtil {
     }
 
     /**
+     * 将point以center为中心,逆时针旋转angle角度,并将距离拉伸为length后的坐标值
+     *
+     * @param point  给定的点
+     * @param center 给定的中心点
+     * @param angle  想要旋转的角度,此处为弧度值
+     * @param length 拉伸后的长度
+     * @return 将point以center为中心旋转angle角度并拉伸到ratio倍距离后的坐标值
+     */
+    public static Point rotateAndStretchTo(Point point, Point center, double angle, double length) {
+        if (point == null || center == null) {
+            return null;
+        }
+
+        return rotateAndStretch(point.getX(), point.getY(), center.getX(), center.getY(), angle, length);
+    }
+
+    /**
      * 将点(px,py)以点(cx,cy)为中心,逆时针旋转angle角度,并将两点之间的距离拉伸到ratio倍
      *
      * @param px    给定点的横坐标
@@ -235,15 +252,30 @@ public class PointUtil {
      * @return 经过旋转和拉伸后得到的点
      */
     public static Point rotateAndStretch(double px, double py, double cx, double cy, double angle, double ratio) {
+        double length = distance(px, py, cx, cy) * ratio;
+        return rotateAndStretchTo(px, py, cx, cy, angle, length);
+    }
+
+    /**
+     * 将点(px,py)以点(cx,cy)为中心,逆时针旋转angle角度,并将两点之间的距离拉伸到length
+     *
+     * @param px     给定点的横坐标
+     * @param py     给定点的纵坐标
+     * @param cx     中心点的横坐标
+     * @param cy     中心点的纵坐标
+     * @param angle  旋转的角度
+     * @param length 拉伸后的长度
+     * @return 经过旋转和拉伸后得到的点
+     */
+    public static Point rotateAndStretchTo(double px, double py, double cx, double cy, double angle, double length) {
         if (coincide(px, py, cx, cy)) {
             return new Point(px, py);
         }
 
-        double p = distance(px, py, cx, cy) * ratio;
         double theta = Math.atan2(py - cy, px - cx);
         double rotateTheta = theta + angle;
-        double x = p * Math.cos(rotateTheta);
-        double y = p * Math.sin(rotateTheta);
+        double x = length * Math.cos(rotateTheta);
+        double y = length * Math.sin(rotateTheta);
         return new Point(x + cx, y + cy);
     }
 
@@ -260,6 +292,18 @@ public class PointUtil {
     }
 
     /**
+     * 将point以center为中心,将距离拉伸到length
+     *
+     * @param point  给定的点
+     * @param center 给定的中心点
+     * @param length 拉伸后的长度
+     * @return 拉伸后的点
+     */
+    public static Point stretchTo(Point point, Point center, double length) {
+        return rotateAndStretchTo(point, center, 0, length);
+    }
+
+    /**
      * 将点(px,py)以点(cx,cy)为中心,将距离拉伸到ratio倍
      *
      * @param px    给定点的横坐标
@@ -271,6 +315,20 @@ public class PointUtil {
      */
     public static Point stretch(double px, double py, double cx, double cy, double ratio) {
         return rotateAndStretch(px, py, cx, cy, 0, ratio);
+    }
+
+    /**
+     * 将点(px,py)以点(cx,cy)为中心,将距离拉伸到length
+     *
+     * @param px     给定点的横坐标
+     * @param py     给定点的纵坐标
+     * @param cx     中心点的横坐标
+     * @param cy     中心点的纵坐标
+     * @param length 拉伸后的长度
+     * @return 拉伸后的点
+     */
+    public static Point stretchTo(double px, double py, double cx, double cy, double length) {
+        return rotateAndStretchTo(px, py, cx, cy, 0, length);
     }
 
     /**
