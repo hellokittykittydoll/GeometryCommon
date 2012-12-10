@@ -314,6 +314,17 @@ public class LineUtil {
     }
 
     /**
+     * 在指定的精度范围内,判断点是否在直线上
+     *
+     * @param point 点
+     * @param line  直线
+     * @return 若点在直线上则返回true
+     */
+    public static boolean onLine(Point point, Line line) {
+        return onLine(point, line, NumberUtil.MIN_VALUE);
+    }
+
+    /**
      * 在指定的精度范围内,判断点(x,y)是否在直线ax+by+c=0上
      *
      * @param x         点的横坐标
@@ -329,6 +340,20 @@ public class LineUtil {
             precision = NumberUtil.MIN_VALUE;
         }
         return distance(x, y, a, b, c) < precision;
+    }
+
+    /**
+     * 在最小精度范围内,判断点(x,y)是否在直线ax+by+c=0上
+     *
+     * @param x 点的横坐标
+     * @param y 点的纵坐标
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @param c 直线的系数c
+     * @return 若点在直线上则返回true
+     */
+    public static boolean onLine(double x, double y, double a, double b, double c) {
+        return onLine(x, y, a, b, c, NumberUtil.MIN_VALUE);
     }
 
     /**
