@@ -9,6 +9,7 @@ import com.fudaowang.common.util.PointUtil;
 
 import static junit.framework.TestCase.*;
 
+import com.fudaowang.common.util.SegmentUtil;
 import org.junit.Test;
 
 /**
@@ -44,7 +45,7 @@ public class LineUtilTest {
         assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.intersect(l1, l_1);
         assertNull(p);
-        p = LineUtil.intersect(segment, l1, true);
+        p = SegmentUtil.intersect(segment, l1, true);
         assertTrue(PointUtil.coincide(p, p_10));
     }
 
@@ -56,14 +57,14 @@ public class LineUtilTest {
     @Test
     public void testInSegment() throws Exception {
         Segment s = new Segment(-1, -1, 1, 1);
-        assertTrue(LineUtil.inSegment(p00, s));
-        assertTrue(LineUtil.inSegment(p10, s));
-        assertFalse(LineUtil.inSegment(p11, s));
+        assertTrue(SegmentUtil.inSegment(p00, s));
+        assertTrue(SegmentUtil.inSegment(p10, s));
+        assertFalse(SegmentUtil.inSegment(p11, s));
         s = new Segment(-1, 0, 1, 0);
-        assertTrue(LineUtil.inSegment(p00, s));
-        assertTrue(LineUtil.inSegment(p01, s));
-        assertFalse(LineUtil.inSegment(p10, s));
-        assertFalse(LineUtil.inSegment(new Point(10, 0), s));
+        assertTrue(SegmentUtil.inSegment(p00, s));
+        assertTrue(SegmentUtil.inSegment(p01, s));
+        assertFalse(SegmentUtil.inSegment(p10, s));
+        assertFalse(SegmentUtil.inSegment(new Point(10, 0), s));
     }
 
     /**
@@ -75,7 +76,7 @@ public class LineUtilTest {
     public void testDistance() throws Exception {
         double d = LineUtil.distance(p00, l1);
         assertTrue(NumberUtil.equal(d, Math.sqrt(2) / 2.0));
-        d = LineUtil.distance(p11, segment);
+        d = SegmentUtil.distance(p11, segment);
         assertEquals(d, 1.0);
     }
 
@@ -106,7 +107,7 @@ public class LineUtilTest {
         assertEquals(line.getA(), _l1.getA());
         assertEquals(line.getB(), _l1.getB());
         assertEquals(line.getC(), _l1.getC());
-        line = LineUtil.verticalLine(p00, segment);
+        line = SegmentUtil.verticalLine(p00, segment);
         assertTrue(LineUtil.onLine(p01, line, NumberUtil.MIN_VALUE));
         assertTrue(LineUtil.onLine(p0_1, line, NumberUtil.MIN_VALUE));
     }
@@ -122,9 +123,9 @@ public class LineUtilTest {
         assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.verticalPoint(p10, l1);
         assertTrue(PointUtil.coincide(p, p01));
-        p = LineUtil.verticalPoint(p00, segment);
+        p = SegmentUtil.verticalPoint(p00, segment);
         assertTrue(PointUtil.coincide(p, p00));
-        p = LineUtil.verticalPoint(p0_1, segment);
+        p = SegmentUtil.verticalPoint(p0_1, segment);
         assertTrue(PointUtil.coincide(p, p00));
     }
 
@@ -139,7 +140,7 @@ public class LineUtilTest {
         assertEquals(line.getA(), l_1.getA());
         assertEquals(line.getB(), l_1.getB());
         assertEquals(line.getC(), l_1.getC());
-        line = LineUtil.parallelLine(p01, segment);
+        line = SegmentUtil.parallelLine(p01, segment);
         double d = LineUtil.distance(p00, line);
         assertEquals(d, 1.0);
     }
@@ -224,10 +225,10 @@ public class LineUtilTest {
     public void testLinesIntersect() throws Exception {
         Segment s1 = new Segment(0, 0, 0, 1);
         Segment s2 = new Segment(2, 2, 1, 0);
-        assertFalse(LineUtil.linesIntersect(s1, s2));
+        assertFalse(SegmentUtil.linesIntersect(s1, s2));
         s1 = new Segment(0, -1, 0, 1);
         s2 = new Segment(-1, 0, 1, 0);
-        assertTrue(LineUtil.linesIntersect(s1, s2));
+        assertTrue(SegmentUtil.linesIntersect(s1, s2));
     }
 
     /**
@@ -238,19 +239,19 @@ public class LineUtilTest {
     @Test
     public void testRotateSegment() throws Exception {
         Segment s1 = new Segment(p_10, p01);
-        Segment s2 = LineUtil.rotate(s1, p00, Math.PI / 2);
+        Segment s2 = SegmentUtil.rotate(s1, p00, Math.PI / 2);
         assertTrue(PointUtil.coincide(s2.getP1(), p0_1));
         assertTrue(PointUtil.coincide(s2.getP2(), p_10));
 
-        s2 = LineUtil.rotate(s1, p00, Math.PI);
+        s2 = SegmentUtil.rotate(s1, p00, Math.PI);
         assertTrue(PointUtil.coincide(s2.getP1(), p10));
         assertTrue(PointUtil.coincide(s2.getP2(), p0_1));
 
-        s2 = LineUtil.rotate(s1, p01, Math.PI / 2);
+        s2 = SegmentUtil.rotate(s1, p01, Math.PI / 2);
         assertTrue(PointUtil.coincide(s2.getP1(), p10));
         assertTrue(PointUtil.coincide(s2.getP2(), p01));
 
-        s2 = LineUtil.rotate(s1, new Point(100, 99), Math.PI * 2);
+        s2 = SegmentUtil.rotate(s1, new Point(100, 99), Math.PI * 2);
         assertTrue(PointUtil.coincide(s2.getP1(), s1.getP1()));
         assertTrue(PointUtil.coincide(s2.getP2(), s1.getP2()));
     }
@@ -331,12 +332,12 @@ public class LineUtilTest {
     public void testGetAxialSymmetry() throws Exception {
         Segment s1 = new Segment(-2, 1, -1, 1);
         Line line = new Line(1, -1, 0);
-        Segment s2 = LineUtil.getAxialSymmetry(s1, line);
+        Segment s2 = SegmentUtil.getAxialSymmetry(s1, line);
         assertTrue(PointUtil.coincide(s2.getP1(), new Point(1, -2)));
         assertTrue(PointUtil.coincide(s2.getP2(), new Point(1, -1)));
 
         Segment s3 = new Segment(-1, -1, 1, 1);
-        s2 = LineUtil.getAxialSymmetry(s1, s3);
+        s2 = SegmentUtil.getAxialSymmetry(s1, s3);
         assertTrue(PointUtil.coincide(s2.getP1(), new Point(1, -2)));
         assertTrue(PointUtil.coincide(s2.getP2(), new Point(1, -1)));
     }

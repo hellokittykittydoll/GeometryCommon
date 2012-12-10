@@ -122,7 +122,7 @@ public class TriangleUtil {
 
         list = null;
 
-        return !LineUtil.linesIntersect(s1, s2);
+        return !SegmentUtil.linesIntersect(s1, s2);
     }
 
     /**

@@ -112,7 +112,7 @@ public class RoundUtil {
         return PointUtil.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
-                return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
+                return SegmentUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
     }

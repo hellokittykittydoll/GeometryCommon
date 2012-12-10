@@ -5,7 +5,6 @@ import com.fudaowang.common.graph.Parabola;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Segment;
 import org.apache.commons.collections.Predicate;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * 对抛物线进行操作的类
@@ -257,7 +256,7 @@ public class ParabolaUtil {
         return PointUtil.filter(points, new Predicate() {
             public boolean evaluate(Object o) {
                 Point p = (Point) o;
-                return LineUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
+                return SegmentUtil.inSegment(p.getX(), p.getY(), x1, y1, x2, y2);
             }
         });
     }
