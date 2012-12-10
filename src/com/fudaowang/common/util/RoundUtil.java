@@ -165,6 +165,17 @@ public class RoundUtil {
     }
 
     /**
+     * 在最小精度范围内,判定点是否在圆上
+     *
+     * @param point 点
+     * @param round 圆
+     * @return 若点到圆的距离小于精度则返回true
+     */
+    public static boolean onRound(Point point, Round round) {
+        return onRound(point, round, NumberUtil.MIN_VALUE);
+    }
+
+    /**
      * 在指定精度范围内,判定点是(px,py)否在圆(x-cx)^2+(y-cy)^2=radius^2上
      *
      * @param px        点的横坐标
@@ -181,6 +192,20 @@ public class RoundUtil {
         }
         double distance = distance(px, py, cx, cy, radius);
         return distance < precision;
+    }
+
+    /**
+     * 在最小精度范围内,判定点是(px,py)否在圆(x-cx)^2+(y-cy)^2=radius^2上
+     *
+     * @param px     点的横坐标
+     * @param py     点的纵坐标
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
+     * @param radius 圆的半径
+     * @return 若点到圆的最短距离在精度范围内, 则返回true
+     */
+    public static boolean onRound(double px, double py, double cx, double cy, double radius) {
+        return onRound(px, py, cx, cy, radius, NumberUtil.MIN_VALUE);
     }
 
     /**
