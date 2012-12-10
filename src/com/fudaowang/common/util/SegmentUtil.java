@@ -614,4 +614,95 @@ public class SegmentUtil {
         Line line = LineUtil.getLine(ax1, ay1, ax2, ay2);
         return getAxialSymmetry(x1, y1, x2, y2, line.getA(), line.getB(), line.getC());
     }
+
+    /**
+     * 在最小精度范围内判断点是否在线段上
+     *
+     * @param point   点
+     * @param segment 线段
+     * @return 若点在线段山, 则返回true
+     */
+    public static boolean onSegment(Point point, Segment segment) {
+        return onSegment(point, segment, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判断点是否在线段上
+     *
+     * @param point     点
+     * @param segment   线段
+     * @param precision 给定的精度
+     * @return 若点在线段山, 则返回true
+     */
+    public static boolean onSegment(Point point, Segment segment, double precision) {
+        if (point == null) {
+            throw new NullPointerException("点为null");
+        }
+        if (segment == null) {
+            throw new NullPointerException("线段为null");
+        }
+        return onSegment(point, segment.getP1(), segment.getP2(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断点是否在线段(p1,p2)上
+     *
+     * @param point 给定的点
+     * @param p1    线段的第一个端点
+     * @param p2    线段的第二个端点
+     * @return 若点在线段上, 则返回true
+     */
+    public static boolean onSegment(Point point, Point p1, Point p2) {
+        return onSegment(point, p1, p2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判断点是否在线段(p1,p2)上
+     *
+     * @param point     给定的点
+     * @param p1        线段的第一个端点
+     * @param p2        线段的第二个端点
+     * @param precision 给定的精度
+     * @return 若点在线段上, 则返回true
+     */
+    public static boolean onSegment(Point point, Point p1, Point p2, double precision) {
+        if (point == null || p1 == null || p2 == null) {
+            throw new NullPointerException("点为null");
+        }
+        return onSegment(point.getX(), point.getY(), p1.getX(), p1.getY(), p2.getX(), p2.getY(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断点(x,y)是否在由点(x1,y1)和点(x2,y2)构成的线段上
+     *
+     * @param x  给定点的横坐标
+     * @param y  给定点的纵坐标
+     * @param x1 线段的第一个点的横坐标
+     * @param y1 线段的第一个点的纵坐标
+     * @param x2 线段的第二个点的横坐标
+     * @param y2 线段的第二个点的纵坐标
+     * @return 若点在线段上, 则返回true
+     */
+    public static boolean onSegment(double x, double y, double x1, double y1, double x2, double y2) {
+        return onSegment(x, y, x1, y1, x2, y2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判断点(x,y)是否在由点(x1,y1)和点(x2,y2)构成的线段上
+     *
+     * @param x         给定点的横坐标
+     * @param y         给定点的纵坐标
+     * @param x1        线段的第一个点的横坐标
+     * @param y1        线段的第一个点的纵坐标
+     * @param x2        线段的第二个点的横坐标
+     * @param y2        线段的第二个点的纵坐标
+     * @param precision 给定的精度
+     * @return 若点在线段上, 则返回true
+     */
+    public static boolean onSegment(double x, double y, double x1, double y1, double x2, double y2, double precision) {
+        if (precision < NumberUtil.MIN_VALUE) {
+            precision = NumberUtil.MIN_VALUE;
+        }
+        return distance(x, y, x1, y1, x2, y2) < precision;
+    }
 }
