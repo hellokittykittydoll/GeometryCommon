@@ -282,6 +282,17 @@ public class ParabolaUtil {
     }
 
     /**
+     * 在最小精度范围内,判定点是否在抛物线上
+     *
+     * @param point    点
+     * @param parabola 抛物线
+     * @return 若点到抛物线的最短距离小于给定的精度, 则返回true
+     */
+    public static boolean onParabola(Point point, Parabola parabola) {
+        return onParabola(point, parabola, NumberUtil.MIN_VALUE);
+    }
+
+    /**
      * 在指定的精度范围内,判定点(x,y)是否在抛物线y=ax^2+bx+c上
      *
      * @param x         点的横坐标
@@ -308,6 +319,20 @@ public class ParabolaUtil {
             return NumberUtil.valueInRange(min, 2 * y0 - max, y);
         }
         return NumberUtil.valueInRange(min, max, y);
+    }
+
+    /**
+     * 在最小精度范围内,判定点(x,y)是否在抛物线y=ax^2+bx+c上
+     *
+     * @param x 点的横坐标
+     * @param y 点的纵坐标
+     * @param a 抛物线的系数a
+     * @param b 抛物线的系数b
+     * @param c 抛物线的系数c
+     * @return 若点到抛物线的最短距离小于给定的精度, 则返回true
+     */
+    public static boolean onParabola(double x, double y, double a, double b, double c) {
+        return onParabola(x, y, a, b, c, NumberUtil.MIN_VALUE);
     }
 
     /**
