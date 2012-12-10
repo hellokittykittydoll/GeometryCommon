@@ -25,7 +25,7 @@ public class PolygonUtil {
      * @param angle   旋转的角度
      * @return 旋转后的多边形
      */
-    public Polygon rotate(Polygon polygon, Point center, double angle) {
+    public static Polygon rotate(Polygon polygon, Point center, double angle) {
         if (polygon == null || center == null) {
             return null;
         }
@@ -40,7 +40,7 @@ public class PolygonUtil {
      * @param angle  旋转的角度
      * @return 旋转后的多边形
      */
-    public Polygon rotate(Point[] points, final Point center, final double angle) {
+    public static Polygon rotate(Point[] points, final Point center, final double angle) {
         if (points == null || center == null) {
             return null;
         }
