@@ -297,9 +297,18 @@ public class ParabolaUtil {
         if (precision < NumberUtil.MIN_VALUE) {
             precision = NumberUtil.MIN_VALUE;
         }
+        double y0 = getY(a, b, c, x);
         double y1 = getY(a, b, c, x - precision);
         double y2 = getY(a, b, c, x + precision);
-        return NumberUtil.valueInRange(y1, y2, y);
+        double min = Math.min(y1, y2);
+        double max = Math.max(y1, y2);
+        if (y0 < min) {
+            return NumberUtil.valueInRange(2 * y0 - min, max, y);
+        }
+        if (y0 > max) {
+            return NumberUtil.valueInRange(min, 2 * y0 - max, y);
+        }
+        return NumberUtil.valueInRange(min, max, y);
     }
 
     /**
