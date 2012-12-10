@@ -5,6 +5,7 @@ import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Round;
 import com.fudaowang.common.graph.Segment;
 import org.apache.commons.collections.Predicate;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * 对圆进行操作的类
@@ -347,5 +348,13 @@ public class RoundUtil {
         Point p1 = PointUtil.rotateAndStretch(px, py, cx, cy, theta, d);
         Point p2 = PointUtil.rotateAndStretch(px, py, cx, cy, -theta, d);
         return new Point[]{p1, p2};
+    }
+
+    public static Segment[] internalCommonTangent(Round r1, Round r2) {
+        throw new NotImplementedException();
+    }
+
+    public static Segment[] externalCommonTangent(Round r1, Round r2) {
+        throw new NotImplementedException();
     }
 }
