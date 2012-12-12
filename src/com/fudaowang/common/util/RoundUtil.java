@@ -1,9 +1,6 @@
 package com.fudaowang.common.util;
 
-import com.fudaowang.common.graph.Line;
-import com.fudaowang.common.graph.Point;
-import com.fudaowang.common.graph.Round;
-import com.fudaowang.common.graph.Segment;
+import com.fudaowang.common.graph.*;
 import org.apache.commons.collections.Predicate;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -348,6 +345,119 @@ public class RoundUtil {
         Point p1 = PointUtil.rotateAndStretch(px, py, cx, cy, theta, d);
         Point p2 = PointUtil.rotateAndStretch(px, py, cx, cy, -theta, d);
         return new Point[]{p1, p2};
+    }
+
+    /**
+     * 在给定的精度范围内求两圆的位置关系
+     *
+     * @param r1        第一个圆
+     * @param r2        第二个圆
+     * @param precision 给定的精度
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(Round r1, Round r2, double precision) {
+        if (r1 == null || r2 == null) {
+            throw new NullPointerException("圆为null");
+        }
+        return getRelationship(r1.getCenter(), r1.getRadius(), r2.getCenter(), r2.getRadius(), precision);
+    }
+
+    /**
+     * 在最小精度范围内求两圆的位置关系
+     *
+     * @param r1 第一个圆
+     * @param r2 第二个圆
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(Round r1, Round r2) {
+        return getRelationship(r1, r2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内求两圆的位置关系
+     *
+     * @param c1        第一个圆的圆心
+     * @param r1        第一个圆的半径
+     * @param c2        第二个圆的圆心
+     * @param r2        第二个圆的半径
+     * @param precision 给定的精度
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(Point c1, double r1, Point c2, double r2, double precision) {
+        if (c1 == null || c2 == null) {
+            throw new IllegalArgumentException("圆心点为null");
+        }
+        return getRelationship(c1.getX(), c1.getY(), r1, c2.getX(), c2.getY(), r2, precision);
+    }
+
+    /**
+     * 在最小精度范围内求两圆的位置关系
+     *
+     * @param c1 第一个圆的圆心
+     * @param r1 第一个圆的半径
+     * @param c2 第二个圆的圆心
+     * @param r2 第二个圆的半径
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(Point c1, double r1, Point c2, double r2) {
+        return getRelationship(c1, r1, c2, r2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内求两圆的位置关系
+     *
+     * @param x1        第一个圆的圆心的横坐标
+     * @param y1        第一个圆的圆心的纵坐标
+     * @param r1        第一个圆的半径
+     * @param x2        第二个圆的圆心的横坐标
+     * @param y2        第二个圆的圆心的纵坐标
+     * @param r2        第一个圆的半径
+     * @param precision 给定的精度
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
+        if (NumberUtil.isMoreThanZero(r1) && NumberUtil.isMoreThanZero(r2)) {
+            if (precision < NumberUtil.MIN_VALUE) {
+                precision = NumberUtil.MIN_VALUE;
+            }
+
+            double distance = PointUtil.distance(x1, y1, x2, y2);
+
+            if (NumberUtil.isMoreThan(distance, r1 + r2, precision)) {
+                return RoundEnum.SEPARATE;
+            }
+
+            if (NumberUtil.equal(distance, r1 + r2, precision)) {
+                return RoundEnum.EXTERNAL;
+            }
+
+            if (NumberUtil.isMoreThan(distance, Math.abs(r1 - r2))) {
+                return RoundEnum.INTERSECT;
+            }
+
+            if (NumberUtil.equal(distance, Math.abs(r1 - r2), precision)) {
+                return RoundEnum.INTERNAL;
+            }
+
+            return RoundEnum.CONTAIN;
+        }
+
+        throw new IllegalArgumentException("圆的半径长度必须大于0");
+    }
+
+    /**
+     * 在最小精度范围内求两圆的位置关系
+     *
+     * @param x1 第一个圆的圆心的横坐标
+     * @param y1 第一个圆的圆心的纵坐标
+     * @param r1 第一个圆的半径
+     * @param x2 第二个圆的圆心的横坐标
+     * @param y2 第二个圆的圆心的纵坐标
+     * @param r2 第一个圆的半径
+     * @return 两圆的位置关系
+     */
+    public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
+        return getRelationship(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
     }
 
     public static Segment[] internalCommonTangent(Round r1, Round r2) {
