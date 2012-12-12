@@ -51,6 +51,20 @@ public class NumberUtil {
     }
 
     /**
+     * 判断给定的数值在指定精度范围内是否为0
+     *
+     * @param d         给定的数值
+     * @param precision 给定的精度
+     * @return 若数值与0之差的绝对值小于最小精度, 则返回true
+     */
+    public static boolean isZero(double d, double precision) {
+        if (precision < MIN_VALUE) {
+            precision = MIN_VALUE;
+        }
+        return Math.abs(d) < precision;
+    }
+
+    /**
      * 判断给定的数值在最小精度范围内是否小于0
      *
      * @param d 给定的数值
@@ -58,6 +72,20 @@ public class NumberUtil {
      */
     public static boolean isLessThanZero(double d) {
         return d < -MIN_VALUE;
+    }
+
+    /**
+     * 判断给定的数值在指定精度范围内是否小于0
+     *
+     * @param d         给定的数值
+     * @param precision 给定的精度
+     * @return 若数值小于负的最小精度, 则返回true
+     */
+    public static boolean isLessThanZero(double d, double precision) {
+        if (precision < MIN_VALUE) {
+            precision = MIN_VALUE;
+        }
+        return d < -precision;
     }
 
     /**
@@ -72,6 +100,18 @@ public class NumberUtil {
     }
 
     /**
+     * 判断d1是否在指定精度范围内小于d2
+     *
+     * @param d1        第一个数值
+     * @param d2        第二个数值
+     * @param precision 给定的精度
+     * @return 若d1与d2的差小于负的最小精度, 则返回true
+     */
+    public static boolean isLessThan(double d1, double d2, double precision) {
+        return isLessThanZero(d1 - d2, precision);
+    }
+
+    /**
      * 判断d1是否在最小精度范围内大于d2
      *
      * @param d1 第一个数值
@@ -83,6 +123,18 @@ public class NumberUtil {
     }
 
     /**
+     * 判断d1是否在最小精度范围内大于d2
+     *
+     * @param d1        第一个数值
+     * @param d2        第二个数值
+     * @param precision 给定的精度
+     * @return 若d1与d2的差大于最小精度, 则返回true
+     */
+    public static boolean isMoreThan(double d1, double d2, double precision) {
+        return isMoreThanZero(d1 - d2, precision);
+    }
+
+    /**
      * 判断给定的数值在最小精度范围内是否大于0
      *
      * @param d 给定的数值
@@ -90,6 +142,20 @@ public class NumberUtil {
      */
     public static boolean isMoreThanZero(double d) {
         return d > MIN_VALUE;
+    }
+
+    /**
+     * 判断给定的数值在最小精度范围内是否大于0
+     *
+     * @param d         给定的数值
+     * @param precision 给定的精度
+     * @return 若数值大于最小精度, 则返回true
+     */
+    public static boolean isMoreThanZero(double d, double precision) {
+        if (precision < MIN_VALUE) {
+            precision = MIN_VALUE;
+        }
+        return d > precision;
     }
 
     /**
@@ -104,5 +170,23 @@ public class NumberUtil {
         double min = Math.min(d1, d2);
         double max = Math.max(d1, d2);
         return isLessThan(d, max) && isMoreThan(d, min);
+    }
+
+    /**
+     * 判断给定的数值大小是否在给定的范围内
+     *
+     * @param d1        数值的上限或者下限
+     * @param d2        数值的上限或者下限
+     * @param d         需要判断的数值
+     * @param precision 给定的精度
+     * @return 若给定的数值在范围之内, 则返回true
+     */
+    public static boolean valueInRange(double d1, double d2, double d, double precision) {
+        if (precision < MIN_VALUE) {
+            precision = MIN_VALUE;
+        }
+        double min = Math.min(d1, d2);
+        double max = Math.max(d1, d2);
+        return isLessThan(d, max, precision) && isMoreThan(d, min, precision);
     }
 }
