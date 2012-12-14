@@ -3,6 +3,7 @@ package com.fudaowang.common.test;
 import com.fudaowang.common.graph.Line;
 import com.fudaowang.common.graph.Point;
 import com.fudaowang.common.graph.Round;
+import com.fudaowang.common.graph.RoundEnum;
 import com.fudaowang.common.util.NumberUtil;
 import com.fudaowang.common.util.PointUtil;
 import com.fudaowang.common.util.RoundUtil;
@@ -110,5 +111,38 @@ public class RoundUtilTest {
         assertEquals(points.length, 2);
         assertEquals(p.getX(), 1 - Math.sqrt(2), NumberUtil.MIN_VALUE);
         assertEquals(p.getY(), 1 - Math.sqrt(2), NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 测试计算两圆的位置关系
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testGetRelationship() throws Exception {
+        Round r1 = new Round(0, 0, 10);
+        Round r2 = new Round(5, 0, 4);
+
+        RoundEnum relation = RoundUtil.getRelationship(r1, r2);
+        assertEquals(relation, RoundEnum.CONTAIN);
+
+        relation = RoundUtil.getRelationship(r1, r2, 1);
+        assertEquals(relation, RoundEnum.CONTAIN);
+
+        r2 = new Round(5, 0, 5);
+        relation = RoundUtil.getRelationship(r1, r2);
+        assertEquals(relation, RoundEnum.INTERNAL);
+
+        r2 = new Round(5, 0, 5);
+        relation = RoundUtil.getRelationship(r1, r2, 1);
+        assertEquals(relation, RoundEnum.INTERNAL);
+
+        r2 = new Round(15, 0, 5);
+        relation = RoundUtil.getRelationship(r1, r2, 1);
+        assertEquals(relation, RoundEnum.EXTERNAL);
+
+        r2 = new Round(15, 0, 4);
+        relation = RoundUtil.getRelationship(r1, r2, 1);
+        assertEquals(relation, RoundEnum.SEPARATE);
     }
 }

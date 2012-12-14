@@ -417,29 +417,25 @@ public class RoundUtil {
      */
     public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
         if (NumberUtil.isMoreThanZero(r1) && NumberUtil.isMoreThanZero(r2)) {
-            if (precision < NumberUtil.MIN_VALUE) {
-                precision = NumberUtil.MIN_VALUE;
-            }
-
             double distance = PointUtil.distance(x1, y1, x2, y2);
-
-            if (NumberUtil.isMoreThan(distance, r1 + r2, precision)) {
-                return RoundEnum.SEPARATE;
-            }
 
             if (NumberUtil.equal(distance, r1 + r2, precision)) {
                 return RoundEnum.EXTERNAL;
             }
 
-            if (NumberUtil.isMoreThan(distance, Math.abs(r1 - r2))) {
-                return RoundEnum.INTERSECT;
+            if (distance > r1 + r2) {
+                return RoundEnum.SEPARATE;
             }
 
             if (NumberUtil.equal(distance, Math.abs(r1 - r2), precision)) {
                 return RoundEnum.INTERNAL;
             }
 
-            return RoundEnum.CONTAIN;
+            if (distance < Math.abs(r1 - r2)) {
+                return RoundEnum.CONTAIN;
+            }
+
+            return RoundEnum.INTERSECT;
         }
 
         throw new IllegalArgumentException("圆的半径长度必须大于0");
