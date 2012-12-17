@@ -210,20 +210,20 @@ public class LineUtil {
             return null;
         }
 
-        return verticalLine(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
+        return verticalLine(point.getX(), point.getY(), line.getA(), line.getB());
     }
 
     /**
      * 过点(x,y)做直线ax+by+c=0的垂线
      *
+     *
      * @param x 点的横坐标
      * @param y 点纵坐标
      * @param a 直线的系数a
      * @param b 直线的系数b
-     * @param c 直线的系数c
      * @return 垂线
      */
-    public static Line verticalLine(double x, double y, double a, double b, double c) {
+    public static Line verticalLine(double x, double y, double a, double b) {
         return new Line(b, -a, a * y - b * x);
     }
 
@@ -238,7 +238,7 @@ public class LineUtil {
      * @return 垂点
      */
     public static Point verticalPoint(double x, double y, double a, double b, double c) {
-        Line line = verticalLine(x, y, a, b, c);
+        Line line = verticalLine(x, y, a, b);
         return intersect(line.getA(), line.getB(), line.getC(), a, b, c);
     }
 
@@ -268,20 +268,20 @@ public class LineUtil {
         if (point == null || line == null) {
             return null;
         }
-        return parallelLine(point.getX(), point.getY(), line.getA(), line.getB(), line.getC());
+        return parallelLine(point.getX(), point.getY(), line.getA(), line.getB());
     }
 
     /**
      * 过点(x,y)求直线ax+by+c=0的平行线
      *
+     *
      * @param x 点的横坐标
      * @param y 点纵坐标
      * @param a 直线的系数a
      * @param b 直线的系数b
-     * @param c 直线的系数c
      * @return 平行线
      */
-    public static Line parallelLine(double x, double y, double a, double b, double c) {
+    public static Line parallelLine(double x, double y, double a, double b) {
         return new Line(a, b, -1 * a * x - b * y);
     }
 
@@ -419,18 +419,18 @@ public class LineUtil {
         if (line == null) {
             return Double.NaN;
         }
-        return getAngle(line.getA(), line.getB(), line.getC());
+        return getAngle(line.getA(), line.getB());
     }
 
     /**
      * 求直线ax+by+c=0的倾角
      *
+     *
      * @param a 直线的系数a
      * @param b 直线的系数b
-     * @param c 直线的系数c
      * @return 直线的倾角
      */
-    public static double getAngle(double a, double b, double c) {
+    public static double getAngle(double a, double b) {
         if (NumberUtil.isZero(a) && NumberUtil.isZero(b)) {
             return Double.NaN;
         }
@@ -466,7 +466,7 @@ public class LineUtil {
     public static Line rotate(double a, double b, double c, double x, double y, double angle) {
         Point vertex = LineUtil.verticalPoint(x, y, a, b, c);
         vertex = PointUtil.rotate(vertex.getX(), vertex.getY(), x, y, angle);
-        double lineAngle = getAngle(a, b, c);
+        double lineAngle = getAngle(a, b);
         return getLine(vertex, lineAngle + angle - Math.PI);
     }
 

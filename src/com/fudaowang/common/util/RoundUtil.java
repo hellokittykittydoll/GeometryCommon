@@ -52,7 +52,7 @@ public class RoundUtil {
         }
 
         double side = Math.sqrt(distance * distance + radius * radius);
-        double angle = LineUtil.getAngle(la, lb, lc);
+        double angle = LineUtil.getAngle(la, lb);
 
         double x = side * Math.cos(angle);
         double y = side * Math.cos(angle);
@@ -454,13 +454,5 @@ public class RoundUtil {
      */
     public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
         return getRelationship(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
-    }
-
-    public static Segment[] internalCommonTangent(Round r1, Round r2) {
-        throw new NotImplementedException();
-    }
-
-    public static Segment[] externalCommonTangent(Round r1, Round r2) {
-        throw new NotImplementedException();
     }
 }

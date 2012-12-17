@@ -279,7 +279,7 @@ public class SegmentUtil {
             return null;
         }
 
-        return LineUtil.verticalLine(x, y, line.getA(), line.getB(), line.getC());
+        return LineUtil.verticalLine(x, y, line.getA(), line.getB());
     }
 
     /**
@@ -373,7 +373,7 @@ public class SegmentUtil {
      */
     public static Line parallelLine(double x, double y, double x1, double y1, double x2, double y2) {
         Line line = LineUtil.getLine(x1, y1, x2, y2);
-        return LineUtil.parallelLine(x, y, line.getA(), line.getB(), line.getC());
+        return LineUtil.parallelLine(x, y, line.getA(), line.getB());
     }
 
     /**
