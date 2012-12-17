@@ -97,12 +97,7 @@ public class TriangleUtil {
             throw new NullPointerException("判断的点为null");
         }
 
-        ArrayList list = new ArrayList(3);
-        list.add(p1);
-        list.add(p2);
-        list.add(p3);
-
-        Collections.sort(list, new Comparator() {
+        Point[] points = PointUtil.sort(new Point[]{p1, p2, p3}, new Comparator() {
             public int compare(Object o1, Object o2) {
                 double d1 = PointUtil.distance(point, (Point) o1);
                 double d2 = PointUtil.distance(point, (Point) o2);
@@ -117,10 +112,8 @@ public class TriangleUtil {
             }
         });
 
-        Segment s1 = new Segment((Point) list.get(0), (Point) list.get(1));
-        Segment s2 = new Segment(point, (Point) list.get(2));
-
-        list = null;
+        Segment s1 = new Segment(points[0], points[1]);
+        Segment s2 = new Segment(point, points[2]);
 
         return !SegmentUtil.linesIntersect(s1, s2);
     }

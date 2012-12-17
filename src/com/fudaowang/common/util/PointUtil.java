@@ -5,9 +5,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * 通用基础方法
@@ -493,5 +491,22 @@ public class PointUtil {
             throw new NullPointerException("判定方法为null");
         }
         return CollectionUtils.exists(toList(points), predicate);
+    }
+
+    /**
+     * 对一组点按照指定的规则进行排序
+     *
+     * @param points     点集
+     * @param comparator 排序规则
+     * @return 排序后的点集
+     */
+    public static Point[] sort(Point[] points, Comparator comparator) {
+        if (points == null || comparator == null) {
+            return points;
+        }
+
+        List list = toList(points);
+        Collections.sort(list, comparator);
+        return toArray(list);
     }
 }
