@@ -27,7 +27,7 @@ public class HyperbolaUtilTest {
      */
     @Test
     public void testIntersect() throws Exception {
-        Hyperbola hyperbola = new Hyperbola(1);
+        Hyperbola hyperbola = new Hyperbola(1, 0, 0);
         Line l1 = new Line(1, -1, 0);
         Line l2 = new Line(1, 1, 0);
         Line l3 = new Line(1, 0, 0);
