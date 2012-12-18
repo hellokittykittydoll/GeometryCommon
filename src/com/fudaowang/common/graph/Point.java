@@ -19,6 +19,12 @@ public class Point {
      * @param y 点的纵坐标
      */
     public Point(double x, double y) {
+        if (Double.isNaN(x)) {
+            throw new IllegalArgumentException("x必须是一个有效值");
+        }
+        if (Double.isNaN(y)) {
+            throw new IllegalArgumentException("y必须是一个有效值");
+        }
         this.x = x;
         this.y = y;
     }
