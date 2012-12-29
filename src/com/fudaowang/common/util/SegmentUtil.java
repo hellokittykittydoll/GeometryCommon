@@ -705,4 +705,101 @@ public class SegmentUtil {
         }
         return distance(x, y, x1, y1, x2, y2) < precision;
     }
+
+    /**
+     * 在给定的精度范围内判断给定的两条线段在给定的精度是否重合
+     *
+     * @param s1        第一条线段
+     * @param s2        第二条线段
+     * @param precision 给定的精度
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(Segment s1, Segment s2, double precision) {
+        if (s1 == null || s2 == null) {
+            throw new NullPointerException("线段为null");
+        }
+        return coincide(s1.getP1(), s1.getP2(), s2.getP1(), s2.getP2(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断给定的两条线段在给定的精度是否重合
+     *
+     * @param s1 第一条线段
+     * @param s2 第二条线段
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(Segment s1, Segment s2) {
+        return coincide(s1, s2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判断线段(p1,p2)和线段(p3,p4)在给定的精度下是否重合
+     *
+     * @param p1        第一个线段的第一个端点
+     * @param p2        第一个线段的第二个端点
+     * @param p3        第二个线段的第一个端点
+     * @param p4        第二个线段的第二个端点
+     * @param precision 给定的精度
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(Point p1, Point p2, Point p3, Point p4, double precision) {
+        if (p1 == null || p2 == null || p3 == null || p4 == null) {
+            throw new NullPointerException("线段端点为null");
+        }
+        return coincide(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY(), p4.getX(), p4.getY(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断线段(p1,p2)和线段(p3,p4)在给定的精度下是否重合
+     *
+     * @param p1 第一个线段的第一个端点
+     * @param p2 第一个线段的第二个端点
+     * @param p3 第二个线段的第一个端点
+     * @param p4 第二个线段的第二个端点
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(Point p1, Point p2, Point p3, Point p4) {
+        return coincide(p1, p2, p3, p4, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判断由点(x1,y1)和点(x2,y2)构成的线段与由点(x3,y3)和点(x4,y4)构成的线段是否重合
+     *
+     * @param x1        第一条线段的第一个端点的横坐标
+     * @param y1        第一条线段的第一个端点的纵坐标
+     * @param x2        第一条线段的第二个端点的横坐标
+     * @param y2        第一条线段的第二个端点的纵坐标
+     * @param x3        第二条线段的第一个端点的横坐标
+     * @param y3        第二条线段的第一个端点的纵坐标
+     * @param x4        第二条线段的第二个端点的横坐标
+     * @param y4        第二条线段的第二个端点的纵坐标
+     * @param precision 给定的精度
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double precision) {
+        if (PointUtil.coincide(x1, y1, x3, y3, precision) && PointUtil.coincide(x2, y2, x4, y4, precision)) {
+            return true;
+        }
+        if (PointUtil.coincide(x1, y1, x4, y4, precision) && PointUtil.coincide(x2, y2, x3, y3, precision)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 在最小精度范围内判断由点(x1,y1)和点(x2,y2)构成的线段与由点(x3,y3)和点(x4,y4)构成的线段是否重合
+     *
+     * @param x1 第一条线段的第一个端点的横坐标
+     * @param y1 第一条线段的第一个端点的纵坐标
+     * @param x2 第一条线段的第二个端点的横坐标
+     * @param y2 第一条线段的第二个端点的纵坐标
+     * @param x3 第二条线段的第一个端点的横坐标
+     * @param y3 第二条线段的第一个端点的纵坐标
+     * @param x4 第二条线段的第二个端点的横坐标
+     * @param y4 第二条线段的第二个端点的纵坐标
+     * @return 若两条线段的端点都重合, 则返回true
+     */
+    public static boolean coincide(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+        return coincide(x1, y1, x2, y2, x3, y3, x4, y4, NumberUtil.MIN_VALUE);
+    }
 }
