@@ -530,4 +530,198 @@ public class LineUtil {
         return (-c - a * x) / b;
     }
 
+
+    /**
+     * 判断两直线是否在最小精度范围内平行
+     *
+     * @param l1 第一条直线
+     * @param l2 第二条直线
+     * @return 若两直线平行, 则返回true
+     */
+    public static boolean parallel(Line l1, Line l2) {
+        return parallel(l1, l2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度范围内平行
+     *
+     * @param l1        第一条直线
+     * @param l2        第二条直线
+     * @param precision 给定的精度
+     * @return 若两直线平行, 则返回true
+     */
+    public static boolean parallel(Line l1, Line l2, double precision) {
+        if (l1 == null || l2 == null) {
+            throw new NullPointerException("直线为null");
+        }
+        return parallel(l1.getA(), l1.getB(), l2.getA(), l2.getB(), precision);
+    }
+
+    /**
+     * 判断两直线是否在最小精度范围内平行
+     *
+     * @param a1 第一条直线的系数a
+     * @param b1 第一条直线的系数b
+     * @param a2 第二条直线的系数a
+     * @param b2 第二条直线的系数b
+     * @return 若两直线平行, 则返回true
+     */
+    public static boolean parallel(double a1, double b1, double a2, double b2) {
+        return parallel(a1, b1, a2, b2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度范围内平行
+     *
+     * @param a1        第一条直线的系数a
+     * @param b1        第一条直线的系数b
+     * @param a2        第二条直线的系数a
+     * @param b2        第二条直线的系数b
+     * @param precision 给定的精度
+     * @return 若两直线平行, 则返回true
+     */
+    public static boolean parallel(double a1, double b1, double a2, double b2, double precision) {
+        return NumberUtil.equal(a1 * b2, a2 * b1, precision);
+    }
+
+    /**
+     * 判断两直线是否在最小精度范围内垂直
+     *
+     * @param l1 第一条直线
+     * @param l2 第二条直线
+     * @return 若两直线垂直则返回true
+     */
+    public static boolean vertical(Line l1, Line l2) {
+        return vertical(l1, l2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度范围内垂直
+     *
+     * @param l1        第一条直线
+     * @param l2        第二条直线
+     * @param precision 给定的精度
+     * @return 若两直线垂直则返回true
+     */
+    public static boolean vertical(Line l1, Line l2, double precision) {
+        if (l1 == null || l2 == null) {
+            throw new NullPointerException("直线为null");
+        }
+        return vertical(l1.getA(), l1.getB(), l2.getA(), l2.getB(), precision);
+    }
+
+    /**
+     * 判断两直线是否在最小精度内垂直
+     *
+     * @param a1 第一条直线的系数a
+     * @param b1 第一条直线的系数b
+     * @param a2 第二条直线的系数a
+     * @param b2 第二条直线的系数b
+     * @return 若两直线垂直, 则返回true
+     */
+    public static boolean vertical(double a1, double b1, double a2, double b2) {
+        return vertical(a1, b1, a2, b2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度内垂直
+     *
+     * @param a1        第一条直线的系数a
+     * @param b1        第一条直线的系数b
+     * @param a2        第二条直线的系数a
+     * @param b2        第二条直线的系数b
+     * @param precision 给定的精度
+     * @return 若两直线垂直, 则返回true
+     */
+    public static boolean vertical(double a1, double b1, double a2, double b2, double precision) {
+        return NumberUtil.isZero(a1 * a2 + b1 * b2, precision);
+    }
+
+    /**
+     * 判断两直线是否在最小精度范围内重合
+     *
+     * @param l1 第一条直线
+     * @param l2 第二条直线
+     * @return 若两直线重合则返回true
+     */
+    public static boolean coincide(Line l1, Line l2) {
+        return coincide(l1, l2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度范围内重合
+     *
+     * @param l1        第一条直线
+     * @param l2        第二条直线
+     * @param precision 给定的精度
+     * @return 若两直线重合则返回true
+     */
+    public static boolean coincide(Line l1, Line l2, double precision) {
+        if (l1 == null || l2 == null) {
+            throw new NullPointerException("直线为null");
+        }
+        return coincide(l1.getA(), l1.getB(), l1.getC(), l2.getA(), l2.getB(), l2.getC(), precision);
+    }
+
+    /**
+     * 判断两直线是否在最小精度内重合
+     *
+     * @param a1 第一条直线的系数a
+     * @param b1 第一条直线的系数b
+     * @param a2 第二条直线的系数a
+     * @param b2 第二条直线的系数b
+     * @return 若两直线重合, 则返回true
+     */
+    public static boolean coincide(double a1, double b1, double c1, double a2, double b2, double c2) {
+        return coincide(a1, b1, c1, a2, b2, c2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两直线是否在给定的精度内重合
+     *
+     * @param a1        第一条直线的系数a
+     * @param b1        第一条直线的系数b
+     * @param a2        第二条直线的系数a
+     * @param b2        第二条直线的系数b
+     * @param precision 给定的精度
+     * @return 若两直线重合, 则返回true
+     */
+    public static boolean coincide(double a1, double b1, double c1, double a2, double b2, double c2, double precision) {
+        if (NumberUtil.isZero(a1) && NumberUtil.isZero(a2) && NumberUtil.equal(b1 * c2, b2 * c1, precision)) {
+            return true;
+        }
+
+        if (NumberUtil.isZero(b1) && NumberUtil.isZero(b2) && NumberUtil.equal(a1 * c2, a2 * c1, precision)) {
+            return true;
+        }
+
+        if (NumberUtil.isZero(a1)&&NumberUtil.isZero(a2)&&NumberUtil.isZero(b1)&&NumberUtil.isZero(b2)) {
+            if (NumberUtil.equal(b1 * c2, b2 * c1, precision)&&NumberUtil.equal(a1 * c2, a2 * c1, precision)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 判断一条直线是否合理
+     *
+     * @param line 给定的直线
+     * @return 若直线的系数a与系数b均在最小精度范围内等于0, 或者直线为null, 则返回false
+     */
+    public static boolean isLogical(Line line) {
+        return line != null && isLogical(line.getA(), line.getB());
+    }
+
+    /**
+     * 判断一条直线是否合理
+     *
+     * @param a 直线的系数a
+     * @param b 直线的系数b
+     * @return 若直线的系数a与系数b均在最小精度范围内等于0, 则返回false
+     */
+    public static boolean isLogical(double a, double b) {
+        return !(NumberUtil.isZero(a) && NumberUtil.isZero(b));
+    }
 }
