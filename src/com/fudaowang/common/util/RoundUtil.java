@@ -455,4 +455,90 @@ public class RoundUtil {
     public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
         return getRelationship(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
     }
+    /**
+     * 判断两圆在最小精度范围内是否重合
+     *
+     * @param r1 第一个圆
+     * @param r2 第二个圆
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(Round r1, Round r2) {
+        return coincide(r1, r2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两圆在给定的精度范围内是否重合
+     *
+     * @param r1        第一个圆
+     * @param r2        第二个圆
+     * @param precision 给定的精度
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(Round r1, Round r2, double precision) {
+        if (r1 == null || r2 == null) {
+            throw new NullPointerException("判断的圆为null");
+        }
+        return coincide(r1.getCenter(), r1.getRadius(), r2.getCenter(), r2.getRadius(), precision);
+    }
+
+    /**
+     * 判断两圆在最小精度范围内是否重合
+     *
+     * @param p1 第一个圆的圆心
+     * @param r1 第一个圆的半径
+     * @param p2 第二个圆的圆心
+     * @param r2 第二个圆的半径
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(Point p1, double r1, Point p2, double r2) {
+        return coincide(p1, r1, p2, r2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两圆在给定的精度范围内是否重合
+     *
+     * @param p1        第一个圆的圆心
+     * @param r1        第一个圆的半径
+     * @param p2        第二个圆的圆心
+     * @param r2        第二个圆的半径
+     * @param precision 给定的精度
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(Point p1, double r1, Point p2, double r2, double precision) {
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("圆的圆心为null");
+        }
+        return coincide(p1.getX(), p1.getY(), r1, p2.getX(), p2.getY(), r2, precision);
+    }
+
+    /**
+     * 判断两圆是否在最小精度范围内重合
+     *
+     * @param x1 第一个圆的圆心的横坐标
+     * @param y1 第一个圆的圆心的纵坐标
+     * @param r1 第一个圆的半径
+     * @param x2 第二个圆的圆心的横坐标
+     * @param y2 第二个圆的圆心的纵坐标
+     * @param r2 第二个圆的半径
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(double x1, double y1, double r1, double x2, double y2, double r2) {
+        return coincide(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断两圆是否在给定的精度范围内重合
+     *
+     * @param x1        第一个圆的圆心的横坐标
+     * @param y1        第一个圆的圆心的纵坐标
+     * @param r1        第一个圆的半径
+     * @param x2        第二个圆的圆心的横坐标
+     * @param y2        第二个圆的圆心的纵坐标
+     * @param r2        第二个圆的半径
+     * @param precision 给定的精度
+     * @return 若两圆重合, 则返回true
+     */
+    public static boolean coincide(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
+        return PointUtil.coincide(x1, y1, x2, y2, precision) && NumberUtil.equal(r1, r2, precision);
+    }
 }
