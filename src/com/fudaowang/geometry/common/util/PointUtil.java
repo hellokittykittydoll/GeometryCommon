@@ -572,9 +572,9 @@ public class PointUtil {
      */
     public static Point toRelativeCoordinate(double x, double y, double originX, double originY, double spaceX, double spaceY) {
         if (NumberUtil.isMoreThanZero(spaceX) && NumberUtil.isMoreThanZero(spaceY)) {
-            double absoluteX = (x - originX) / spaceX;
-            double absoluteY = (originY - y) / spaceY;
-            return new Point(absoluteX, absoluteY);
+            double relativeX = (x - originX) / spaceX;
+            double relativeY = (originY - y) / spaceY;
+            return new Point(relativeX, relativeY);
         }
 
         throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
