@@ -216,7 +216,6 @@ public class LineUtil {
     /**
      * 过点(x,y)做直线ax+by+c=0的垂线
      *
-     *
      * @param x 点的横坐标
      * @param y 点纵坐标
      * @param a 直线的系数a
@@ -273,7 +272,6 @@ public class LineUtil {
 
     /**
      * 过点(x,y)求直线ax+by+c=0的平行线
-     *
      *
      * @param x 点的横坐标
      * @param y 点纵坐标
@@ -424,7 +422,6 @@ public class LineUtil {
 
     /**
      * 求直线ax+by+c=0的倾角
-     *
      *
      * @param a 直线的系数a
      * @param b 直线的系数b
@@ -695,8 +692,8 @@ public class LineUtil {
             return true;
         }
 
-        if (NumberUtil.isZero(a1)&&NumberUtil.isZero(a2)&&NumberUtil.isZero(b1)&&NumberUtil.isZero(b2)) {
-            if (NumberUtil.equal(b1 * c2, b2 * c1, precision)&&NumberUtil.equal(a1 * c2, a2 * c1, precision)) {
+        if (NumberUtil.isZero(a1) && NumberUtil.isZero(a2) && NumberUtil.isZero(b1) && NumberUtil.isZero(b2)) {
+            if (NumberUtil.equal(b1 * c2, b2 * c1, precision) && NumberUtil.equal(a1 * c2, a2 * c1, precision)) {
                 return true;
             }
         }
@@ -723,5 +720,65 @@ public class LineUtil {
      */
     public static boolean isLogical(double a, double b) {
         return !(NumberUtil.isZero(a) && NumberUtil.isZero(b));
+    }
+
+    /**
+     * 将相对坐标下的直线,转化为绝对坐标下的直线
+     *
+     * @param line    给定的直线
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 绝对坐标下的直线
+     */
+    public static Line toAbsoluteCoordinate(Line line, double originX, double originY, double spaceX, double spaceY) {
+        return line == null ? null : toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将相对坐标下的直线(p1,p2)转化为绝对坐标下的直线
+     *
+     * @param a       直线的系数a
+     * @param b       直线的系数b
+     * @param c       直线的系数c
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 绝对坐标下的直线
+     */
+    public static Line toAbsoluteCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+
+    }
+
+    /**
+     * 将绝对坐标下的直线,转化为相对坐标下的直线
+     *
+     * @param line    给定的直线
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 相对坐标下的直线
+     */
+    public static Line toRelativeCoordinate(Line line, double originX, double originY, double spaceX, double spaceY) {
+        return line == null ? null : toRelativeCoordinate(line.getA(), line.getB(), line.getC(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将绝对坐标下的直线(p1,p2)转化为相对坐标下的直线
+     *
+     * @param a       直线的系数a
+     * @param b       直线的系数b
+     * @param c       直线的系数c
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 相对坐标下的直线
+     */
+    public static Line toRelativeCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+
     }
 }
