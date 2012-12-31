@@ -509,4 +509,74 @@ public class PointUtil {
         Collections.sort(list, comparator);
         return toArray(list);
     }
+
+    /**
+     * 将相对坐标下的点,转化为绝对坐标下的点
+     *
+     * @param point   给定的点
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 绝对坐标下的点
+     */
+    public static Point toAbsoluteCoordinate(Point point, double originX, double originY, double spaceX, double spaceY) {
+        return point == null ? null : toAbsoluteCoordinate(point.getX(), point.getY(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将相对坐标下的点(x,y)转化为绝对坐标下的点
+     *
+     * @param x       点的横坐标
+     * @param y       点的纵坐标
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 绝对坐标下的点
+     */
+    public static Point toAbsoluteCoordinate(double x, double y, double originX, double originY, double spaceX, double spaceY) {
+        if (NumberUtil.isMoreThanZero(spaceX) && NumberUtil.isMoreThanZero(spaceY)) {
+            double absoluteX = originX + x * spaceX;
+            double absoluteY = originY - y * spaceY;
+            return new Point(absoluteX, absoluteY);
+        }
+
+        throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
+    }
+
+    /**
+     * 将绝对坐标下的点,转化为相对坐标下的点
+     *
+     * @param point   给定的点
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 相对坐标下的点
+     */
+    public static Point toRelativeCoordinate(Point point, double originX, double originY, double spaceX, double spaceY) {
+        return point == null ? null : toRelativeCoordinate(point.getX(), point.getY(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将绝对坐标下的点(x,y)转化为相对坐标下的点
+     *
+     * @param x       点的横坐标
+     * @param y       点的纵坐标
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param spaceX  横坐标单位长度的间隔
+     * @param spaceY  纵坐标单位长度的间隔
+     * @return 相对坐标下的点
+     */
+    public static Point toRelativeCoordinate(double x, double y, double originX, double originY, double spaceX, double spaceY) {
+        if (NumberUtil.isMoreThanZero(spaceX) && NumberUtil.isMoreThanZero(spaceY)) {
+            double absoluteX = (x - originX) / spaceX;
+            double absoluteY = (originY - y) / spaceY;
+            return new Point(absoluteX, absoluteY);
+        }
+
+        throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
+    }
 }
