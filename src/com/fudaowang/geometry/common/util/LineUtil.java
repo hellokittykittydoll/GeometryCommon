@@ -859,7 +859,7 @@ public class LineUtil {
         }
 
         Point p1 = PointUtil.toRelativeCoordinate(points[0].getX(), points[0].getY(), originX, originY, spaceX, spaceY);
-        int last = points.length - 1
+        int last = points.length - 1;
         Point p2 = PointUtil.toRelativeCoordinate(points[last].getX(), points[last].getY(), originX, originY, spaceX, spaceY);
         return getLine(p1, p2);
     }
