@@ -1,6 +1,7 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
+import com.sun.org.apache.bcel.internal.generic.FieldGenOrMethodGen;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -513,15 +514,15 @@ public class PointUtil {
     /**
      * 将相对坐标下的点,转化为绝对坐标下的点
      *
-     * @param point   给定的点
-     * @param originX 原点的横坐标
-     * @param originY 原点的纵坐标
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param point  给定的点
+     * @param origin 相对坐标的原点
+     * @param spaceX 横坐标单位长度的间隔
+     * @param spaceY 纵坐标单位长度的间隔
      * @return 绝对坐标下的点
      */
-    public static Point toAbsoluteCoordinate(Point point, double originX, double originY, double spaceX, double spaceY) {
-        return point == null ? null : toAbsoluteCoordinate(point.getX(), point.getY(), originX, originY, spaceX, spaceY);
+    public static Point toAbsoluteCoordinate(Point point, Point origin, double spaceX, double spaceY) {
+        return point == null || origin == null ? null :
+                toAbsoluteCoordinate(point.getX(), point.getY(), origin.getX(), origin.getY(), spaceX, spaceY);
     }
 
     /**
@@ -546,17 +547,44 @@ public class PointUtil {
     }
 
     /**
-     * 将绝对坐标下的点,转化为相对坐标下的点
+     * 将相对坐标下的点,转化为绝对坐标下的点
      *
-     * @param point   给定的点
+     * @param point  给定的点
+     * @param origin 相对坐标的原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 绝对坐标下的点
+     */
+    public static Point toAbsoluteCoordinate(Point point, Point origin, double space) {
+        return point == null || origin == null ? null :
+                toAbsoluteCoordinate(point.getX(), point.getY(), origin.getX(), origin.getY(), space, space);
+    }
+
+    /**
+     * 将相对坐标下的点(x,y)转化为绝对坐标下的点
+     *
+     * @param x       点的横坐标
+     * @param y       点的纵坐标
      * @param originX 原点的横坐标
      * @param originY 原点的纵坐标
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param space   相对坐标单位长度的间隔
+     * @return 绝对坐标下的点
+     */
+    public static Point toAbsoluteCoordinate(double x, double y, double originX, double originY, double space) {
+        return toAbsoluteCoordinate(x, y, originX, originY, space, space);
+    }
+
+    /**
+     * 将绝对坐标下的点,转化为相对坐标下的点
+     *
+     * @param point  给定的点
+     * @param origin 相对坐标的原点
+     * @param spaceX 横坐标单位长度的间隔
+     * @param spaceY 纵坐标单位长度的间隔
      * @return 相对坐标下的点
      */
-    public static Point toRelativeCoordinate(Point point, double originX, double originY, double spaceX, double spaceY) {
-        return point == null ? null : toRelativeCoordinate(point.getX(), point.getY(), originX, originY, spaceX, spaceY);
+    public static Point toRelativeCoordinate(Point point, Point origin, double spaceX, double spaceY) {
+        return point == null || origin == null ? null :
+                toRelativeCoordinate(point.getX(), point.getY(), origin.getX(), origin.getY(), spaceX, spaceY);
     }
 
     /**
@@ -578,6 +606,33 @@ public class PointUtil {
         }
 
         throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
+    }
+
+    /**
+     * 将绝对坐标下的点,转化为相对坐标下的点
+     *
+     * @param point  给定的点
+     * @param origin 相对坐标的原点
+     * @param space  横坐标单位长度的间隔
+     * @return 相对坐标下的点
+     */
+    public static Point toRelativeCoordinate(Point point, Point origin, double space) {
+        return point == null || origin == null ? null :
+                toRelativeCoordinate(point.getX(), point.getY(), origin.getX(), origin.getY(), space, space);
+    }
+
+    /**
+     * 将绝对坐标下的点(x,y)转化为相对坐标下的点
+     *
+     * @param x       点的横坐标
+     * @param y       点的纵坐标
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 相对坐标下的点
+     */
+    public static Point toRelativeCoordinate(double x, double y, double originX, double originY, double space) {
+        return toRelativeCoordinate(x, y, originX, originY, space, space);
     }
 
     /**
