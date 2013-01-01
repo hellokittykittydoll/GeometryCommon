@@ -1,11 +1,14 @@
 package com.fudaowang.geometry.common.util;
 
+import com.fudaowang.geometry.common.collection.PointCollection;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
 
+import java.util.Comparator;
+
 /**
- * 对直线和线段进行操作的类
+ * 对直线进行操作的类
  * Created with IntelliJ IDEA.
  * User: dongxin
  * Date: 10/26/12
@@ -760,7 +763,21 @@ public class LineUtil {
      * @return 绝对坐标下的直线
      */
     public static Line toAbsoluteCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        PointCollection points = new PointCollection();
+        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, originX / spaceX));
+        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
 
+        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
+        Point[] pointArray = points.getPoints();
+        if (pointArray.length < 2) {
+            return null;
+        }
+
+        Point p1 = PointUtil.toAbsoluteCoordinate(pointArray[0], originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toAbsoluteCoordinate(pointArray[pointArray.length - 1], originX, originY, spaceX, spaceY);
+        return getLine(p1, p2);
     }
 
     /**
@@ -790,6 +807,46 @@ public class LineUtil {
      * @return 相对坐标下的直线
      */
     public static Line toRelativeCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        PointCollection points = new PointCollection();
+        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
+        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
 
+        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
+        Point[] pointArray = points.getPoints();
+        if (pointArray.length < 2) {
+            return null;
+        }
+
+        Point p1 = PointUtil.toRelativeCoordinate(pointArray[0], originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toRelativeCoordinate(pointArray[pointArray.length - 1], originX, originY, spaceX, spaceY);
+        return getLine(p1, p2);
     }
+
+    /**
+     * 将给定的直线与绝对坐标轴和相对坐标轴分别相交,求的相距最远的两个点
+     *
+     * @param a       给定直线的系数a
+     * @param b       给定直线的系数b
+     * @param c       给定直线的系数c
+     * @param originX 相对坐标原点的横坐标
+     * @param originY 相对坐标原点的纵坐标
+     * @return 由相距最远的两点构成的线段
+     */
+    private static Segment getCoordinateAxisIntersect(double a, double b, double c, double originX, double originY) {
+        PointCollection points = new PointCollection();
+        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
+        points.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
+        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
+
+        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
+        Point[] pointArray = points.getPoints();
+        if (pointArray.length < 2) {
+            return null;
+        }
+        return new Segment(pointArray[0], pointArray[pointArray.length - 1]);
+    }
+
 }
