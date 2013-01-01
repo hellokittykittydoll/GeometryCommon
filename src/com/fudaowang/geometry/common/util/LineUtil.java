@@ -733,7 +733,7 @@ public class LineUtil {
      * @return 若直线的系数a与系数b均在最小精度范围内等于0, 则返回false
      */
     public static boolean isLogical(double a, double b) {
-        return !(NumberUtil.isZero(a) && NumberUtil.isZero(b));
+        return !((NumberUtil.isZero(a) && NumberUtil.isZero(b)));
     }
 
     /**
@@ -763,6 +763,10 @@ public class LineUtil {
      * @return 绝对坐标下的直线
      */
     public static Line toAbsoluteCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        if (!isLogical(a, b)) {
+            throw new IllegalArgumentException("直线的系数a和b不能同时为0");
+        }
+
         PointCollection points = new PointCollection();
         points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
         points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
@@ -807,6 +811,10 @@ public class LineUtil {
      * @return 相对坐标下的直线
      */
     public static Line toRelativeCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        if (!isLogical(a, b)) {
+            throw new IllegalArgumentException("直线的系数a和b不能同时为0");
+        }
+
         PointCollection points = new PointCollection();
         points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
         points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
@@ -823,30 +831,4 @@ public class LineUtil {
         Point p2 = PointUtil.toRelativeCoordinate(pointArray[pointArray.length - 1], originX, originY, spaceX, spaceY);
         return getLine(p1, p2);
     }
-
-    /**
-     * 将给定的直线与绝对坐标轴和相对坐标轴分别相交,求的相距最远的两个点
-     *
-     * @param a       给定直线的系数a
-     * @param b       给定直线的系数b
-     * @param c       给定直线的系数c
-     * @param originX 相对坐标原点的横坐标
-     * @param originY 相对坐标原点的纵坐标
-     * @return 由相距最远的两点构成的线段
-     */
-    private static Segment getCoordinateAxisIntersect(double a, double b, double c, double originX, double originY) {
-        PointCollection points = new PointCollection();
-        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
-        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
-
-        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] pointArray = points.getPoints();
-        if (pointArray.length < 2) {
-            return null;
-        }
-        return new Segment(pointArray[0], pointArray[pointArray.length - 1]);
-    }
-
 }
