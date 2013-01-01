@@ -6,8 +6,7 @@ import com.fudaowang.geometry.common.util.PointUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 表示点集合的类
@@ -18,13 +17,13 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class PointCollection {
-    private final Set set;
+    private final List list;
 
     /**
      * 构造方法
      */
     public PointCollection() {
-        set = new HashSet();
+        list = new ArrayList();
     }
 
     /**
@@ -33,7 +32,7 @@ public class PointCollection {
      * @return 点的数组
      */
     public Point[] getPoints() {
-        return (Point[]) set.toArray(new Point[set.size()]);
+        return (Point[]) list.toArray(new Point[list.size()]);
     }
 
     /**
@@ -42,7 +41,7 @@ public class PointCollection {
      * @return 点集合的size
      */
     public int size() {
-        return set.size();
+        return list.size();
     }
 
     /**
@@ -90,7 +89,7 @@ public class PointCollection {
      * @return 若存在与给定点重复的点, 则返回true
      */
     public boolean contains(final double x, final double y, final double precision) {
-        return CollectionUtils.exists(set, new Predicate() {
+        return CollectionUtils.exists(list, new Predicate() {
             public boolean evaluate(Object o) {
                 Point point = (Point) o;
                 return PointUtil.coincide(point.getX(), point.getY(), x, y, precision);
@@ -139,6 +138,12 @@ public class PointCollection {
      * @return 若添加成功则返回true
      */
     public boolean add(double x, double y, double precision) {
-        return !contains(x, y, precision) && set.add(new Point(x, y));
+        return !contains(x, y, precision) && list.add(new Point(x, y));
+    }
+
+    public void sort(Comparator comparator) {
+        if (comparator != null) {
+            Collections.sort(list, comparator);
+        }
     }
 }
