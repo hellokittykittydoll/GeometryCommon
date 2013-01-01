@@ -15,6 +15,17 @@ import com.fudaowang.geometry.common.graph.Segment;
 public class LineUtil {
 
     /**
+     * x坐标轴
+     */
+    public static final Line COORDINATE_AXIS_X = new Line(0, 1, 0);
+
+    /**
+     * y坐标轴
+     */
+    public static final Line COORDINATE_AXIS_Y = new Line(1, 0, 0);
+
+
+    /**
      * 求直线a1x+b1y+c1=0与直线a2x+b2y+c2=0的交点
      *
      * @param a1 第一条直线的系数a
