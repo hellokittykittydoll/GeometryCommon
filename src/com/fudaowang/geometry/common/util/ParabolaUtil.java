@@ -363,4 +363,94 @@ public class ParabolaUtil {
     public static Parabola translation(double a, double b, double c, double x, double y) {
         return new Parabola(a, b - 2.0 * a * x, a * x * x - b * x + c + y);
     }
+
+    /**
+     * 将相对坐标下的抛物线转化为绝对坐标
+     *
+     * @param parabola 给定的抛物线
+     * @param originX  相对坐标原点的横坐标
+     * @param originY  相对坐标原点的纵坐标
+     * @param spaceX   相对坐标的x轴单位长度值
+     * @param spaceY   相对坐标的y轴单位长度值
+     * @return 绝对坐标下的抛物线
+     */
+    public static Parabola toAbsoluteCoordinate(Parabola parabola, double originX, double originY, double spaceX, double spaceY) {
+        return parabola == null ? null : toAbsoluteCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将相对坐标下的抛物线转化为绝对坐标
+     *
+     * @param a       抛物线的系数a
+     * @param b       抛物线的系数 b
+     * @param c       抛物线的系数 c
+     * @param originX 相对坐标原点的横坐标
+     * @param originY 相对坐标原点的纵坐标
+     * @param spaceX  相对坐标的x轴单位长度值
+     * @param spaceY  相对坐标的y轴单位长度值
+     * @return 绝对坐标下的抛物线
+     */
+    public static Parabola toAbsoluteCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        if (NumberUtil.isZero(a)) {
+            throw new IllegalArgumentException("抛物线的系数a不能为0");
+        }
+
+        double x1 = 0;
+        double y1 = getY(a, b, c, x1);
+        double x2 = -originX / spaceX;
+        double y2 = getY(a, b, c, x2);
+        double x3 = originX / spaceX;
+        double y3 = getY(a, b, c, x3);
+
+        Point p1 = PointUtil.toAbsoluteCoordinate(x1, y1, originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toAbsoluteCoordinate(x2, y2, originX, originY, spaceX, spaceY);
+        Point p3 = PointUtil.toAbsoluteCoordinate(x3, y3, originX, originY, spaceX, spaceY);
+
+        return getParabola(p1, p2, p3);
+    }
+
+    /**
+     * 将绝对坐标下的抛物线转化为相对坐标
+     *
+     * @param parabola 给定的抛物线
+     * @param originX  相对坐标原点的横坐标
+     * @param originY  相对坐标原点的纵坐标
+     * @param spaceX   相对坐标的x轴单位长度值
+     * @param spaceY   相对坐标的y轴单位长度值
+     * @return 相对坐标下的抛物线
+     */
+    public static Parabola toRelativeCoordinate(Parabola parabola, double originX, double originY, double spaceX, double spaceY) {
+        return parabola == null ? null : toRelativeCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), originX, originY, spaceX, spaceY);
+    }
+
+    /**
+     * 将绝对坐标下的抛物线转化为相对坐标
+     *
+     * @param a       抛物线的系数a
+     * @param b       抛物线的系数 b
+     * @param c       抛物线的系数 c
+     * @param originX 相对坐标原点的横坐标
+     * @param originY 相对坐标原点的纵坐标
+     * @param spaceX  相对坐标的x轴单位长度值
+     * @param spaceY  相对坐标的y轴单位长度值
+     * @return 相对坐标下的抛物线
+     */
+    public static Parabola toRelativeCoordinate(double a, double b, double c, double originX, double originY, double spaceX, double spaceY) {
+        if (NumberUtil.isZero(a)) {
+            throw new IllegalArgumentException("抛物线的系数a不能为0");
+        }
+
+        double x1 = 0;
+        double y1 = getY(a, b, c, x1);
+        double x2 = originX;
+        double y2 = getY(a, b, c, x2);
+        double x3 = 2 * originX;
+        double y3 = getY(a, b, c, x3);
+
+        Point p1 = PointUtil.toRelativeCoordinate(x1, y1, originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toRelativeCoordinate(x2, y2, originX, originY, spaceX, spaceY);
+        Point p3 = PointUtil.toRelativeCoordinate(x3, y3, originX, originY, spaceX, spaceY);
+
+        return getParabola(p1, p2, p3);
+    }
 }
