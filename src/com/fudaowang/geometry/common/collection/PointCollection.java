@@ -141,9 +141,16 @@ public class PointCollection {
         return !contains(x, y, precision) && list.add(new Point(x, y));
     }
 
-    public void sort(Comparator comparator) {
+    /**
+     * 对点集合按照给定的规则排序
+     *
+     * @param comparator 给定的规则
+     * @return 排序后的点集合
+     */
+    public PointCollection sort(Comparator comparator) {
         if (comparator != null) {
             Collections.sort(list, comparator);
         }
+        return this;
     }
 }
