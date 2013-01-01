@@ -579,4 +579,34 @@ public class PointUtil {
 
         throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
     }
+
+    /**
+     * 获得两点关于x坐标的Comparator
+     *
+     * @return 两点关于x坐标的Comparator
+     */
+    public static Comparator xComparator() {
+        return new Comparator() {
+            public int compare(Object o1, Object o2) {
+                Point p1 = (Point) o1;
+                Point p2 = (Point) o2;
+                return Double.compare(p1.getX(), p2.getX());
+            }
+        };
+    }
+
+    /**
+     * 获得两点关于y坐标的Comparator
+     *
+     * @return 两点关于y坐标的Comparator
+     */
+    public static Comparator yComparator() {
+        return new Comparator() {
+            public int compare(Object o1, Object o2) {
+                Point p1 = (Point) o1;
+                Point p2 = (Point) o2;
+                return Double.compare(p1.getY(), p2.getY());
+            }
+        };
+    }
 }
