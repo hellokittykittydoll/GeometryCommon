@@ -739,15 +739,15 @@ public class LineUtil {
     /**
      * 将相对坐标下的直线,转化为绝对坐标下的直线
      *
-     * @param line    给定的直线
-     * @param originX 原点的横坐标
-     * @param originY 原点的纵坐标
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param line   给定的直线
+     * @param origin 相对坐标原点
+     * @param spaceX 横坐标单位长度的间隔
+     * @param spaceY 纵坐标单位长度的间隔
      * @return 绝对坐标下的直线
      */
-    public static Line toAbsoluteCoordinate(Line line, double originX, double originY, double spaceX, double spaceY) {
-        return line == null ? null : toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), originX, originY, spaceX, spaceY);
+    public static Line toAbsoluteCoordinate(Line line, Point origin, double spaceX, double spaceY) {
+        return line == null || origin == null ? null :
+                toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
     }
 
     /**
@@ -767,35 +767,66 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection points = new PointCollection();
-        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, originX / spaceX));
-        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
+        PointCollection list = new PointCollection();
+        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
+        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
+        list.add(LineUtil.intersect(a, b, c, 1, 0, originX / spaceX));
+        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
 
-        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] pointArray = points.getPoints();
-        if (pointArray.length < 2) {
+        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
+        Point[] points = list.getPoints();
+        if (points.length < 2) {
             return null;
         }
 
-        Point p1 = PointUtil.toAbsoluteCoordinate(pointArray[0], originX, originY, spaceX, spaceY);
-        Point p2 = PointUtil.toAbsoluteCoordinate(pointArray[pointArray.length - 1], originX, originY, spaceX, spaceY);
+        Point p1 = PointUtil.toAbsoluteCoordinate(points[0].getX(), points[0].getY(), originX, originY, spaceX, spaceY);
+        int last = points.length - 1;
+        Point p2 = PointUtil.toAbsoluteCoordinate(points[last].getX(), points[last].getY(), originX, originY, spaceX, spaceY);
         return getLine(p1, p2);
+    }
+
+    /**
+     * 将相对坐标下的直线,转化为绝对坐标下的直线
+     *
+     * @param line   给定的直线
+     * @param origin 相对坐标原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 绝对坐标下的直线
+     */
+    public static Line toAbsoluteCoordinate(Line line, Point origin, double space) {
+        return line == null || origin == null ? null :
+                toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将相对坐标下的直线(p1,p2)转化为绝对坐标下的直线
+     *
+     * @param a       直线的系数a
+     * @param b       直线的系数b
+     * @param c       直线的系数c
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 绝对坐标下的直线
+     */
+    public static Line toAbsoluteCoordinate(double a, double b, double c, double originX, double originY, double space) {
+        if (!isLogical(a, b)) {
+            throw new IllegalArgumentException("直线的系数a和b不能同时为0");
+        }
     }
 
     /**
      * 将绝对坐标下的直线,转化为相对坐标下的直线
      *
-     * @param line    给定的直线
-     * @param originX 原点的横坐标
-     * @param originY 原点的纵坐标
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param line   给定的直线
+     * @param origin 相对坐标原点
+     * @param spaceX 横坐标单位长度的间隔
+     * @param spaceY 纵坐标单位长度的间隔
      * @return 相对坐标下的直线
      */
-    public static Line toRelativeCoordinate(Line line, double originX, double originY, double spaceX, double spaceY) {
-        return line == null ? null : toRelativeCoordinate(line.getA(), line.getB(), line.getC(), originX, originY, spaceX, spaceY);
+    public static Line toRelativeCoordinate(Line line, Point origin, double spaceX, double spaceY) {
+        return line == null || origin == null ? null :
+                toRelativeCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
     }
 
     /**
@@ -815,20 +846,51 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection points = new PointCollection();
-        points.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        points.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
-        points.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
+        PointCollection list = new PointCollection();
+        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
+        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
+        list.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
+        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
 
-        points.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] pointArray = points.getPoints();
-        if (pointArray.length < 2) {
+        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
+        Point[] points = list.getPoints();
+        if (points.length < 2) {
             return null;
         }
 
-        Point p1 = PointUtil.toRelativeCoordinate(pointArray[0], originX, originY, spaceX, spaceY);
-        Point p2 = PointUtil.toRelativeCoordinate(pointArray[pointArray.length - 1], originX, originY, spaceX, spaceY);
+        Point p1 = PointUtil.toRelativeCoordinate(points[0].getX(), points[0].getY(), originX, originY, spaceX, spaceY);
+        int last = points.length - 1
+        Point p2 = PointUtil.toRelativeCoordinate(points[last].getX(), points[last].getY(), originX, originY, spaceX, spaceY);
         return getLine(p1, p2);
+    }
+
+    /**
+     * 将绝对坐标下的直线,转化为相对坐标下的直线
+     *
+     * @param line   给定的直线
+     * @param origin 相对坐标原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 相对坐标下的直线
+     */
+    public static Line toRelativeCoordinate(Line line, Point origin, double space) {
+        return line == null || origin == null ? null :
+                toRelativeCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将绝对坐标下的直线(p1,p2)转化为相对坐标下的直线
+     *
+     * @param a       直线的系数a
+     * @param b       直线的系数b
+     * @param c       直线的系数c
+     * @param originX 原点的横坐标
+     * @param originY 原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 相对坐标下的直线
+     */
+    public static Line toRelativeCoordinate(double a, double b, double c, double originX, double originY, double space) {
+        if (!isLogical(a, b)) {
+            throw new IllegalArgumentException("直线的系数a和b不能同时为0");
+        }
     }
 }
