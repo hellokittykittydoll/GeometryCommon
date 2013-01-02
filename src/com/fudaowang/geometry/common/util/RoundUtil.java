@@ -454,6 +454,7 @@ public class RoundUtil {
     public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
         return getRelationship(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
     }
+
     /**
      * 判断两圆在最小精度范围内是否重合
      *
@@ -539,5 +540,95 @@ public class RoundUtil {
      */
     public static boolean coincide(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
         return PointUtil.coincide(x1, y1, x2, y2, precision) && NumberUtil.equal(r1, r2, precision);
+    }
+
+    /**
+     * 将相对坐标下的圆转化为绝对坐标
+     *
+     * @param round  给定的圆
+     * @param origin 相对坐标的原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 绝对坐标下的圆
+     */
+    public static Round toAbsoluteCoordinate(Round round, Point origin, double space) {
+        return round == null || origin == null ? null :
+                toAbsoluteCoordinate(round.getCenter(), round.getRadius(), origin, space);
+    }
+
+    /**
+     * 将相对坐标下的圆转化为绝对坐标
+     *
+     * @param center 给定的圆的圆心
+     * @param origin 相对坐标的原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 绝对坐标下的圆
+     */
+    public static Round toAbsoluteCoordinate(Point center, double radius, Point origin, double space) {
+        return center == null || origin == null ? null :
+                toAbsoluteCoordinate(center.getX(), center.getY(), radius, origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将相对坐标下的圆转化为绝对坐标
+     *
+     * @param centerX 给定的圆的圆心的横坐标
+     * @param centerY 给定的圆的圆心的纵坐标
+     * @param originX 相对坐标的原点的横坐标
+     * @param originY 相对坐标的原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 相对坐标下的圆
+     */
+    public static Round toAbsoluteCoordinate(double centerX, double centerY, double radius, double originX, double originY, double space) {
+        if (!NumberUtil.isMoreThanZero(radius)) {
+            throw new IllegalArgumentException("圆的半径必须大于0");
+        }
+
+        Point point = PointUtil.toAbsoluteCoordinate(centerX, centerY, originX, originY, space);
+        return new Round(point, radius / space);
+    }
+
+    /**
+     * 将绝对坐标下的圆转化为相对坐标
+     *
+     * @param round  给定的圆
+     * @param origin 相对坐标的原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 相对坐标下的圆
+     */
+    public static Round toRelativeCoordinate(Round round, Point origin, double space) {
+        return round == null || origin == null ? null :
+                toRelativeCoordinate(round.getCenter(), round.getRadius(), origin, space);
+    }
+
+    /**
+     * 将绝对坐标下的圆转化为相对坐标
+     *
+     * @param center 给定的圆的圆心
+     * @param origin 相对坐标的原点
+     * @param space  相对坐标单位长度的间隔
+     * @return 相对坐标下的圆
+     */
+    public static Round toRelativeCoordinate(Point center, double radius, Point origin, double space) {
+        return center == null || origin == null ? null :
+                toRelativeCoordinate(center.getX(), center.getY(), radius, origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将绝对坐标下的圆转化为相对坐标
+     *
+     * @param centerX 给定的圆的圆心的横坐标
+     * @param centerY 给定的圆的圆心的纵坐标
+     * @param originX 相对坐标的原点的横坐标
+     * @param originY 相对坐标的原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 相对坐标下的圆
+     */
+    public static Round toRelativeCoordinate(double centerX, double centerY, double radius, double originX, double originY, double space) {
+        if (!NumberUtil.isMoreThanZero(radius)) {
+            throw new IllegalArgumentException("圆的半径必须大于0");
+        }
+
+        Point point = PointUtil.toRelativeCoordinate(centerX, centerY, originX, originY, space);
+        return new Round(point, radius * space);
     }
 }
