@@ -81,6 +81,13 @@ public class HyperbolaUtil {
         return PointUtil.toArray(list);
     }
 
+    /**
+     * 求反比例函数对应x的y值
+     *
+     * @param hyperbola 反比例函数
+     * @param x         x值
+     * @return y值
+     */
     public static double getY(Hyperbola hyperbola, double x) {
         if (hyperbola == null) {
             return Double.NaN;
@@ -88,6 +95,15 @@ public class HyperbolaUtil {
         return getY(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), x);
     }
 
+    /**
+     * 求反比例函数对应x的y值
+     *
+     * @param k  反比例函数的系数k
+     * @param x  反比例函数的原点横坐标
+     * @param y  反比例函数的原点横坐标
+     * @param x0 x值
+     * @return y值
+     */
     public static double getY(double k, double x, double y, double x0) {
         if (NumberUtil.isZero(k)) {
             return Double.NaN;
@@ -100,6 +116,13 @@ public class HyperbolaUtil {
         return k / (x0 - x) + y;
     }
 
+    /**
+     * 求反比例函数对应y的x值
+     *
+     * @param hyperbola 反比例函数
+     * @param y         y值
+     * @return x值
+     */
     public static double getX(Hyperbola hyperbola, double y) {
         if (hyperbola == null) {
             return Double.NaN;
@@ -107,6 +130,15 @@ public class HyperbolaUtil {
         return getX(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), y);
     }
 
+    /**
+     * 求反比例函数对应y的x值
+     *
+     * @param k  反比例函数的系数k
+     * @param x  反比例函数的原点横坐标
+     * @param y  反比例函数的原点横坐标
+     * @param y0 y值
+     * @return x值
+     */
     public static double getX(double k, double x, double y, double y0) {
         if (NumberUtil.isZero(k)) {
             return Double.NaN;
