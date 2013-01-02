@@ -141,4 +141,13 @@ public class ParabolaCollection {
     public int size() {
         return set.size();
     }
+
+    /**
+     * 获得所有的抛物线
+     *
+     * @return 抛物线的数组
+     */
+    public Parabola[] getParabolas() {
+        return (Parabola[]) set.toArray(new Parabola[set.size()]);
+    }
 }
