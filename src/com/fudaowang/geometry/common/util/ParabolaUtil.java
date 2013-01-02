@@ -513,4 +513,64 @@ public class ParabolaUtil {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
     }
+
+    /**
+     * 在最小精度范围内判定两抛物线是否重合
+     *
+     * @param p1 第一个抛物线
+     * @param p2 第二个抛物线
+     * @return 若两抛物线重合则返回true
+     */
+    public static boolean coincide(Parabola p1, Parabola p2) {
+        return coincide(p1, p2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判定两抛物线是否重合
+     *
+     * @param p1        第一个抛物线
+     * @param p2        第二个抛物线
+     * @param precision 给定的精度
+     * @return 若两抛物线重合则返回true
+     */
+    public static boolean coincide(Parabola p1, Parabola p2, double precision) {
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("抛物线为null");
+        }
+        return coincide(p1.getA(), p1.getB(), p1.getC(), p2.getA(), p2.getB(), p2.getC(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判定两抛物线是否重合
+     *
+     * @param a1 第一个抛物线的系数a
+     * @param b1 第一个抛物线的系数b
+     * @param c1 第一个抛物线的系数c
+     * @param a2 第二个抛物线的系数a
+     * @param b2 第二个抛物线的系数b
+     * @param c2 第二个抛物线的系数c
+     * @return 若两抛物线重合则返回true
+     */
+    public static boolean coincide(double a1, double b1, double c1, double a2, double b2, double c2) {
+        return coincide(a1, b1, c1, a2, b2, c2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的精度范围内判定两抛物线是否重合
+     *
+     * @param a1        第一个抛物线的系数a
+     * @param b1        第一个抛物线的系数b
+     * @param c1        第一个抛物线的系数c
+     * @param a2        第二个抛物线的系数a
+     * @param b2        第二个抛物线的系数b
+     * @param c2        第二个抛物线的系数c
+     * @param precision 给定的精度
+     * @return 若两抛物线重合则返回true
+     */
+    public static boolean coincide(double a1, double b1, double c1, double a2, double b2, double c2, double precision) {
+        if (NumberUtil.isZero(a1) || NumberUtil.isZero(a2)) {
+            throw new IllegalArgumentException("抛物线的系数a不能为0");
+        }
+        return NumberUtil.equal(a1, a2, precision) && NumberUtil.equal(b1, b2, precision) && NumberUtil.equal(c1, c2, precision);
+    }
 }

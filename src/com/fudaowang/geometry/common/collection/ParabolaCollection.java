@@ -2,6 +2,7 @@ package com.fudaowang.geometry.common.collection;
 
 import com.fudaowang.geometry.common.graph.Parabola;
 import com.fudaowang.geometry.common.util.NumberUtil;
+import com.fudaowang.geometry.common.util.ParabolaUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
@@ -79,9 +80,7 @@ public class ParabolaCollection {
         return CollectionUtils.exists(set, new Predicate() {
             public boolean evaluate(Object o) {
                 Parabola parabola = (Parabola) o;
-                return NumberUtil.equal(parabola.getA(), a, precision)
-                        && NumberUtil.equal(parabola.getB(), b, precision)
-                        && NumberUtil.equal(parabola.getC(), c, precision);
+                return ParabolaUtil.coincide(parabola.getA(), parabola.getB(), parabola.getC(), a, b, c, precision);
             }
         });
     }
