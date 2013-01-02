@@ -47,7 +47,7 @@ public class ParabolaCollection {
         if (parabola == null) {
             throw new NullPointerException("抛物线为null");
         }
-        return contains(parabola.getA(), parabola.getB(), parabola.getC(), precision)
+        return contains(parabola.getA(), parabola.getB(), parabola.getC(), precision);
     }
 
     /**
