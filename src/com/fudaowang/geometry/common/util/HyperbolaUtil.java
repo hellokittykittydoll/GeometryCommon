@@ -118,4 +118,70 @@ public class HyperbolaUtil {
 
         return k / (y0 - y) + x;
     }
+
+    /**
+     * 将相对坐标下的双曲线转化为绝对坐标
+     *
+     * @param hyperbola 给定的双曲线
+     * @param origin    相对坐标的原点
+     * @param space     相对坐标单位长度的间隔
+     * @return 绝对坐标下的双曲线
+     */
+    public static Hyperbola toAbsoluteCoordinate(Hyperbola hyperbola, Point origin, double space) {
+        return hyperbola == null || origin == null ? null :
+                toAbsoluteCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将相对坐标下的双曲线转化为绝对坐标
+     *
+     * @param k       双曲线的系数k
+     * @param x       双曲线原点的横坐标
+     * @param y       双曲线原点的纵坐标
+     * @param originX 相对坐标的原点的横坐标
+     * @param originY 相对坐标的原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 绝对坐标下的双曲线
+     */
+    public static Hyperbola toAbsoluteCoordinate(double k, double x, double y, double originX, double originY, double space) {
+        if (!NumberUtil.isZero(k)) {
+            throw new IllegalArgumentException("双曲线的系数k必须不0");
+        }
+
+        Point point = PointUtil.toAbsoluteCoordinate(x, y, originX, originY, space);
+        return new Hyperbola(k, point);
+    }
+
+    /**
+     * 将绝对坐标下的双曲线转化为相对坐标
+     *
+     * @param hyperbola 给定的双曲线
+     * @param origin    相对坐标的原点
+     * @param space     相对坐标单位长度的间隔
+     * @return 相对坐标下的双曲线
+     */
+    public static Hyperbola toRelativeCoordinate(Hyperbola hyperbola, Point origin, double space) {
+        return hyperbola == null || origin == null ? null :
+                toRelativeCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), origin.getX(), origin.getY(), space);
+    }
+
+    /**
+     * 将绝对坐标下的双曲线转化为相对坐标
+     *
+     * @param k       双曲线的系数k
+     * @param x       双曲线原点的横坐标
+     * @param y       双曲线原点的纵坐标
+     * @param originX 相对坐标的原点的横坐标
+     * @param originY 相对坐标的原点的纵坐标
+     * @param space   相对坐标单位长度的间隔
+     * @return 相对坐标下的双曲线
+     */
+    public static Hyperbola toRelativeCoordinate(double k, double x, double y, double originX, double originY, double space) {
+        if (!NumberUtil.isZero(k)) {
+            throw new IllegalArgumentException("双曲线的系数k必须不0");
+        }
+
+        Point point = PointUtil.toRelativeCoordinate(x, y, originX, originY, space);
+        return new Hyperbola(k, point);
+    }
 }

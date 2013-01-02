@@ -576,7 +576,7 @@ public class RoundUtil {
      * @param originX 相对坐标的原点的横坐标
      * @param originY 相对坐标的原点的纵坐标
      * @param space   相对坐标单位长度的间隔
-     * @return 相对坐标下的圆
+     * @return 绝对坐标下的圆
      */
     public static Round toAbsoluteCoordinate(double centerX, double centerY, double radius, double originX, double originY, double space) {
         if (!NumberUtil.isMoreThanZero(radius)) {
