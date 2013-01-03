@@ -1,5 +1,6 @@
 package com.fudaowang.geometry.common.util;
 
+import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
@@ -806,108 +807,88 @@ public class SegmentUtil {
     /**
      * 将相对坐标下的线段,转化为绝对坐标下的线段
      *
-     * @param segment 给定的线段
-     * @param origin  相对坐标原点
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param segment    给定的线段
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的线段
      */
-    public static Segment toAbsoluteCoordinate(Segment segment, Point origin, double spaceX, double spaceY) {
-        return segment == null || origin == null ? null : toAbsoluteCoordinate(segment.getP1(), segment.getP2(), origin, spaceX, spaceY);
+    public static Segment toAbsoluteCoordinate(Segment segment, Coordinate coordinate) {
+        return segment == null || coordinate == null ? null : toAbsoluteCoordinate(segment.getP1(), segment.getP2(), coordinate);
     }
 
     /**
      * 将相对坐标下的线段(p1,p2)转化为绝对坐标下的线段
      *
-     * @param p1     线段的第一个点
-     * @param p2     线段的第二个点
-     * @param origin 相对坐标原点
-     * @param spaceX 横坐标单位长度的间隔
-     * @param spaceY 纵坐标单位长度的间隔
+     * @param p1         线段的第一个点
+     * @param p2         线段的第二个点
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的线段
      */
-    public static Segment toAbsoluteCoordinate(Point p1, Point p2, Point origin, double spaceX, double spaceY) {
-        Point absoluteP1 = PointUtil.toAbsoluteCoordinate(p1, origin, spaceX, spaceY);
-        Point absoluteP2 = PointUtil.toAbsoluteCoordinate(p2, origin, spaceX, spaceY);
-        return new Segment(absoluteP1, absoluteP2);
+    public static Segment toAbsoluteCoordinate(Point p1, Point p2, Coordinate coordinate) {
+        return p1 == null || p2 == null || coordinate == null ? null :
+                toAbsoluteCoordinate(p1.getX(), p1.getY(), p2.getX(), p2.getY(),
+                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
      * 将相对坐标下的线段,转化为绝对坐标下的线段
      *
-     * @param segment 给定的线段
-     * @param origin  相对坐标原点
-     * @param space   相对坐标单位长度的间隔
+     * @param x1      线段的第一个端点的横坐标
+     * @param y1      线段的第一个端点的纵坐标
+     * @param x2      线段的第二个端点的横坐标
+     * @param y2      线段的第二个端点的纵坐标
+     * @param originX 相对坐标原点的横坐标
+     * @param originY 相对坐标原点的纵坐标
+     * @param spaceX  相对坐标x轴单位长度的间距
+     * @param spaceY  相对坐标y轴单位长度的间距
      * @return 绝对坐标下的线段
      */
-    public static Segment toAbsoluteCoordinate(Segment segment, Point origin, double space) {
-        return segment == null || origin == null ? null : toAbsoluteCoordinate(segment.getP1(), segment.getP2(), origin, space, space);
-    }
-
-    /**
-     * 将相对坐标下的线段(p1,p2)转化为绝对坐标下的线段
-     *
-     * @param p1     线段的第一个点
-     * @param p2     线段的第二个点
-     * @param origin 相对坐标原点
-     * @param space  相对坐标单位长度的间隔
-     * @return 绝对坐标下的线段
-     */
-    public static Segment toAbsoluteCoordinate(Point p1, Point p2, Point origin, double space) {
-        return toAbsoluteCoordinate(p1, p2, origin, space, space);
+    public static Segment toAbsoluteCoordinate(double x1, double y1, double x2, double y2, double originX, double originY, double spaceX, double spaceY) {
+        Point p1 = PointUtil.toAbsoluteCoordinate(x1, y1, originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toAbsoluteCoordinate(x2, y2, originX, originY, spaceX, spaceY);
+        return new Segment(p1, p2);
     }
 
     /**
      * 将绝对坐标下的线段,转化为相对坐标下的线段
      *
-     * @param segment 给定的线段
-     * @param origin  相对的坐标原点
-     * @param spaceX  横坐标单位长度的间隔
-     * @param spaceY  纵坐标单位长度的间隔
+     * @param segment    给定的线段
+     * @param coordinate 相对的坐标
      * @return 相对坐标下的线段
      */
-    public static Segment toRelativeCoordinate(Segment segment, Point origin, double spaceX, double spaceY) {
-        return segment == null || origin == null ? null : toRelativeCoordinate(segment.getP1(), segment.getP2(), origin, spaceX, spaceY);
+    public static Segment toRelativeCoordinate(Segment segment, Coordinate coordinate) {
+        return segment == null || coordinate == null ? null : toRelativeCoordinate(segment.getP1(), segment.getP2(), coordinate);
     }
 
     /**
      * 将绝对坐标下的线段(p1,p2)转化为相对坐标下的线段
      *
-     * @param p1     线段的第一个点
-     * @param p2     线段的第二个点
-     * @param origin 相对的坐标原点
-     * @param spaceX 横坐标单位长度的间隔
-     * @param spaceY 纵坐标单位长度的间隔
+     * @param p1         线段的第一个点
+     * @param p2         线段的第二个点
+     * @param coordinate 相对坐标
      * @return 相对坐标下的线段
      */
-    public static Segment toRelativeCoordinate(Point p1, Point p2, Point origin, double spaceX, double spaceY) {
-        Point relativeP1 = PointUtil.toAbsoluteCoordinate(p1, origin, spaceX, spaceY);
-        Point relativeP2 = PointUtil.toAbsoluteCoordinate(p2, origin, spaceX, spaceY);
-        return new Segment(relativeP1, relativeP2);
+    public static Segment toRelativeCoordinate(Point p1, Point p2, Coordinate coordinate) {
+        return p1 == null || p2 == null || coordinate == null ? null :
+                toRelativeCoordinate(p1.getX(), p1.getY(), p2.getX(), p2.getY(),
+                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
      * 将绝对坐标下的线段,转化为相对坐标下的线段
      *
-     * @param segment 给定的线段
-     * @param origin  相对的坐标原点
-     * @param space   相对坐标单位长度的间隔
+     * @param x1      线段的第一个端点的横坐标
+     * @param y1      线段的第一个端点的纵坐标
+     * @param x2      线段的第二个端点的横坐标
+     * @param y2      线段的第二个端点的纵坐标
+     * @param originX 相对坐标原点的横坐标
+     * @param originY 相对坐标原点的纵坐标
+     * @param spaceX  相对坐标x轴单位长度的间距
+     * @param spaceY  相对坐标y轴单位长度的间距
      * @return 相对坐标下的线段
      */
-    public static Segment toRelativeCoordinate(Segment segment, Point origin, double space) {
-        return segment == null || origin == null ? null : toRelativeCoordinate(segment.getP1(), segment.getP2(), origin, space, space);
-    }
-
-    /**
-     * 将绝对坐标下的线段(p1,p2)转化为相对坐标下的线段
-     *
-     * @param p1     线段的第一个点
-     * @param p2     线段的第二个点
-     * @param origin 相对的坐标原点
-     * @param space  相对坐标单位长度的间隔
-     * @return 相对坐标下的线段
-     */
-    public static Segment toRelativeCoordinate(Point p1, Point p2, Point origin, double space) {
-        return toRelativeCoordinate(p1, p2, origin, space, space);
+    public static Segment toRelativeCoordinate(double x1, double y1, double x2, double y2, double originX, double originY, double spaceX, double spaceY) {
+        Point p1 = PointUtil.toRelativeCoordinate(x1, y1, originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toRelativeCoordinate(x2, y2, originX, originY, spaceX, spaceY);
+        return new Segment(p1, p2);
     }
 }
