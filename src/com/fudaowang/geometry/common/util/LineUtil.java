@@ -1,6 +1,7 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.collection.PointCollection;
+import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
@@ -739,15 +740,20 @@ public class LineUtil {
     /**
      * 将相对坐标下的直线,转化为绝对坐标下的直线
      *
-     * @param line   给定的直线
-     * @param origin 相对坐标原点
-     * @param spaceX 横坐标单位长度的间隔
-     * @param spaceY 纵坐标单位长度的间隔
+     * @param line       给定的直线
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的直线
      */
-    public static Line toAbsoluteCoordinate(Line line, Point origin, double spaceX, double spaceY) {
-        return line == null || origin == null ? null :
-                toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
+    public static Line toAbsoluteCoordinate(Line line, Coordinate coordinate) {
+        if (line == null || coordinate == null) {
+            return null;
+        }
+        if (coordinate.isSymmetrical()) {
+            return toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(),
+                    coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
+        }
+        return toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
@@ -786,19 +792,6 @@ public class LineUtil {
     }
 
     /**
-     * 将相对坐标下的直线,转化为绝对坐标下的直线
-     *
-     * @param line   给定的直线
-     * @param origin 相对坐标原点
-     * @param space  相对坐标单位长度的间隔
-     * @return 绝对坐标下的直线
-     */
-    public static Line toAbsoluteCoordinate(Line line, Point origin, double space) {
-        return line == null || origin == null ? null :
-                toAbsoluteCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), space);
-    }
-
-    /**
      * 将相对坐标下的直线(p1,p2)转化为绝对坐标下的直线
      *
      * @param a       直线的系数a
@@ -818,15 +811,20 @@ public class LineUtil {
     /**
      * 将绝对坐标下的直线,转化为相对坐标下的直线
      *
-     * @param line   给定的直线
-     * @param origin 相对坐标原点
-     * @param spaceX 横坐标单位长度的间隔
-     * @param spaceY 纵坐标单位长度的间隔
+     * @param line       给定的直线
+     * @param coordinate 相对坐标
      * @return 相对坐标下的直线
      */
-    public static Line toRelativeCoordinate(Line line, Point origin, double spaceX, double spaceY) {
-        return line == null || origin == null ? null :
-                toRelativeCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
+    public static Line toRelativeCoordinate(Line line, Coordinate coordinate) {
+        if (line == null || coordinate == null) {
+            return null;
+        }
+        if (coordinate.isSymmetrical()) {
+            return toRelativeCoordinate(line.getA(), line.getB(), line.getC(),
+                    coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
+        }
+        return toRelativeCoordinate(line.getA(), line.getB(), line.getC(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
@@ -862,19 +860,6 @@ public class LineUtil {
         int last = points.length - 1;
         Point p2 = PointUtil.toRelativeCoordinate(points[last].getX(), points[last].getY(), originX, originY, spaceX, spaceY);
         return getLine(p1, p2);
-    }
-
-    /**
-     * 将绝对坐标下的直线,转化为相对坐标下的直线
-     *
-     * @param line   给定的直线
-     * @param origin 相对坐标原点
-     * @param space  相对坐标单位长度的间隔
-     * @return 相对坐标下的直线
-     */
-    public static Line toRelativeCoordinate(Line line, Point origin, double space) {
-        return line == null || origin == null ? null :
-                toRelativeCoordinate(line.getA(), line.getB(), line.getC(), origin.getX(), origin.getY(), space);
     }
 
     /**
