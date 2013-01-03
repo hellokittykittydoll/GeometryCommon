@@ -216,4 +216,53 @@ public class HyperbolaUtil {
         Point point = PointUtil.toRelativeCoordinate(x, y, originX, originY, space);
         return new Hyperbola(k, point);
     }
+
+    /**
+     * 在最小精度范围内判断两个双曲线是否重合
+     *
+     * @param h1 第一个双曲线
+     * @param h2 第二个双曲线
+     * @return 若两个双曲线重合则返回true
+     */
+    public static boolean coincide(Hyperbola h1, Hyperbola h2) {
+        return coincide(h1, h2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定精度范围内判断两个双曲线是否重合
+     *
+     * @param h1        第一个双曲线
+     * @param h2        第二个双曲线
+     * @param precision 给定的精度
+     * @return 若两个双曲线重合则返回true
+     */
+    public static boolean coincide(Hyperbola h1, Hyperbola h2, double precision) {
+        if (h1 == null || h2 == null) {
+            throw new NullPointerException("双曲线为null");
+        }
+        return coincide(h1.getK(), h1.getX(), h1.getY(), h2.getK(), h2.getX(), h2.getY(), precision);
+    }
+
+    public static boolean coincide(double k1, double x1, double y1, double k2, double x2, double y2) {
+        return coincide(k1, x1, y1, k2, x2, y2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定精度范围内判断两个双曲线是否重合
+     *
+     * @param k1        第一个双曲线的系数k
+     * @param x1        第一个双曲线原点的横坐标
+     * @param y1        第一个双曲线原点的纵坐标
+     * @param k2        第二个双曲线的系数k
+     * @param x2        第二个双曲线原点的横坐标
+     * @param y2        第二个双曲线原点的纵坐标
+     * @param precision 给定的精度
+     * @return 若两个双曲线重合则返回true
+     */
+    public static boolean coincide(double k1, double x1, double y1, double k2, double x2, double y2, double precision) {
+        if (NumberUtil.isZero(k1) || NumberUtil.isZero(k2)) {
+            throw new IllegalArgumentException("双曲线的系数k不能为0");
+        }
+        return PointUtil.coincide(x1, y1, x2, y2, precision) && NumberUtil.equal(k1, k2, precision);
+    }
 }
