@@ -1,9 +1,6 @@
 package com.fudaowang.geometry.common.util;
 
-import com.fudaowang.geometry.common.graph.Line;
-import com.fudaowang.geometry.common.graph.Parabola;
-import com.fudaowang.geometry.common.graph.Point;
-import com.fudaowang.geometry.common.graph.Segment;
+import com.fudaowang.geometry.common.graph.*;
 import org.apache.commons.collections.Predicate;
 
 /**
@@ -367,20 +364,6 @@ public class ParabolaUtil {
     /**
      * 将相对坐标下的抛物线转化为绝对坐标
      *
-     * @param parabola 给定的抛物线
-     * @param origin   相对坐标原点
-     * @param spaceX   相对坐标的x轴单位长度值
-     * @param spaceY   相对坐标的y轴单位长度值
-     * @return 绝对坐标下的抛物线
-     */
-    public static Parabola toAbsoluteCoordinate(Parabola parabola, Point origin, double spaceX, double spaceY) {
-        return parabola == null || origin == null ? null :
-                toAbsoluteCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
-    }
-
-    /**
-     * 将相对坐标下的抛物线转化为绝对坐标
-     *
      * @param a       抛物线的系数a
      * @param b       抛物线的系数 b
      * @param c       抛物线的系数 c
@@ -412,14 +395,21 @@ public class ParabolaUtil {
     /**
      * 将相对坐标下的抛物线转化为绝对坐标
      *
-     * @param parabola 给定的抛物线
-     * @param origin   相对坐标原点
-     * @param space    相对坐标的单位长度值
+     * @param parabola   给定的抛物线
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的抛物线
      */
-    public static Parabola toAbsoluteCoordinate(Parabola parabola, Point origin, double space) {
-        return parabola == null || origin == null ? null :
-                toAbsoluteCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), origin.getX(), origin.getY(), space);
+    public static Parabola toAbsoluteCoordinate(Parabola parabola, Coordinate coordinate) {
+        if (parabola == null || coordinate == null) {
+            return null;
+        }
+        if (coordinate.isSymmetrical()) {
+            return toAbsoluteCoordinate(parabola.getA(), parabola.getB(), parabola.getC(),
+                    coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
+        }
+        return toAbsoluteCoordinate(parabola.getA(), parabola.getB(), parabola.getC(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
+
     }
 
     /**
@@ -437,20 +427,6 @@ public class ParabolaUtil {
         if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
-    }
-
-    /**
-     * 将绝对坐标下的抛物线转化为相对坐标
-     *
-     * @param parabola 给定的抛物线
-     * @param origin   相对坐标原点
-     * @param spaceX   相对坐标的x轴单位长度值
-     * @param spaceY   相对坐标的y轴单位长度值
-     * @return 相对坐标下的抛物线
-     */
-    public static Parabola toRelativeCoordinate(Parabola parabola, Point origin, double spaceX, double spaceY) {
-        return parabola == null || origin == null ? null :
-                toRelativeCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), origin.getX(), origin.getY(), spaceX, spaceY);
     }
 
     /**
@@ -487,14 +463,20 @@ public class ParabolaUtil {
     /**
      * 将绝对坐标下的抛物线转化为相对坐标
      *
-     * @param parabola 给定的抛物线
-     * @param origin   相对坐标原点
-     * @param space    相对坐标的单位长度值
+     * @param parabola   给定的抛物线
+     * @param coordinate 相对坐标
      * @return 相对坐标下的抛物线
      */
-    public static Parabola toRelativeCoordinate(Parabola parabola, Point origin, double space) {
-        return parabola == null || origin == null ? null :
-                toRelativeCoordinate(parabola.getA(), parabola.getB(), parabola.getC(), origin.getX(), origin.getY(), space);
+    public static Parabola toRelativeCoordinate(Parabola parabola, Coordinate coordinate) {
+        if (parabola == null || coordinate == null) {
+            return null;
+        }
+        if (coordinate.isSymmetrical()) {
+            return toRelativeCoordinate(parabola.getA(), parabola.getB(), parabola.getC(),
+                    coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
+        }
+        return toRelativeCoordinate(parabola.getA(), parabola.getB(), parabola.getC(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
