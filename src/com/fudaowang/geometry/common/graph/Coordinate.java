@@ -1,5 +1,7 @@
 package com.fudaowang.geometry.common.graph;
 
+import com.fudaowang.geometry.common.util.NumberUtil;
+
 /**
  * 表示一个相对坐标的类
  * Created with IntelliJ IDEA.
@@ -63,5 +65,14 @@ public class Coordinate {
      */
     public double getSpaceY() {
         return spaceY;
+    }
+
+    /**
+     * 判断坐标系的横坐标间距与纵坐标间距是否均匀
+     *
+     * @return 若横坐标间距和纵坐标间距一致, 则返回true
+     */
+    public boolean isSymmetrical() {
+        return NumberUtil.equal(spaceX, spaceY);
     }
 }
