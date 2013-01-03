@@ -23,8 +23,7 @@ public class RoundUtil {
         if (line == null || round == null) {
             return new Point[0];
         }
-        return intersect(line.getA(), line.getB(), line.getC(),
-                round.getCenter().getX(), round.getCenter().getY(), round.getRadius());
+        return intersect(line.getA(), line.getB(), line.getC(), round.getX(), round.getY(), round.getRadius());
     }
 
     /**
@@ -72,23 +71,22 @@ public class RoundUtil {
         if (segment == null || round == null) {
             return new Point[0];
         }
-        return intersect(segment.getP1(), segment.getP2(), round.getCenter(), round.getRadius());
+        return intersect(segment.getP1(), segment.getP2(), round);
     }
 
     /**
      * 求线段(p1,p2)与圆的交点
      *
-     * @param p1     线段的第一个端点
-     * @param p2     线段的第二个端点
-     * @param center 圆心点
-     * @param radius 圆的半径
+     * @param p1    线段的第一个端点
+     * @param p2    线段的第二个端点
+     * @param round 圆
      * @return 交点集, 可能有0-2个点
      */
-    public static Point[] intersect(Point p1, Point p2, Point center, double radius) {
-        if (p1 == null || p2 == null || center == null) {
+    public static Point[] intersect(Point p1, Point p2, Round round) {
+        if (p1 == null || p2 == null || round == null) {
             return new Point[0];
         }
-        return intersect(p1.getX(), p1.getY(), p2.getX(), p2.getY(), center.getX(), center.getY(), radius);
+        return intersect(p1.getX(), p1.getY(), p2.getX(), p2.getY(), round.getX(), round.getY(), round.getRadius());
     }
 
     /**
@@ -125,7 +123,7 @@ public class RoundUtil {
         if (point == null || round == null) {
             return Double.NaN;
         }
-        return distance(point.getX(), point.getY(), round.getCenter().getX(), round.getCenter().getY(), round.getRadius());
+        return distance(point.getX(), point.getY(), round.getX(), round.getY(), round.getRadius());
     }
 
     /**
@@ -157,8 +155,7 @@ public class RoundUtil {
         if (round == null) {
             throw new NullPointerException("圆为null");
         }
-        return onRound(point.getX(), point.getY(),
-                round.getCenter().getX(), round.getCenter().getY(), round.getRadius(), precision);
+        return onRound(point.getX(), point.getY(), round.getX(), round.getY(), round.getRadius(), precision);
     }
 
     /**
@@ -217,7 +214,7 @@ public class RoundUtil {
         if (round == null) {
             return null;
         }
-        return translation(round.getCenter().getX(), round.getCenter().getY(), round.getRadius(), x, y);
+        return translation(round.getX(), round.getY(), round.getRadius(), x, y);
     }
 
     /**
@@ -249,7 +246,7 @@ public class RoundUtil {
         if (round == null) {
             throw new NullPointerException("判定的圆为null");
         }
-        return inRound(point, round.getCenter(), round.getRadius());
+        return inRound(point.getX(), point.getY(), round.getX(), round.getY(), round.getRadius());
     }
 
     /**
@@ -298,7 +295,7 @@ public class RoundUtil {
         if (round == null) {
             throw new NullPointerException("给定的圆为null");
         }
-        return tangentPoint(point, round.getCenter(), round.getRadius());
+        return tangentPoint(point.getX(), point.getY(), round.getX(), round.getY(), round.getRadius());
     }
 
     /**
@@ -358,7 +355,7 @@ public class RoundUtil {
         if (r1 == null || r2 == null) {
             throw new NullPointerException("圆为null");
         }
-        return getRelationship(r1.getCenter(), r1.getRadius(), r2.getCenter(), r2.getRadius(), precision);
+        return getRelationship(r1.getX(), r1.getY(), r1.getRadius(), r2.getX(), r2.getY(), r2.getRadius(), precision);
     }
 
     /**
@@ -478,7 +475,7 @@ public class RoundUtil {
         if (r1 == null || r2 == null) {
             throw new NullPointerException("判断的圆为null");
         }
-        return coincide(r1.getCenter(), r1.getRadius(), r2.getCenter(), r2.getRadius(), precision);
+        return coincide(r1.getX(), r1.getY(), r1.getRadius(), r2.getX(), r2.getY(), r2.getRadius(), precision);
     }
 
     /**
@@ -545,14 +542,14 @@ public class RoundUtil {
     /**
      * 将相对坐标下的圆转化为绝对坐标
      *
-     * @param round  给定的圆
-     * @param origin 相对坐标的原点
-     * @param space  相对坐标单位长度的间隔
+     * @param round      给定的圆
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的圆
      */
-    public static Round toAbsoluteCoordinate(Round round, Point origin, double space) {
-        return round == null || origin == null ? null :
-                toAbsoluteCoordinate(round.getCenter(), round.getRadius(), origin, space);
+    public static Round toAbsoluteCoordinate(Round round, Coordinate coordinate) {
+        return round == null || coordinate == null || !coordinate.isSymmetrical() ? null :
+                toAbsoluteCoordinate(round.getX(), round.getY(), round.getRadius(),
+                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
     }
 
     /**
@@ -590,14 +587,14 @@ public class RoundUtil {
     /**
      * 将绝对坐标下的圆转化为相对坐标
      *
-     * @param round  给定的圆
-     * @param origin 相对坐标的原点
-     * @param space  相对坐标单位长度的间隔
+     * @param round      给定的圆
+     * @param coordinate 相对坐标
      * @return 相对坐标下的圆
      */
-    public static Round toRelativeCoordinate(Round round, Point origin, double space) {
-        return round == null || origin == null ? null :
-                toRelativeCoordinate(round.getCenter(), round.getRadius(), origin, space);
+    public static Round toRelativeCoordinate(Round round, Coordinate coordinate) {
+        return round == null || coordinate == null || !coordinate.isSymmetrical() ? null :
+                toRelativeCoordinate(round.getX(), round.getY(), round.getRadius(),
+                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
     }
 
     /**
