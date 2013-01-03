@@ -14,7 +14,7 @@ import java.util.Collection;
  * To change this template use File | Settings | File Templates.
  */
 public class Polygon {
-    private Point[] points;
+    protected Point[] points;
 
     /**
      * 利用已知点集来构造多边形,点集的长度不能小于3

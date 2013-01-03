@@ -11,9 +11,9 @@ import com.fudaowang.geometry.common.util.NumberUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Parabola {
-    private double a;
-    private double b;
-    private double c;
+    protected final double a;
+    protected final double b;
+    protected final double c;
 
     /**
      * 获得抛物线的系数a

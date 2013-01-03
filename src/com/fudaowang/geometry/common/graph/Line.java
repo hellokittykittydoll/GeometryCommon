@@ -11,9 +11,9 @@ import com.fudaowang.geometry.common.util.NumberUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Line {
-    private double a;
-    private double b;
-    private double c;
+    protected final double a;
+    protected final double b;
+    protected final double c;
 
     /**
      * 利用直线方程的系数abc来构造直线方程

@@ -11,8 +11,9 @@ import com.fudaowang.geometry.common.util.NumberUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Round {
-    private Point center;
-    private double radius;
+    protected final double x;
+    protected final double y;
+    protected final double radius;
 
     /**
      * 利用圆心和半径长来构造圆
@@ -29,7 +30,8 @@ public class Round {
             throw new IllegalArgumentException("半径长必须大于0");
         }
 
-        this.center = center;
+        this.x = center.getX();
+        this.y = center.getY();
         this.radius = radius;
     }
 
@@ -44,17 +46,27 @@ public class Round {
         if (!NumberUtil.isMoreThanZero(radius)) {
             throw new IllegalArgumentException("半径长必须大于0");
         }
-        this.center = new Point(x, y);
+        this.x = x;
+        this.y = y;
         this.radius = radius;
     }
 
     /**
-     * 获得点的圆心
+     * 获得圆心的横坐标
      *
-     * @return 圆心
+     * @return 圆心的横坐标
      */
-    public Point getCenter() {
-        return center;
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * 获得圆心的纵坐标
+     *
+     * @return 圆心的纵坐标
+     */
+    public double getY() {
+        return y;
     }
 
     /**
@@ -68,7 +80,8 @@ public class Round {
 
     public String toString() {
         return "Round{" +
-                "center=" + center +
+                "x=" + x +
+                ", y=" + y +
                 ", radius=" + radius +
                 '}';
     }

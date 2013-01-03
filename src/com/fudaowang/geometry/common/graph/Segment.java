@@ -11,8 +11,8 @@ import com.fudaowang.geometry.common.util.PointUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Segment {
-    private Point p1;
-    private Point p2;
+    protected Point p1;
+    protected Point p2;
 
     /**
      * 利用两个已知点构造线段

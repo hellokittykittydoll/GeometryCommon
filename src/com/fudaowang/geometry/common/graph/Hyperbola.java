@@ -11,9 +11,9 @@ import com.fudaowang.geometry.common.util.NumberUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Hyperbola {
-    private double k;
-    private double x;
-    private double y;
+    protected final double k;
+    protected final double x;
+    protected final double y;
 
     /**
      * 利用系数k构造反比例函数

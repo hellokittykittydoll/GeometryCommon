@@ -11,9 +11,9 @@ import com.fudaowang.geometry.common.util.PointUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Angle {
-    private Point vertex;
-    private Point p1;
-    private Point p2;
+    protected Point vertex;
+    protected Point p1;
+    protected Point p2;
 
     /**
      * 利用顶点和其他点构造三角形

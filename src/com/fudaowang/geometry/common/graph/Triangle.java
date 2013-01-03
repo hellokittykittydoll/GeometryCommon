@@ -11,9 +11,9 @@ import com.fudaowang.geometry.common.util.PointUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Triangle {
-    private Point p1;
-    private Point p2;
-    private Point p3;
+    protected Point p1;
+    protected Point p2;
+    protected Point p3;
 
     /**
      * 利用三个已知点构造三角形

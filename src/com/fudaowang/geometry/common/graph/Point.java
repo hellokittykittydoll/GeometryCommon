@@ -9,8 +9,8 @@ package com.fudaowang.geometry.common.graph;
  * To change this template use File | Settings | File Templates.
  */
 public class Point {
-    protected double x;
-    protected double y;
+    protected final double x;
+    protected final double y;
 
     /**
      * 利用点的横坐标和纵坐标来构造点
