@@ -1,5 +1,6 @@
 package com.fudaowang.geometry.common.util;
 
+import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Hyperbola;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
@@ -154,14 +155,13 @@ public class HyperbolaUtil {
     /**
      * 将相对坐标下的双曲线转化为绝对坐标
      *
-     * @param hyperbola 给定的双曲线
-     * @param origin    相对坐标的原点
-     * @param space     相对坐标单位长度的间隔
+     * @param hyperbola  给定的双曲线
+     * @param coordinate 相对坐标
      * @return 绝对坐标下的双曲线
      */
-    public static Hyperbola toAbsoluteCoordinate(Hyperbola hyperbola, Point origin, double space) {
-        return hyperbola == null || origin == null ? null :
-                toAbsoluteCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), origin.getX(), origin.getY(), space);
+    public static Hyperbola toAbsoluteCoordinate(Hyperbola hyperbola, Coordinate coordinate) {
+        return hyperbola == null || coordinate == null || !coordinate.isSymmetrical() ? null :
+                toAbsoluteCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
     }
 
     /**
@@ -187,14 +187,13 @@ public class HyperbolaUtil {
     /**
      * 将绝对坐标下的双曲线转化为相对坐标
      *
-     * @param hyperbola 给定的双曲线
-     * @param origin    相对坐标的原点
-     * @param space     相对坐标单位长度的间隔
+     * @param hyperbola  给定的双曲线
+     * @param coordinate 相对坐标
      * @return 相对坐标下的双曲线
      */
-    public static Hyperbola toRelativeCoordinate(Hyperbola hyperbola, Point origin, double space) {
-        return hyperbola == null || origin == null ? null :
-                toRelativeCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), origin.getX(), origin.getY(), space);
+    public static Hyperbola toRelativeCoordinate(Hyperbola hyperbola, Coordinate coordinate) {
+        return hyperbola == null || coordinate == null || !coordinate.isSymmetrical() ? null :
+                toRelativeCoordinate(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX());
     }
 
     /**
