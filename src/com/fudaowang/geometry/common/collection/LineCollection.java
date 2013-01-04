@@ -147,4 +147,22 @@ public class LineCollection {
     public Line[] getLines() {
         return (Line[]) set.toArray(new Line[set.size()]);
     }
+
+    /**
+     * 在集合中根据给定的系数查找直线
+     *
+     * @param a 给定的系数a
+     * @param b 给定的系数b
+     * @param c 给定的系数c
+     * @return 若存在与三个系数相同的直线, 则返回该直线
+     */
+    public Line findLine(final double a, final double b, final double c) {
+        Object object = CollectionUtils.find(set, new Predicate() {
+            public boolean evaluate(Object o) {
+                Line line = (Line) o;
+                return LineUtil.coincide(line.getA(), line.getB(), line.getC(), a, b, c);
+            }
+        });
+        return object == null ? null : (Line) object;
+    }
 }
