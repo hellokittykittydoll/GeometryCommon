@@ -5,6 +5,7 @@ import com.fudaowang.geometry.common.util.NumberUtil;
 import com.fudaowang.geometry.common.util.PointUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import sun.jvm.hotspot.ui.action.FindAction;
 
 import java.util.*;
 
@@ -152,5 +153,34 @@ public class PointCollection {
             Collections.sort(list, comparator);
         }
         return this;
+    }
+
+    /**
+     * 根据给定的横纵坐标在最小精度范围来查找点
+     *
+     * @param x 给定的横坐标
+     * @param y 给定的纵坐标
+     * @return 若存在与给定坐标重合的点, 则返回该点
+     */
+    public Point findPoint(double x, double y) {
+        return findPoint(x, y, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 根据给定的横纵坐标在给定的精度范围来查找点
+     *
+     * @param x         给定的横坐标
+     * @param y         给定的纵坐标
+     * @param precision 给定的精度
+     * @return 若存在与给定坐标重合的点, 则返回该点
+     */
+    public Point findPoint(final double x, final double y, final double precision) {
+        return (Point) CollectionUtils.find(list, new Predicate() {
+            @Override
+            public boolean evaluate(Object o) {
+                Point point = (Point) o;
+                return PointUtil.coincide(x, y, point.getX(), point.getY(), precision);
+            }
+        });
     }
 }
