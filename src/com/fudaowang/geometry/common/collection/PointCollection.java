@@ -176,7 +176,6 @@ public class PointCollection {
      */
     public Point findPoint(final double x, final double y, final double precision) {
         return (Point) CollectionUtils.find(list, new Predicate() {
-            @Override
             public boolean evaluate(Object o) {
                 Point point = (Point) o;
                 return PointUtil.coincide(x, y, point.getX(), point.getY(), precision);
