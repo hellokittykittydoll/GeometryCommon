@@ -806,6 +806,11 @@ public class LineUtil {
         if (!isLogical(a, b)) {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
+        c = c * space;
+        double realA = -a;
+        double realB = b;
+        double realC = a * originX - b * originY - c;
+        return new Line(realA, realB, realC);
     }
 
     /**
