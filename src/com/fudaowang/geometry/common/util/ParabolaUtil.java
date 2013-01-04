@@ -427,6 +427,13 @@ public class ParabolaUtil {
         if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
+        double newA = a / space;
+        double newB = b;
+        double newC = c * space;
+        double realA = -newA;
+        double realB = 2 * newA * originX - newB;
+        double realC = -newA * originX * originX + newB * originX - newC + originY;
+        return new Parabola(realA, realB, realC);
     }
 
     /**
