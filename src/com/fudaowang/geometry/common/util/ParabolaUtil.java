@@ -2,6 +2,7 @@ package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.NotImplementedException;
 
 /**
  * 对抛物线进行操作的类
@@ -428,11 +429,10 @@ public class ParabolaUtil {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
         double newA = a / space;
-        double newB = b;
         double newC = c * space;
         double realA = -newA;
-        double realB = 2 * newA * originX - newB;
-        double realC = -newA * originX * originX + newB * originX - newC + originY;
+        double realB = 2 * newA * originX - b;
+        double realC = -newA * originX * originX + b * originX - newC + originY;
         return new Parabola(realA, realB, realC);
     }
 
@@ -455,13 +455,12 @@ public class ParabolaUtil {
 
         double x1 = 0;
         double y1 = getY(a, b, c, x1);
-        double x2 = originX;
-        double y2 = getY(a, b, c, x2);
+        double y2 = getY(a, b, c, originX);
         double x3 = 2 * originX;
         double y3 = getY(a, b, c, x3);
 
         Point p1 = PointUtil.toRelativeCoordinate(x1, y1, originX, originY, spaceX, spaceY);
-        Point p2 = PointUtil.toRelativeCoordinate(x2, y2, originX, originY, spaceX, spaceY);
+        Point p2 = PointUtil.toRelativeCoordinate(originX, y2, originX, originY, spaceX, spaceY);
         Point p3 = PointUtil.toRelativeCoordinate(x3, y3, originX, originY, spaceX, spaceY);
 
         return getParabola(p1, p2, p3);
@@ -501,6 +500,7 @@ public class ParabolaUtil {
         if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
+        throw new NotImplementedException();
     }
 
     /**

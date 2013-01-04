@@ -5,6 +5,7 @@ import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
+import org.apache.commons.lang.NotImplementedException;
 
 import java.util.Comparator;
 
@@ -808,9 +809,8 @@ public class LineUtil {
         }
         c = c * space;
         double realA = -a;
-        double realB = b;
         double realC = a * originX - b * originY - c;
-        return new Line(realA, realB, realC);
+        return new Line(realA, b, realC);
     }
 
     /**
@@ -882,5 +882,6 @@ public class LineUtil {
         if (!isLogical(a, b)) {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
+        throw new NotImplementedException();
     }
 }

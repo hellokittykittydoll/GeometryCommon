@@ -778,13 +778,8 @@ public class SegmentUtil {
      * @return 若两条线段的端点都重合, 则返回true
      */
     public static boolean coincide(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double precision) {
-        if (PointUtil.coincide(x1, y1, x3, y3, precision) && PointUtil.coincide(x2, y2, x4, y4, precision)) {
-            return true;
-        }
-        if (PointUtil.coincide(x1, y1, x4, y4, precision) && PointUtil.coincide(x2, y2, x3, y3, precision)) {
-            return true;
-        }
-        return false;
+        return PointUtil.coincide(x1, y1, x3, y3, precision) && PointUtil.coincide(x2, y2, x4, y4, precision)
+                || PointUtil.coincide(x1, y1, x4, y4, precision) && PointUtil.coincide(x2, y2, x3, y3, precision);
     }
 
     /**
