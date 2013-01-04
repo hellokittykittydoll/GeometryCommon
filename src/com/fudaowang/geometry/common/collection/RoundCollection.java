@@ -135,7 +135,6 @@ public class RoundCollection {
      */
     public boolean add(double x, double y, double radius, double precision) {
         return !contains(x, y, radius, precision) && set.add(new Round(x, y, radius));
-
     }
 
     /**
