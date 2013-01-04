@@ -149,4 +149,21 @@ public class ParabolaCollection {
     public Parabola[] getParabolas() {
         return (Parabola[]) set.toArray(new Parabola[set.size()]);
     }
+
+    /**
+     * 根据给定的系数查找抛物线
+     *
+     * @param a 给定的系数a
+     * @param b 给定的系数b
+     * @param c 给定的系数c
+     * @return 若存在与给定系数相同的抛物线, 则返回该抛物线
+     */
+    public Parabola findParabola(final double a, final double b, final double c) {
+        return (Parabola) CollectionUtils.find(set, new Predicate() {
+            public boolean evaluate(Object o) {
+                Parabola parabola = (Parabola) o;
+                return ParabolaUtil.coincide(parabola.getA(), parabola.getB(), parabola.getC(), a, b, c);
+            }
+        });
+    }
 }
