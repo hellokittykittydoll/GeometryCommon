@@ -157,12 +157,11 @@ public class LineCollection {
      * @return 若存在与三个系数相同的直线, 则返回该直线
      */
     public Line findLine(final double a, final double b, final double c) {
-        Object object = CollectionUtils.find(set, new Predicate() {
+        return (Line) CollectionUtils.find(set, new Predicate() {
             public boolean evaluate(Object o) {
                 Line line = (Line) o;
                 return LineUtil.coincide(line.getA(), line.getB(), line.getC(), a, b, c);
             }
         });
-        return object == null ? null : (Line) object;
     }
 }

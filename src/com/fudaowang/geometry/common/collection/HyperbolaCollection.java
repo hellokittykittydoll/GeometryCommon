@@ -138,4 +138,21 @@ public class HyperbolaCollection {
     public boolean add(double k, double x, double y, double precision) {
         return !contains(k, x, y, precision) && set.add(new Hyperbola(k, x, y));
     }
+
+    /**
+     * 根据给定的系数k,原点横坐标与纵坐标来查找双曲线
+     *
+     * @param k 给定的系数k
+     * @param x 给定的原点横坐标
+     * @param y 给定的原点纵坐标
+     * @return 若存在各个参数相同的双曲线, 则返回该双曲线
+     */
+    public Hyperbola findHyperbola(final double k, final double x, final double y) {
+        return (Hyperbola) CollectionUtils.find(set, new Predicate() {
+            public boolean evaluate(Object o) {
+                Hyperbola hyperbola = (Hyperbola) o;
+                return HyperbolaUtil.coincide(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), k, x, y);
+            }
+        });
+    }
 }
