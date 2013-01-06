@@ -1,6 +1,8 @@
 package com.fudaowang.geometry.common.graph;
 
+import com.fudaowang.geometry.common.util.LineUtil;
 import com.fudaowang.geometry.common.util.NumberUtil;
+import com.fudaowang.geometry.common.util.PointUtil;
 
 /**
  * 表示ax+by+c=0的一般式直线方程
@@ -31,6 +33,43 @@ public class Line {
         this.a = a;
         this.b = b;
         this.c = c;
+    }
+
+    /**
+     * 利用两点构造直线
+     *
+     * @param p1 第一个点
+     * @param p2 第二个点
+     */
+    protected Line(Point p1, Point p2) {
+        if (p1 == null || p2 == null) {
+            throw new NullPointerException("线段端点为null");
+        }
+        if (PointUtil.coincide(p1, p2)) {
+            throw new IllegalArgumentException("线段端点重复");
+        }
+        Line line = LineUtil.getLine(p1, p2);
+        this.a = line.getA();
+        this.b = line.getB();
+        this.c = line.getC();
+    }
+
+    /**
+     * 利用两点的横纵坐标来构造直线
+     *
+     * @param x1 第一个点的横坐标
+     * @param y1 第一个点的纵坐标
+     * @param x2 第二个点的横坐标
+     * @param y2 第二个点的纵坐标
+     */
+    protected Line(double x1, double y1, double x2, double y2) {
+        if (PointUtil.coincide(x1, y1, x2, y2)) {
+            throw new IllegalArgumentException("线段端点重复");
+        }
+        Line line = LineUtil.getLine(x1, y1, x2, y2);
+        this.a = line.getA();
+        this.b = line.getB();
+        this.c = line.getC();
     }
 
     /**

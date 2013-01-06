@@ -10,7 +10,7 @@ import com.fudaowang.geometry.common.util.PointUtil;
  * Time: 4:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Segment {
+public class Segment extends Line {
     protected Point p1;
     protected Point p2;
 
@@ -21,13 +21,7 @@ public class Segment {
      * @param p2 线段的第二个端点
      */
     public Segment(Point p1, Point p2) {
-        if (p1 == null || p2 == null) {
-            throw new NullPointerException("线段端点为null");
-        }
-        if (PointUtil.coincide(p1, p2)) {
-            throw new IllegalArgumentException("线段端点重复");
-        }
-
+        super(p1, p2);
         this.p1 = p1;
         this.p2 = p2;
     }
@@ -41,10 +35,7 @@ public class Segment {
      * @param y2 第二个点的纵坐标
      */
     public Segment(double x1, double y1, double x2, double y2) {
-        if (PointUtil.coincide(x1, y1, x2, y2)) {
-            throw new IllegalArgumentException("线段端点重复");
-        }
-
+        super(x1, y1, x2, y2);
         this.p1 = new Point(x1, y1);
         this.p2 = new Point(x2, y2);
     }
