@@ -71,7 +71,7 @@ public class RoundUtilTest {
         Round round = new Round(new Point(1, 1), Math.sqrt(2));
         round = RoundUtil.translation(round, -1, -1);
         Point p = new Point(0, 0);
-        assertTrue(PointUtil.coincide(p, round.getCenter()));
+        assertTrue(PointUtil.coincide(p.getX(), p.getY(), round.getX(), round.getY()));
         assertEquals(Math.sqrt(2), round.getRadius());
     }
 
