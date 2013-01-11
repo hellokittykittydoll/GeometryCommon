@@ -46,36 +46,6 @@ public class PointUtil {
     }
 
     /**
-     * 获得两点之间的中点
-     *
-     * @param p1 第一个点
-     * @param p2 第二个点
-     * @return 两点之间的中点
-     */
-    public static Point getMidPoint(Point p1, Point p2) {
-        if (p1 == null || p2 == null) {
-            return null;
-        }
-
-        return getMidPoint(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-    }
-
-    /**
-     * 获得点(x1,y1)与点(x2,y2)之间的中点
-     *
-     * @param x1 第一个点的横坐标
-     * @param y1 第一个点的纵坐标
-     * @param x2 第二个点横坐标
-     * @param y2 第二个点的纵坐标
-     * @return 两点之间的中点
-     */
-    public static Point getMidPoint(double x1, double y1, double x2, double y2) {
-        double x = (x1 + x2) / 2;
-        double y = (y1 + y2) / 2;
-        return new Point(x, y);
-    }
-
-    /**
      * 以center为中心,获得point点的中心对称点
      *
      * @param point  给定的点

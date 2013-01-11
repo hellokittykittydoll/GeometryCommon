@@ -8,6 +8,7 @@ import com.fudaowang.geometry.common.util.PointUtil;
 
 import static junit.framework.TestCase.*;
 
+import com.fudaowang.geometry.common.util.SegmentUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,10 +82,10 @@ public class PointUtilTest {
      */
     @Test
     public void testGetMidPoint() throws Exception {
-        Point p1 = PointUtil.getMidPoint(p11, p_1_1);
-        Point p2 = PointUtil.getMidPoint(p1010, p_10_10);
-        Point p3 = PointUtil.getMidPoint(1, 1, -1, -1);
-        Point p4 = PointUtil.getMidPoint(10, -10, -10, 10);
+        Point p1 = SegmentUtil.getMidpoint(p11, p_1_1);
+        Point p2 = SegmentUtil.getMidpoint(p1010, p_10_10);
+        Point p3 = SegmentUtil.getMidpoint(1, 1, -1, -1);
+        Point p4 = SegmentUtil.getMidpoint(10, -10, -10, 10);
 
         assertTrue(PointUtil.coincide(p1, p2));
         assertTrue(PointUtil.coincide(p1, p3));
