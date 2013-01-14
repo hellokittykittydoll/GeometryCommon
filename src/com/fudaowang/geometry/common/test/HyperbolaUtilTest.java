@@ -33,7 +33,7 @@ public class HyperbolaUtilTest {
         Line l3 = new Line(1, 0, 0);
         Line l4 = new Line(0, 1, 0);
 
-        Point[] points = HyperbolaUtil.intersect(hyperbola, l1);
+        Point[] points = HyperbolaUtil.intersect(l1, hyperbola);
         assertEquals(2, points.length);
         assertTrue(LineUtil.onLine(points[0], l1, NumberUtil.MIN_VALUE));
         assertTrue(LineUtil.onLine(points[1], l1, NumberUtil.MIN_VALUE));
@@ -42,11 +42,11 @@ public class HyperbolaUtilTest {
         assertEquals(points[1].getX(), -1.0);
         assertEquals(points[1].getY(), -1.0);
 
-        points = HyperbolaUtil.intersect(hyperbola, l2);
+        points = HyperbolaUtil.intersect(l2, hyperbola);
         assertEquals(0, points.length);
-        points = HyperbolaUtil.intersect(hyperbola, l3);
+        points = HyperbolaUtil.intersect(l3, hyperbola);
         assertEquals(0, points.length);
-        points = HyperbolaUtil.intersect(hyperbola, l4);
+        points = HyperbolaUtil.intersect(l4, hyperbola);
         assertEquals(0, points.length);
     }
 }

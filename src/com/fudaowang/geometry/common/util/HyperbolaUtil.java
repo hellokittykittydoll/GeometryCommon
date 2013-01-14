@@ -20,28 +20,28 @@ public class HyperbolaUtil {
     /**
      * 求反比例函数与直线的交点
      *
-     * @param hyperbola 反比例函数
      * @param line      直线
+     * @param hyperbola 反比例函数
      * @return 反比例函数与直线的交点
      */
-    public static Point[] intersect(Hyperbola hyperbola, Line line) {
+    public static Point[] intersect(Line line, Hyperbola hyperbola) {
         if (hyperbola == null || line == null) {
             return new Point[0];
         }
-        return intersect(hyperbola.getK(), hyperbola.getX(), hyperbola.getY(), line.getA(), line.getB(), line.getC());
+        return intersect(line.getA(), line.getB(), line.getC(), hyperbola.getK(), hyperbola.getX(), hyperbola.getY());
     }
 
     /**
      * 求反比例函数y=k/x与直线ax+by+c=0的交点
      *
-     * @param k 反比例函数的系数k
-     * @param x 反比例函数原点的横坐标
-     * @param y 反比例函数原点的纵坐标
      * @param a 直线的系数a
      * @param b 直线的系数b
      * @param c 直线的系数c    @return 反比例函数与直线的交点
+     * @param k 反比例函数的系数k
+     * @param x 反比例函数原点的横坐标
+     * @param y 反比例函数原点的纵坐标
      */
-    public static Point[] intersect(double k, double x, double y, double a, double b, double c) {
+    public static Point[] intersect(double a, double b, double c, double k, double x, double y) {
         if (NumberUtil.isZero(k)) {
             return new Point[0];
         }
