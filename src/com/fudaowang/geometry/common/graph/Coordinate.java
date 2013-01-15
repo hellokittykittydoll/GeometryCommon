@@ -16,6 +16,11 @@ public class Coordinate {
     private final double spaceX;
     private final double spaceY;
 
+    private double minX;
+    private double maxX;
+    private double minY;
+    private double maxY;
+
     /**
      * 构造方法
      *
@@ -74,5 +79,77 @@ public class Coordinate {
      */
     public boolean isSymmetrical() {
         return NumberUtil.equal(spaceX, spaceY);
+    }
+
+    /**
+     * 获得横坐标的最小值
+     *
+     * @return 横坐标的最小值
+     */
+    public double getMinX() {
+        return minX;
+    }
+
+    /**
+     * 设定横坐标的最小值
+     *
+     * @param minX 横坐标的最小值
+     */
+    public void setMinX(double minX) {
+        this.minX = minX;
+    }
+
+    /**
+     * 获得横坐标的最大值
+     *
+     * @return 横坐标的最大值
+     */
+    public double getMaxX() {
+        return maxX;
+    }
+
+    /**
+     * 设定横坐标的最大值
+     *
+     * @param maxX 横坐标的最大值
+     */
+    public void setMaxX(double maxX) {
+        this.maxX = maxX;
+    }
+
+    /**
+     * 获得纵坐标的最小值
+     *
+     * @return 纵坐标的最小值
+     */
+    public double getMinY() {
+        return minY;
+    }
+
+    /**
+     * 设定纵坐标的最小值
+     *
+     * @param minY 纵坐标的最小值
+     */
+    public void setMinY(double minY) {
+        this.minY = minY;
+    }
+
+    /**
+     * 获得纵坐标的最大值
+     *
+     * @return 纵坐标的最大值
+     */
+    public double getMaxY() {
+        return maxY;
+    }
+
+    /**
+     * 设定纵坐标的最大值
+     *
+     * @param maxY 纵坐标的最大值
+     */
+    public void setMaxY(double maxY) {
+        this.maxY = maxY;
     }
 }
