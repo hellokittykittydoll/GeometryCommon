@@ -37,8 +37,12 @@ public final class DoubleTuple {
      * @param number2 第二个double值
      */
     public DoubleTuple(double number1, double number2) {
-
-        this.number1 = number1;
-        this.number2 = number2;
+        if (number1 > number2) {
+            this.number1 = number2;
+            this.number2 = number1;
+        } else {
+            this.number1 = number1;
+            this.number2 = number2;
+        }
     }
 }

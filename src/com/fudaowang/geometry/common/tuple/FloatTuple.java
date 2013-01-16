@@ -37,7 +37,12 @@ public class FloatTuple {
      * @param number2 第二个float值
      */
     public FloatTuple(float number1, float number2) {
-        this.number1 = number1;
-        this.number2 = number2;
+        if (number1 > number2) {
+            this.number1 = number2;
+            this.number2 = number1;
+        } else {
+            this.number1 = number1;
+            this.number2 = number2;
+        }
     }
 }
