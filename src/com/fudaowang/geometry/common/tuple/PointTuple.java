@@ -10,9 +10,9 @@ import com.fudaowang.geometry.common.graph.Point;
  * Time: 5:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public final class PointTuple {
-    private final Point point1;
-    private final Point point2;
+public class PointTuple {
+    protected final Point point1;
+    protected final Point point2;
 
     /**
      * 获得第一个点

@@ -8,9 +8,9 @@ package com.fudaowang.geometry.common.tuple;
  * Time: 5:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public final class DoubleTuple {
-    private final double number1;
-    private final double number2;
+public class DoubleTuple {
+    protected final double number1;
+    protected final double number2;
 
     /**
      * 获得第一个数值

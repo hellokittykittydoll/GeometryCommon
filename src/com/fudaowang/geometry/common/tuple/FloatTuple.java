@@ -9,8 +9,8 @@ package com.fudaowang.geometry.common.tuple;
  * To change this template use File | Settings | File Templates.
  */
 public class FloatTuple {
-    private final float number1;
-    private final float number2;
+    protected final float number1;
+    protected final float number2;
 
     /**
      * 获得第一个数值

@@ -8,9 +8,9 @@ package com.fudaowang.geometry.common.tuple;
  * Time: 5:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public final class IntegerTuple {
-    private final int number1;
-    private final int number2;
+public class IntegerTuple {
+    protected final int number1;
+    protected final int number2;
 
     /**
      * 获得第一个数值
