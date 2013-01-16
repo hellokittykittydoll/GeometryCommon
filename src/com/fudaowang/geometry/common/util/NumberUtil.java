@@ -189,4 +189,70 @@ public class NumberUtil {
         double max = Math.max(d1, d2);
         return isLessThan(d, max, precision) && isMoreThan(d, min, precision);
     }
+
+    /**
+     * 求多个double值的平均数
+     *
+     * @param numbers 多个double值的数组
+     * @return 平均数
+     */
+    public static double average(double... numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return Double.NaN;
+        }
+
+        double sum = sum(numbers);
+        return sum / numbers.length;
+    }
+
+    /**
+     * 求多个double值的和
+     *
+     * @param numbers 多个double值的数组
+     * @return 多个值的总和
+     */
+    public static double average(int... numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return Double.NaN;
+        }
+
+        double sum = sum(numbers);
+        return sum / numbers.length;
+    }
+
+    /**
+     * 求多个int值的平均数
+     *
+     * @param numbers 多个int值的数组
+     * @return 平均数
+     */
+    public static double sum(double... numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return 0;
+        }
+
+        double result = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            result += numbers[i];
+        }
+        return result;
+    }
+
+    /**
+     * 求多个int值的和
+     *
+     * @param numbers 多个int值的数组
+     * @return 多个值的总和
+     */
+    public static int sum(int... numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return 0;
+        }
+
+        int result = 0;
+        for (int i = 0; i < numbers.length; i++) {
+            result += numbers[i];
+        }
+        return result;
+    }
 }
