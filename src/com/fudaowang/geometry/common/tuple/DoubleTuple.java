@@ -37,6 +37,10 @@ public class DoubleTuple {
      * @param number2 第二个double值
      */
     public DoubleTuple(double number1, double number2) {
+        if (Double.isNaN(number1) || Double.isNaN(number2)) {
+            throw new IllegalArgumentException("number必须是一个有效数值");
+        }
+
         if (number1 > number2) {
             this.number1 = number2;
             this.number2 = number1;

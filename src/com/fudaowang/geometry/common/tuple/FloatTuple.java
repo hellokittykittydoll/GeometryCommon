@@ -37,6 +37,10 @@ public class FloatTuple {
      * @param number2 第二个float值
      */
     public FloatTuple(float number1, float number2) {
+        if (Float.isNaN(number1) || Float.isNaN(number2)) {
+            throw new IllegalArgumentException("number必须是一个有效数值");
+        }
+
         if (number1 > number2) {
             this.number1 = number2;
             this.number2 = number1;
