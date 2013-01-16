@@ -1,6 +1,7 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
+import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
 
 /**
@@ -627,5 +628,65 @@ public class RoundUtil {
 
         Point point = PointUtil.toRelativeCoordinate(centerX, centerY, originX, originY, space);
         return new Round(point, radius * space);
+    }
+
+    /**
+     * 获得给定x在圆上的y值
+     *
+     * @param round 给定的圆
+     * @param x     x值
+     * @return 对应的y值
+     */
+    public static DoubleTuple getY(Round round, double x) {
+        return round == null ? null : getY(round.getX(), round.getY(), round.getRadius(), x);
+    }
+
+    /**
+     * 获得给定x在圆上的y值
+     *
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
+     * @param radius 圆的半径
+     * @param x      给定的x值
+     * @return 对应的y值
+     */
+    public static DoubleTuple getY(double cx, double cy, double radius, double x) {
+        double d = Math.pow(radius, 2) - Math.pow(x - cx, 2);
+        if (d < 0) {
+            return null;
+        }
+
+        d = Math.sqrt(d);
+        return new DoubleTuple(cy - d, cy + d);
+    }
+
+    /**
+     * 获得给定y在圆上的x值
+     *
+     * @param round 给定的圆
+     * @param y     给定的y值
+     * @return 对应的x值
+     */
+    public static DoubleTuple getX(Round round, double y) {
+        return round == null ? null : getX(round.getX(), round.getY(), round.getRadius(), y);
+    }
+
+    /**
+     * 获得给定y在圆上的x值
+     *
+     * @param cx     圆心的横坐标
+     * @param cy     圆心的纵坐标
+     * @param radius 圆的半径
+     * @param y      给定的y值
+     * @return 对应的x值
+     */
+    public static DoubleTuple getX(double cx, double cy, double radius, double y) {
+        double d = Math.pow(radius, 2) - Math.pow(y - cy, 2);
+        if (d < 0) {
+            return null;
+        }
+
+        d = Math.sqrt(d);
+        return new DoubleTuple(cx - d, cx + d);
     }
 }
