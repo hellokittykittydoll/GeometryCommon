@@ -352,7 +352,7 @@ public class RoundUtil {
      * @param precision 给定的精度
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(Round r1, Round r2, double precision) {
+    public static RoundRelation getRelationship(Round r1, Round r2, double precision) {
         if (r1 == null || r2 == null) {
             throw new NullPointerException("圆为null");
         }
@@ -366,7 +366,7 @@ public class RoundUtil {
      * @param r2 第二个圆
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(Round r1, Round r2) {
+    public static RoundRelation getRelationship(Round r1, Round r2) {
         return getRelationship(r1, r2, NumberUtil.MIN_VALUE);
     }
 
@@ -380,7 +380,7 @@ public class RoundUtil {
      * @param precision 给定的精度
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(Point c1, double r1, Point c2, double r2, double precision) {
+    public static RoundRelation getRelationship(Point c1, double r1, Point c2, double r2, double precision) {
         if (c1 == null || c2 == null) {
             throw new IllegalArgumentException("圆心点为null");
         }
@@ -396,7 +396,7 @@ public class RoundUtil {
      * @param r2 第二个圆的半径
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(Point c1, double r1, Point c2, double r2) {
+    public static RoundRelation getRelationship(Point c1, double r1, Point c2, double r2) {
         return getRelationship(c1, r1, c2, r2, NumberUtil.MIN_VALUE);
     }
 
@@ -412,27 +412,27 @@ public class RoundUtil {
      * @param precision 给定的精度
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
+    public static RoundRelation getRelationship(double x1, double y1, double r1, double x2, double y2, double r2, double precision) {
         if (NumberUtil.isMoreThanZero(r1) && NumberUtil.isMoreThanZero(r2)) {
             double distance = PointUtil.distance(x1, y1, x2, y2);
 
             if (NumberUtil.equal(distance, r1 + r2, precision)) {
-                return RoundEnum.EXTERNAL;
+                return RoundRelation.EXTERNAL;
             }
 
             if (distance > r1 + r2) {
-                return RoundEnum.SEPARATE;
+                return RoundRelation.SEPARATE;
             }
 
             if (NumberUtil.equal(distance, Math.abs(r1 - r2), precision)) {
-                return RoundEnum.INTERNAL;
+                return RoundRelation.INTERNAL;
             }
 
             if (distance < Math.abs(r1 - r2)) {
-                return RoundEnum.CONTAIN;
+                return RoundRelation.CONTAIN;
             }
 
-            return RoundEnum.INTERSECT;
+            return RoundRelation.INTERSECT;
         }
 
         throw new IllegalArgumentException("圆的半径长度必须大于0");
@@ -449,7 +449,7 @@ public class RoundUtil {
      * @param r2 第一个圆的半径
      * @return 两圆的位置关系
      */
-    public static RoundEnum getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
+    public static RoundRelation getRelationship(double x1, double y1, double r1, double x2, double y2, double r2) {
         return getRelationship(x1, y1, r1, x2, y2, r2, NumberUtil.MIN_VALUE);
     }
 

@@ -3,7 +3,7 @@ package com.fudaowang.geometry.common.test;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Round;
-import com.fudaowang.geometry.common.graph.RoundEnum;
+import com.fudaowang.geometry.common.graph.RoundRelation;
 import com.fudaowang.geometry.common.util.NumberUtil;
 import com.fudaowang.geometry.common.util.PointUtil;
 import com.fudaowang.geometry.common.util.RoundUtil;
@@ -123,26 +123,26 @@ public class RoundUtilTest {
         Round r1 = new Round(0, 0, 10);
         Round r2 = new Round(5, 0, 4);
 
-        RoundEnum relation = RoundUtil.getRelationship(r1, r2);
-        assertEquals(relation, RoundEnum.CONTAIN);
+        RoundRelation relation = RoundUtil.getRelationship(r1, r2);
+        assertEquals(relation, RoundRelation.CONTAIN);
 
         relation = RoundUtil.getRelationship(r1, r2, 1);
-        assertEquals(relation, RoundEnum.CONTAIN);
+        assertEquals(relation, RoundRelation.CONTAIN);
 
         r2 = new Round(5, 0, 5);
         relation = RoundUtil.getRelationship(r1, r2);
-        assertEquals(relation, RoundEnum.INTERNAL);
+        assertEquals(relation, RoundRelation.INTERNAL);
 
         r2 = new Round(5, 0, 5);
         relation = RoundUtil.getRelationship(r1, r2, 1);
-        assertEquals(relation, RoundEnum.INTERNAL);
+        assertEquals(relation, RoundRelation.INTERNAL);
 
         r2 = new Round(15, 0, 5);
         relation = RoundUtil.getRelationship(r1, r2, 1);
-        assertEquals(relation, RoundEnum.EXTERNAL);
+        assertEquals(relation, RoundRelation.EXTERNAL);
 
         r2 = new Round(15, 0, 4);
         relation = RoundUtil.getRelationship(r1, r2, 1);
-        assertEquals(relation, RoundEnum.SEPARATE);
+        assertEquals(relation, RoundRelation.SEPARATE);
     }
 }

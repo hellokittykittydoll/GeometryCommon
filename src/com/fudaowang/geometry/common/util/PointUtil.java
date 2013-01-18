@@ -507,9 +507,9 @@ public class PointUtil {
      */
     public static Point toAbsoluteCoordinate(double x, double y, double originX, double originY, double spaceX, double spaceY) {
         if (NumberUtil.isMoreThanZero(spaceX) && NumberUtil.isMoreThanZero(spaceY)) {
-            double absoluteX = originX + x * spaceX;
-            double absoluteY = originY - y * spaceY;
-            return new Point(absoluteX, absoluteY);
+            x = CoordinateUtil.toAbsoluteCoordinateX(x, originX, spaceX);
+            y = CoordinateUtil.toAbsoluteCoordinateY(y, originY, spaceY);
+            return new Point(x, y);
         }
 
         throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
@@ -555,9 +555,9 @@ public class PointUtil {
      */
     public static Point toRelativeCoordinate(double x, double y, double originX, double originY, double spaceX, double spaceY) {
         if (NumberUtil.isMoreThanZero(spaceX) && NumberUtil.isMoreThanZero(spaceY)) {
-            double relativeX = (x - originX) / spaceX;
-            double relativeY = (originY - y) / spaceY;
-            return new Point(relativeX, relativeY);
+            x = CoordinateUtil.toRelativeCoordinateX(x, originX, spaceX);
+            y = CoordinateUtil.toRelativeCoordinateY(y, originY, spaceY);
+            return new Point(x, y);
         }
 
         throw new IllegalArgumentException("单位长度的坐标间隔必须大于0");
