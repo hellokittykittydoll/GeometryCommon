@@ -918,8 +918,8 @@ public class SegmentUtil {
      * @return 线段的中点
      */
     public static Point getMidpoint(double x1, double y1, double x2, double y2) {
-        double x = NumberUtil.average(x1 + x2);
-        double y = NumberUtil.average(y1 + y2);
+        double x = NumberUtil.average(x1, x2);
+        double y = NumberUtil.average(y1, y2);
         return new Point(x, y);
     }
 }
