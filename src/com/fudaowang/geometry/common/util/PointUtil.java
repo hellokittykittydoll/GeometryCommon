@@ -1,7 +1,6 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
-import com.sun.org.apache.bcel.internal.generic.FieldGenOrMethodGen;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
