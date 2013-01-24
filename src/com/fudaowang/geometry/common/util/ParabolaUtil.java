@@ -155,9 +155,9 @@ public class ParabolaUtil {
      * @param y        给定的y值
      * @return 抛物线对应的x值
      */
-    public static Point[] getX(Parabola parabola, double y) {
+    public static DoubleTuple getX(Parabola parabola, double y) {
         if (parabola == null) {
-            return new Point[0];
+            return null;
         }
         return getX(parabola.getA(), parabola.getB(), parabola.getC(), y);
     }
@@ -171,8 +171,23 @@ public class ParabolaUtil {
      * @param y 给定的y值
      * @return 抛物线对应的x值
      */
-    public static Point[] getX(double a, double b, double c, double y) {
-        return intersect(0, 1, 0, a, b, c);
+    public static DoubleTuple getX(double a, double b, double c, double y) {
+        if (NumberUtil.isZero(a)) {
+            return null;
+        }
+
+        double delta = b * b - 4.0 * a * (c - y);
+        double x = -b / (2.0 * a);
+        if (NumberUtil.isZero(delta)) {
+            return new DoubleTuple(x, x);
+        }
+
+        if (delta < 0) {
+            return null;
+        }
+
+        delta = Math.sqrt(delta);
+        return new DoubleTuple(x - delta, x + delta);
     }
 
     /**
