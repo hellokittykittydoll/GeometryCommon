@@ -1,6 +1,7 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
+import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -145,6 +146,33 @@ public class ParabolaUtil {
      */
     public static double getY(double a, double b, double c, double x) {
         return a * x * x + b * x + c;
+    }
+
+    /**
+     * 已知y,求抛物线对应的x值
+     *
+     * @param parabola 给定的饿抛物线
+     * @param y        给定的y值
+     * @return 抛物线对应的x值
+     */
+    public static Point[] getX(Parabola parabola, double y) {
+        if (parabola == null) {
+            return new Point[0];
+        }
+        return getX(parabola.getA(), parabola.getB(), parabola.getC(), y);
+    }
+
+    /**
+     * 已知y,求抛物线对应的x值
+     *
+     * @param a 抛物线的系数a
+     * @param b 抛物线的系数b
+     * @param c 抛物线的系数c
+     * @param y 给定的y值
+     * @return 抛物线对应的x值
+     */
+    public static Point[] getX(double a, double b, double c, double y) {
+        return intersect(0, 1, 0, a, b, c);
     }
 
     /**
