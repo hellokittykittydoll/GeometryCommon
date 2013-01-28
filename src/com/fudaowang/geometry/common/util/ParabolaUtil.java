@@ -187,7 +187,9 @@ public class ParabolaUtil {
         }
 
         delta = Math.sqrt(delta);
-        return new DoubleTuple(x - delta, x + delta);
+        double x1 = (-b - delta) / (2.0 * a);
+        double x2 = (-b + delta) / (2.0 * a);
+        return new DoubleTuple(x1, x2);
     }
 
     /**
