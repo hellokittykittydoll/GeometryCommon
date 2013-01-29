@@ -7,6 +7,7 @@ import com.fudaowang.geometry.common.util.PolygonUtil;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
+
 /**
  * 多边形的测试类
  * Created with IntelliJ IDEA.
@@ -17,6 +18,7 @@ import static junit.framework.TestCase.*;
  */
 public class PolygonUtilTest {
     private Polygon source = new Polygon(new Point(0, 1), new Point(-2, 1), new Point(-3, -1), new Point(1, -1));
+
     @Test
     public void testRotate() throws Exception {
         Polygon polygon = PolygonUtil.rotate(source, new Point(0, 0), -Math.PI / 2.0);
