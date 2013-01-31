@@ -330,7 +330,7 @@ public class LineUtil {
 
         double a = y2 - y1;
         double b = x1 - x2;
-        double c = -a * x1 - b * y1;
+        double c = -b * y1 - a * x1;
         return new Line(a, b, c);
     }
 
