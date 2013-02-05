@@ -488,9 +488,21 @@ public class PointUtil {
      * @return 绝对坐标下的点
      */
     public static Point toAbsoluteCoordinate(Point point, Coordinate coordinate) {
-        return point == null || coordinate == null ? null :
-                toAbsoluteCoordinate(point.getX(), point.getY(),
-                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
+        return point == null ? null : toAbsoluteCoordinate(point.getX(), point.getY(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
+    }
+
+    /**
+     * 将相对坐标下的点,转化为绝对坐标下的点
+     *
+     * @param x          给定的点的横坐标
+     * @param y          给定的点的纵坐标
+     * @param coordinate 相对坐标
+     * @return 绝对坐标下的点
+     */
+    public static Point toAbsoluteCoordinate(double x, double y, Coordinate coordinate) {
+        return coordinate == null ? null :
+                toAbsoluteCoordinate(x, y, coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
@@ -536,9 +548,21 @@ public class PointUtil {
      * @return 相对坐标下的点
      */
     public static Point toRelativeCoordinate(Point point, Coordinate coordinate) {
-        return point == null || coordinate == null ? null :
-                toRelativeCoordinate(point.getX(), point.getY(),
-                        coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
+        return point == null ? null : toRelativeCoordinate(point.getX(), point.getY(),
+                coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
+    }
+
+    /**
+     * 将绝对坐标下的点,转化为相对坐标下的点
+     *
+     * @param x          给定的点的横坐标
+     * @param y          给定的点的纵坐标
+     * @param coordinate 相对坐标
+     * @return 相对坐标下的点
+     */
+    public static Point toRelativeCoordinate(double x, double y, Coordinate coordinate) {
+        return coordinate == null ? null :
+                toRelativeCoordinate(x, y, coordinate.getOriginX(), coordinate.getOriginY(), coordinate.getSpaceX(), coordinate.getSpaceY());
     }
 
     /**
