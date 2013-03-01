@@ -21,7 +21,7 @@ public class Polygon {
      *
      * @param points 给定的点集
      */
-    public Polygon(Point... points) {
+    public Polygon(Point[] points) {
         if (points == null) {
             throw new NullPointerException("多边形点集不能为空");
         }

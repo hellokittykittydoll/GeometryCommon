@@ -196,7 +196,7 @@ public class NumberUtil {
      * @param numbers 多个double值的数组
      * @return 平均数
      */
-    public static double average(double... numbers) {
+    public static double average(double[] numbers) {
         if (numbers == null || numbers.length == 0) {
             return Double.NaN;
         }
@@ -211,7 +211,7 @@ public class NumberUtil {
      * @param numbers 多个double值的数组
      * @return 多个值的总和
      */
-    public static double average(int... numbers) {
+    public static double average(int[] numbers) {
         if (numbers == null || numbers.length == 0) {
             return Double.NaN;
         }
@@ -226,7 +226,7 @@ public class NumberUtil {
      * @param numbers 多个int值的数组
      * @return 平均数
      */
-    public static double sum(double... numbers) {
+    public static double sum(double[] numbers) {
         if (numbers == null || numbers.length == 0) {
             return 0;
         }
@@ -244,7 +244,7 @@ public class NumberUtil {
      * @param numbers 多个int值的数组
      * @return 多个值的总和
      */
-    public static int sum(int... numbers) {
+    public static int sum(int[] numbers) {
         if (numbers == null || numbers.length == 0) {
             return 0;
         }
