@@ -17,12 +17,12 @@ import static junit.framework.TestCase.*;
  * To change this template use File | Settings | File Templates.
  */
 public class PolygonUtilTest {
-    private Polygon source = new Polygon(new Point(0, 1), new Point(-2, 1), new Point(-3, -1), new Point(1, -1));
+    private Polygon source = new Polygon(new Point[]{new Point(0, 1), new Point(-2, 1), new Point(-3, -1), new Point(1, -1)});
 
     @Test
     public void testRotate() throws Exception {
         Polygon polygon = PolygonUtil.rotate(source, new Point(0, 0), -Math.PI / 2.0);
-        Polygon target = new Polygon(new Point(1, 2), new Point(1, 0), new Point(-1, 3), new Point(-1, -1));
+        Polygon target = new Polygon(new Point[]{new Point(1, 2), new Point(1, 0), new Point(-1, 3), new Point(-1, -1)});
         assertTrue(PolygonUtil.coincide(polygon, target));
     }
 
