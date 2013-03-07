@@ -45,4 +45,22 @@ public class IntegerTuple {
             this.number2 = number2;
         }
     }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IntegerTuple)) return false;
+
+        IntegerTuple that = (IntegerTuple) o;
+
+        if (number1 != that.number1) return false;
+        if (number2 != that.number2) return false;
+
+        return true;
+    }
+
+    public int hashCode() {
+        int result = number1;
+        result = 31 * result + number2;
+        return result;
+    }
 }

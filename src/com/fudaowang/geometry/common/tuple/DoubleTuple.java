@@ -1,5 +1,7 @@
 package com.fudaowang.geometry.common.tuple;
 
+import com.fudaowang.geometry.common.util.NumberUtil;
+
 /**
  * 表示成对的两个double数值
  * Created with IntelliJ IDEA.
@@ -48,5 +50,24 @@ public class DoubleTuple {
             this.number1 = number1;
             this.number2 = number2;
         }
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DoubleTuple)) return false;
+
+        DoubleTuple that = (DoubleTuple) o;
+
+        return (NumberUtil.equal(number1, that.number1) && NumberUtil.equal(number2, that.number2));
+    }
+
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = number1 != +0.0d ? Double.doubleToLongBits(number1) : 0L;
+        result = (int) (temp ^ (temp >>> 32));
+        temp = number2 != +0.0d ? Double.doubleToLongBits(number2) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }
