@@ -37,7 +37,19 @@ public class IntegerTuple {
      * @param number2 第二个int值
      */
     public IntegerTuple(int number1, int number2) {
-        if (number1 > number2) {
+        this.number1 = number1;
+        this.number2 = number2;
+    }
+
+    /**
+     * 利用两个int值构造一对数值
+     *
+     * @param number1 第一个int值
+     * @param number2 第二个int值
+     * @param order   若要求排序,则int值按照从小到大存放
+     */
+    public IntegerTuple(int number1, int number2, boolean order) {
+        if (order && number1 > number2) {
             this.number1 = number2;
             this.number2 = number1;
         } else {
@@ -62,5 +74,29 @@ public class IntegerTuple {
         int result = number1;
         result = 31 * result + number2;
         return result;
+    }
+
+    /**
+     * 忽略次序地比较两个IntegerTuple是否相等
+     *
+     * @param integerTuple 需要比较的IntegerTuple
+     * @return 若相等则返回true
+     */
+    public boolean equalsIgnoreOrder(IntegerTuple integerTuple) {
+        if (integerTuple == null) {
+            throw new NullPointerException("需要判断的integerTuple为null");
+        }
+
+        return contains(integerTuple.number1) && contains(integerTuple.number2);
+    }
+
+    /**
+     * 判断是否包含给定的int值
+     *
+     * @param number 给定的int值
+     * @return 若在最小精度范围内存在相等的int值, 则返回true
+     */
+    public boolean contains(int number) {
+        return number == number1 || number == number2;
     }
 }
