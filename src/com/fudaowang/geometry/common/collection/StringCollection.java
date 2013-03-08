@@ -76,12 +76,7 @@ public class StringCollection {
             throw new NullPointerException("字符串为null");
         }
 
-        return CollectionUtils.exists(list, new Predicate() {
-            public boolean evaluate(Object object) {
-                String s = (String) object;
-                return s.equals(str);
-            }
-        });
+        return list.contains(str);
     }
 
     /**
