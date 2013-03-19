@@ -1,6 +1,5 @@
 package com.fudaowang.geometry.common.collection;
 
-import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Round;
 import com.fudaowang.geometry.common.util.NumberUtil;
 import com.fudaowang.geometry.common.util.RoundUtil;
@@ -33,7 +32,7 @@ public class RoundCollection {
      *
      * @return 圆的数组
      */
-    public Round[] getRounds() {
+    public Round[] toArray() {
         return (Round[]) set.toArray(new Round[set.size()]);
     }
 

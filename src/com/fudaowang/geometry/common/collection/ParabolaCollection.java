@@ -5,6 +5,7 @@ import com.fudaowang.geometry.common.util.NumberUtil;
 import com.fudaowang.geometry.common.util.ParabolaUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.ArrayUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -146,7 +147,7 @@ public class ParabolaCollection {
      *
      * @return 抛物线的数组
      */
-    public Parabola[] getParabolas() {
+    public Parabola[] toArray() {
         return (Parabola[]) set.toArray(new Parabola[set.size()]);
     }
 

@@ -32,7 +32,7 @@ public class SegmentCollection {
      *
      * @return 线段的数组
      */
-    public Segment[] getSegments() {
+    public Segment[] toArray() {
         return (Segment[]) set.toArray(new Segment[set.size()]);
     }
 

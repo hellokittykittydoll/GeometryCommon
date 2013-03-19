@@ -144,7 +144,7 @@ public class LineCollection {
      *
      * @return 直线的数组
      */
-    public Line[] getLines() {
+    public Line[] toArray() {
         return (Line[]) set.toArray(new Line[set.size()]);
     }
 

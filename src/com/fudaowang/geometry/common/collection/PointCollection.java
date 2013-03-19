@@ -31,7 +31,7 @@ public class PointCollection {
      *
      * @return 点的数组
      */
-    public Point[] getPoints() {
+    public Point[] toArray() {
         return (Point[]) list.toArray(new Point[list.size()]);
     }
 

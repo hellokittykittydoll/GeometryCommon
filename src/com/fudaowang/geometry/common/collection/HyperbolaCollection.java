@@ -32,7 +32,7 @@ public class HyperbolaCollection {
      *
      * @return 双曲线数组
      */
-    public Hyperbola[] getHyperbolas() {
+    public Hyperbola[] toArray() {
         return (Hyperbola[]) set.toArray(new Hyperbola[set.size()]);
     }
 

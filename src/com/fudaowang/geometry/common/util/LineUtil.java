@@ -7,8 +7,6 @@ import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
 import org.apache.commons.lang.NotImplementedException;
 
-import java.util.Comparator;
-
 /**
  * 对直线进行操作的类
  * Created with IntelliJ IDEA.
@@ -781,7 +779,7 @@ public class LineUtil {
         list.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
 
         list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.getPoints();
+        Point[] points = list.toArray();
         if (points.length < 2) {
             return null;
         }
@@ -856,7 +854,7 @@ public class LineUtil {
         list.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
 
         list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.getPoints();
+        Point[] points = list.toArray();
         if (points.length < 2) {
             return null;
         }
