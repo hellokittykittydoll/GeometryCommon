@@ -1,5 +1,7 @@
 package com.fudaowang.geometry.common.graph;
 
+import com.fudaowang.geometry.common.tuple.DoubleTuple;
+
 /**
  * 表示平面直角坐标系中的一个点
  * Created with IntelliJ IDEA.
@@ -27,6 +29,20 @@ public class Point {
         }
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * 利用参数组来构造点
+     *
+     * @param tuple 表示坐标数值的参数对
+     */
+    public Point(DoubleTuple tuple) {
+        if (tuple == null) {
+            throw new NullPointerException("参数组为null");
+        }
+
+        this.x = tuple.getNumber1();
+        this.y = tuple.getNumber2();
     }
 
     /**
