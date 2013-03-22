@@ -7,6 +7,8 @@ import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
 import org.apache.commons.lang.NotImplementedException;
 
+import java.util.List;
+
 /**
  * 对直线进行操作的类
  * Created with IntelliJ IDEA.
@@ -310,6 +312,26 @@ public class LineUtil {
         }
 
         return getLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+    }
+
+    /**
+     * 用点集生成直线
+     *
+     * @param points 直线上的点集
+     * @return 生成的直线
+     */
+    public static Line getLine(List points) {
+        return points == null ? null : getLine((Point[]) points.toArray(new Point[points.size()]));
+    }
+
+    /**
+     * 用点集生成直线
+     *
+     * @param points 直线上的点集
+     * @return 生成的直线
+     */
+    public static Line getLine(Point[] points) {
+        return points == null || points.length < 2 ? null : getLine(points[0], points[1]);
     }
 
     /**

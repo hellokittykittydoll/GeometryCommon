@@ -4,6 +4,9 @@ import com.fudaowang.geometry.common.graph.*;
 import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang.math.RandomUtils;
+
+import java.util.List;
 
 /**
  * 对抛物线进行操作的类
@@ -29,6 +32,26 @@ public class ParabolaUtil {
             return null;
         }
         return getParabola(p1.getX(), p1.getY(), p2.getX(), p2.getY(), p3.getX(), p3.getY());
+    }
+
+    /**
+     * 用点集生成抛物线
+     *
+     * @param points 抛物线上的点集
+     * @return 生成的抛物线
+     */
+    public static Parabola getParabola(List points) {
+        return points == null ? null : getParabola((Point[]) points.toArray(new Point[points.size()]));
+    }
+
+    /**
+     * 用点集生成抛物线
+     *
+     * @param points 抛物线上的点集
+     * @return 生成的抛物线
+     */
+    public static Parabola getParabola(Point[] points) {
+        return points == null || points.length < 3 ? null : getParabola(points[0], points[1], points[2]);
     }
 
     /**
