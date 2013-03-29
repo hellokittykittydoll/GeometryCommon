@@ -902,6 +902,6 @@ public class LineUtil {
         if (!isLogical(a, b)) {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
-        throw new NotImplementedException();
+        return toRelativeCoordinate(a, b, c, originX, originY, space, space);
     }
 }
