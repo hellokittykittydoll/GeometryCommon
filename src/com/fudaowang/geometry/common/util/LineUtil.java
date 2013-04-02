@@ -1,12 +1,12 @@
 package com.fudaowang.geometry.common.util;
 
-import com.fudaowang.geometry.common.collection.PointCollection;
 import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
-import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -794,14 +794,32 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection list = new PointCollection();
-        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, originX / spaceX));
-        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
+        List<Point> list = new ArrayList<Point>();
 
-        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.toArray();
+        Point p = LineUtil.intersect(a, b, c, 0, 1, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, originX / spaceX);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY);
+        if (p != null) {
+            list.add(p);
+        }
+
+        Collections.sort(list, PointUtil.xComparator());
+        Collections.sort(list, PointUtil.yComparator());
+
+        Point[] points = list.toArray(new Point[list.size()]);
         if (points.length < 2) {
             return null;
         }
@@ -869,14 +887,31 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection list = new PointCollection();
-        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
-        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
+        List<Point> list = new ArrayList<Point>();
+        Point p = LineUtil.intersect(a, b, c, 0, 1, 0);
+        if (p != null) {
+            list.add(p);
+        }
 
-        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.toArray();
+        p = LineUtil.intersect(a, b, c, 1, 0, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, -originX);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 0, 1, -originY);
+        if (p != null) {
+            list.add(p);
+        }
+
+        Collections.sort(list, PointUtil.xComparator());
+        Collections.sort(list, PointUtil.yComparator());
+
+        Point[] points = list.toArray(new Point[list.size()]);
         if (points.length < 2) {
             return null;
         }
