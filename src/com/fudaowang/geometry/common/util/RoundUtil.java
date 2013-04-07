@@ -1,8 +1,8 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
-import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * 对圆进行操作的类
@@ -637,7 +637,7 @@ public class RoundUtil {
      * @param x     x值
      * @return 对应的y值
      */
-    public static DoubleTuple getY(Round round, double x) {
+    public static Pair<Double, Double> getY(Round round, double x) {
         return round == null ? null : getY(round.getX(), round.getY(), round.getRadius(), x);
     }
 
@@ -650,14 +650,14 @@ public class RoundUtil {
      * @param x      给定的x值
      * @return 对应的y值
      */
-    public static DoubleTuple getY(double cx, double cy, double radius, double x) {
+    public static Pair<Double, Double> getY(double cx, double cy, double radius, double x) {
         double d = Math.pow(radius, 2) - Math.pow(x - cx, 2);
         if (d < 0) {
             return null;
         }
 
         d = Math.sqrt(d);
-        return new DoubleTuple(cy - d, cy + d);
+        return Pair.of(cy - d, cy + d);
     }
 
     /**
@@ -667,7 +667,7 @@ public class RoundUtil {
      * @param y     给定的y值
      * @return 对应的x值
      */
-    public static DoubleTuple getX(Round round, double y) {
+    public static Pair<Double, Double> getX(Round round, double y) {
         return round == null ? null : getX(round.getX(), round.getY(), round.getRadius(), y);
     }
 
@@ -680,13 +680,13 @@ public class RoundUtil {
      * @param y      给定的y值
      * @return 对应的x值
      */
-    public static DoubleTuple getX(double cx, double cy, double radius, double y) {
+    public static Pair<Double, Double> getX(double cx, double cy, double radius, double y) {
         double d = Math.pow(radius, 2) - Math.pow(y - cy, 2);
         if (d < 0) {
             return null;
         }
 
         d = Math.sqrt(d);
-        return new DoubleTuple(cx - d, cx + d);
+        return Pair.of(cx - d, cx + d);
     }
 }

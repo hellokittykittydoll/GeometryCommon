@@ -1,8 +1,8 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
-import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
@@ -176,7 +176,7 @@ public class ParabolaUtil {
      * @param y        给定的y值
      * @return 抛物线对应的x值
      */
-    public static DoubleTuple getX(Parabola parabola, double y) {
+    public static Pair<Double, Double> getX(Parabola parabola, double y) {
         if (parabola == null) {
             return null;
         }
@@ -192,7 +192,7 @@ public class ParabolaUtil {
      * @param y 给定的y值
      * @return 抛物线对应的x值
      */
-    public static DoubleTuple getX(double a, double b, double c, double y) {
+    public static Pair<Double, Double> getX(double a, double b, double c, double y) {
         if (NumberUtil.isZero(a)) {
             return null;
         }
@@ -200,7 +200,7 @@ public class ParabolaUtil {
         double delta = b * b - 4.0 * a * (c - y);
         double x = -b / (2.0 * a);
         if (NumberUtil.isZero(delta)) {
-            return new DoubleTuple(x, x);
+            return Pair.of(x, x);
         }
 
         if (delta < 0) {
@@ -210,7 +210,7 @@ public class ParabolaUtil {
         delta = Math.sqrt(delta);
         double x1 = (-b - delta) / (2.0 * a);
         double x2 = (-b + delta) / (2.0 * a);
-        return new DoubleTuple(x1, x2);
+        return Pair.of(x1, x2);
     }
 
     /**
