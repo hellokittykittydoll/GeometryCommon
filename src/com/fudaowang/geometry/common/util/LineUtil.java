@@ -320,8 +320,8 @@ public class LineUtil {
      * @param points 直线上的点集
      * @return 生成的直线
      */
-    public static Line getLine(List points) {
-        return points == null ? null : getLine((Point[]) points.toArray(new Point[points.size()]));
+    public static Line getLine(List<Point> points) {
+        return points == null ? null : getLine(points.toArray(new Point[points.size()]));
     }
 
     /**

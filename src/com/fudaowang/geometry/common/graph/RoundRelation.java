@@ -1,6 +1,5 @@
 package com.fudaowang.geometry.common.graph;
 
-import org.apache.commons.lang.enums.Enum;
 
 /**
  * 表示两圆关系的枚举类
@@ -10,14 +9,43 @@ import org.apache.commons.lang.enums.Enum;
  * Time: 9:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public final class RoundRelation extends Enum {
-    public static final RoundRelation CONTAIN = new RoundRelation("包含");
-    public static final RoundRelation INTERNAL = new RoundRelation("内切");
-    public static final RoundRelation INTERSECT = new RoundRelation("相交");
-    public static final RoundRelation EXTERNAL = new RoundRelation("外切");
-    public static final RoundRelation SEPARATE = new RoundRelation("相离");
+public enum RoundRelation {
+    CONTAIN("包含", 1),
+    INTERNAL("内切", 2),
+    INTERSECT("相交", 3),
+    EXTERNAL("外切", 4),
+    SEPARATE("相离", 5);
 
-    protected RoundRelation(String name) {
-        super(name);
+    private String name;
+    private int index;
+
+    private RoundRelation(String name, int index) {
+        this.name = name;
+        this.index = index;
+    }
+
+    public static String getName(int index) {
+        for (RoundRelation roundRelation : RoundRelation.values()) {
+            if (index == roundRelation.index) {
+                return roundRelation.name;
+            }
+        }
+        return null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

@@ -3,8 +3,6 @@ package com.fudaowang.geometry.common.util;
 import com.fudaowang.geometry.common.graph.*;
 import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.math.RandomUtils;
 
 import java.util.List;
 
@@ -40,8 +38,8 @@ public class ParabolaUtil {
      * @param points 抛物线上的点集
      * @return 生成的抛物线
      */
-    public static Parabola getParabola(List points) {
-        return points == null ? null : getParabola((Point[]) points.toArray(new Point[points.size()]));
+    public static Parabola getParabola(List<Point> points) {
+        return points == null ? null : getParabola(points.toArray(new Point[points.size()]));
     }
 
     /**
@@ -568,7 +566,7 @@ public class ParabolaUtil {
         if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
-        throw new NotImplementedException();
+        return toRelativeCoordinate(a, b, c, originX, originY, space, space);
     }
 
     /**

@@ -389,8 +389,8 @@ public class PointUtil {
      * @param points Point的数组
      * @return Point的list
      */
-    public static List toList(Point[] points) {
-        List list = new ArrayList();
+    public static List<Point> toList(Point[] points) {
+        List<Point> list = new ArrayList<Point>();
         if (points == null) {
             return list;
         }
@@ -404,12 +404,12 @@ public class PointUtil {
      * @param collection 点集合
      * @return Point的数组
      */
-    public static Point[] toArray(Collection collection) {
+    public static Point[] toArray(Collection<Point> collection) {
         if (collection == null) {
             return new Point[0];
         }
 
-        return (Point[]) collection.toArray(new Point[collection.size()]);
+        return collection.toArray(new Point[collection.size()]);
     }
 
     /**
@@ -424,7 +424,7 @@ public class PointUtil {
             return points;
         }
 
-        List list = toList(points);
+        List<Point> list = toList(points);
         CollectionUtils.filter(list, predicate);
         return toArray(list);
     }
@@ -441,7 +441,7 @@ public class PointUtil {
             return points;
         }
 
-        List list = toList(points);
+        List<Point> list = toList(points);
         Collection collection = CollectionUtils.collect(list, transformer);
         return toArray(collection);
     }
@@ -475,7 +475,7 @@ public class PointUtil {
             return points;
         }
 
-        List list = toList(points);
+        List<Point> list = toList(points);
         Collections.sort(list, comparator);
         return toArray(list);
     }
