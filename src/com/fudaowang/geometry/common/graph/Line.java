@@ -1,6 +1,5 @@
 package com.fudaowang.geometry.common.graph;
 
-import com.fudaowang.geometry.common.tuple.DoubleTriple;
 import com.fudaowang.geometry.common.util.LineUtil;
 import com.fudaowang.geometry.common.util.NumberUtil;
 import com.fudaowang.geometry.common.util.PointUtil;
@@ -41,18 +40,18 @@ public class Line {
      *
      * @param triple double参数组
      */
-    public Line(DoubleTriple triple) {
+    public Line(Triple<Double, Double, Double> triple) {
         if (triple == null) {
             throw new NullPointerException("参数为null");
         }
 
-        if (NumberUtil.isZero(triple.getNumber1()) && NumberUtil.isZero(triple.getNumber2())) {
+        if (NumberUtil.isZero(triple.getItem1()) && NumberUtil.isZero(triple.getItem2())) {
             throw new IllegalArgumentException("直线方程的系数a和系数b不能同时为0");
         }
 
-        this.a = triple.getNumber1();
-        this.b = triple.getNumber2();
-        this.c = triple.getNumber3();
+        this.a = triple.getItem1();
+        this.b = triple.getItem2();
+        this.c = triple.getItem3();
     }
 
     /**
