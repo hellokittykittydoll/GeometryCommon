@@ -442,7 +442,7 @@ public class PointUtil {
         }
 
         List<Point> list = toList(points);
-        Collection collection = CollectionUtils.collect(list, transformer);
+        Collection<Point> collection = CollectionUtils.collect(list, transformer);
         return toArray(collection);
     }
 
@@ -470,7 +470,7 @@ public class PointUtil {
      * @param comparator 排序规则
      * @return 排序后的点集
      */
-    public static Point[] sort(Point[] points, Comparator comparator) {
+    public static Point[] sort(Point[] points, Comparator<Point> comparator) {
         if (points == null || comparator == null) {
             return points;
         }
@@ -605,7 +605,7 @@ public class PointUtil {
      *
      * @return 两点关于x坐标的Comparator
      */
-    public static Comparator xComparator() {
+    public static Comparator<Point> xComparator() {
         return new Comparator() {
             public int compare(Object o1, Object o2) {
                 Point p1 = (Point) o1;
@@ -620,7 +620,7 @@ public class PointUtil {
      *
      * @return 两点关于y坐标的Comparator
      */
-    public static Comparator yComparator() {
+    public static Comparator<Point> yComparator() {
         return new Comparator() {
             public int compare(Object o1, Object o2) {
                 Point p1 = (Point) o1;

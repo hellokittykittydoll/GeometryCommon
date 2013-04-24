@@ -232,8 +232,8 @@ public class NumberUtil {
         }
 
         double result = 0;
-        for (int i = 0; i < numbers.length; i++) {
-            result += numbers[i];
+        for (double number : numbers) {
+            result += number;
         }
         return result;
     }
@@ -250,8 +250,8 @@ public class NumberUtil {
         }
 
         int result = 0;
-        for (int i = 0; i < numbers.length; i++) {
-            result += numbers[i];
+        for (int number : numbers) {
+            result += number;
         }
         return result;
     }
