@@ -31,8 +31,8 @@ public class RoundUtil {
      * 求直线lax+lby+lc=0与圆(x-cx)^2+(y-cy)^2=radius^2的交点
      *
      * @param la     直线的系数a
-     * @param lb     直线的系数a
-     * @param lc     直线的系数a
+     * @param lb     直线的系数b
+     * @param lc     直线的系数c
      * @param cx     圆心的横坐标
      * @param cy     圆心的纵坐标
      * @param radius 圆的半径
