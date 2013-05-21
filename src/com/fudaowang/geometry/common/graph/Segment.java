@@ -1,7 +1,5 @@
 package com.fudaowang.geometry.common.graph;
 
-import com.fudaowang.geometry.common.util.PointUtil;
-
 /**
  * 使用两个点表示的线段
  * Created with IntelliJ IDEA.
@@ -11,7 +9,15 @@ import com.fudaowang.geometry.common.util.PointUtil;
  * To change this template use File | Settings | File Templates.
  */
 public class Segment extends Line {
+
+    /**
+     * 线段的第一个端点
+     */
     protected Point p1;
+
+    /**
+     * 线段的第二个端点
+     */
     protected Point p2;
 
     /**
