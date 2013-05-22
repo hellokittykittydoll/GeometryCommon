@@ -1,5 +1,7 @@
 package com.fudaowang.geometry.common.graph;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 /**
  * 使用两个点表示的线段
  * Created with IntelliJ IDEA.
@@ -44,6 +46,18 @@ public class Segment extends Line {
         super(x1, y1, x2, y2);
         this.p1 = new Point(x1, y1);
         this.p2 = new Point(x2, y2);
+    }
+
+    /**
+     * 利用两个已知点来构造线段
+     *
+     * @param p1 表示第一个点的横纵坐标组
+     * @param p2 表示第二个点的横纵坐标组
+     */
+    public Segment(Pair<Double, Double> p1, Pair<Double, Double> p2) {
+        super(p1, p2);
+        this.p1 = new Point(p1);
+        this.p2 = new Point(p2);
     }
 
     /**
