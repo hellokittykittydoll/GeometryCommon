@@ -1,5 +1,6 @@
 package com.fudaowang.geometry.common.graph;
 
+import com.fudaowang.geometry.common.util.HalfLineUtil;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -11,19 +12,8 @@ import org.apache.commons.lang3.tuple.Pair;
  * To change this template use File | Settings | File Templates.
  */
 public class HalfLine extends Line {
-    /**
-     * 射线端点的横坐标
-     */
     protected final double x;
-
-    /**
-     * 射线端点的纵坐标
-     */
     protected final double y;
-
-    /**
-     * 射线的方向
-     */
     protected final Orientation orientation;
 
     /**
@@ -55,6 +45,47 @@ public class HalfLine extends Line {
         this.orientation = orientation;
         this.x = pair.getLeft();
         this.y = pair.getRight();
+    }
+
+    /**
+     * 利用射线的端点和射线上一点来构造射线
+     *
+     * @param vertical 射线的端点
+     * @param point    射线上另一点
+     */
+    public HalfLine(Point vertical, Point point) {
+        super(vertical, point);
+        this.x = vertical.x;
+        this.y = vertical.y;
+        this.orientation = HalfLineUtil.getOrientation(vertical, point);
+    }
+
+    /**
+     * 利用射线的端点和射线上一点来构造射线
+     *
+     * @param vx 射线端点的横坐标
+     * @param vy 射线端点的纵坐标
+     * @param px 射线上另一点的横坐标
+     * @param py 射线上另一点的纵坐标
+     */
+    public HalfLine(double vx, double vy, double px, double py) {
+        super(vx, vy, px, py);
+        this.x = vx;
+        this.y = vy;
+        this.orientation = HalfLineUtil.getOrientation(vx, vy, px, py);
+    }
+
+    /**
+     * 利用射线的端点和射线上一点来构造射线
+     *
+     * @param vertical 表示射线端点的横纵坐标组
+     * @param point    表示射线上另一点的横纵坐标组
+     */
+    public HalfLine(Pair<Double, Double> vertical, Pair<Double, Double> point) {
+        super(vertical, point);
+        this.x = vertical.getLeft();
+        this.y = vertical.getRight();
+        this.orientation = HalfLineUtil.getOrientation(vertical.getLeft(), vertical.getRight(), point.getLeft(), point.getRight());
     }
 
     /**
