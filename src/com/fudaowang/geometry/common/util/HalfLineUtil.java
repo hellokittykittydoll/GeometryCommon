@@ -169,4 +169,43 @@ public class HalfLineUtil {
 
         return y > 0 ? HalfLine.Orientation.Y : HalfLine.Orientation.MINUS_Y;
     }
+
+    /**
+     * 判断给定的两条射线在最小精度范围内是否重合
+     *
+     * @param h1 第一条射线
+     * @param h2 第二条射线
+     * @return 若两条射线起点重合, 所在直线重合, 射线方向相同, 则返回true
+     */
+    public static boolean coincide(HalfLine h1, HalfLine h2) {
+        if (h1 == null || h2 == null) {
+            throw new NullPointerException("halfline is null");
+        }
+
+        return coincide(h1, h2, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断给定的两条射线是否在给定的精度范围内重合
+     *
+     * @param h1        第一条射线
+     * @param h2        第二条射线
+     * @param precision 给定的精度
+     * @return 若两条射线起点重合, 所在直线重合, 射线方向相同, 则返回true
+     */
+    public static boolean coincide(HalfLine h1, HalfLine h2, double precision) {
+        if (h1 == null || h2 == null) {
+            throw new NullPointerException("halfline is null");
+        }
+
+        if (!PointUtil.coincide(h1.getX(), h1.getY(), h2.getX(), h2.getY(), precision)) {
+            return false;
+        }
+
+        if (h1.getOrientation() != h2.getOrientation()) {
+            return false;
+        }
+
+        return LineUtil.coincide(h1.getA(), h1.getB(), h1.getC(), h2.getA(), h2.getB(), h2.getC(), precision);
+    }
 }
