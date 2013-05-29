@@ -629,4 +629,37 @@ public class PointUtil {
             }
         };
     }
+
+    /**
+     * 在给定的点集内判断是否存在重合的点
+     *
+     * @param collection 给定的点集
+     * @param point      给定的点
+     * @return 若点集内存在与给定点在最小精度范围内重合的点, 则返回true
+     */
+    public static boolean exist(Collection<Point> collection, Point point) {
+        return exist(collection, point, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的点集内判断是否存在重合的点
+     *
+     * @param collection 给定的点集
+     * @param point      给定的点
+     * @param precision  给定的精度
+     * @return 若点集内存在与给定点在给定精度范围内重合的点, 则返回true
+     */
+    public static boolean exist(Collection<Point> collection, Point point, double precision) {
+        if (collection == null || point == null) {
+            return false;
+        }
+
+        for (Point p : collection) {
+            if (coincide(p, point, precision)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

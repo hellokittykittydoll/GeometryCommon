@@ -3,6 +3,8 @@ package com.fudaowang.geometry.common.util;
 import com.fudaowang.geometry.common.graph.HalfLine;
 import com.fudaowang.geometry.common.graph.Point;
 
+import java.util.Collection;
+
 /**
  * 射线的相关方法
  * Created with IntelliJ IDEA.
@@ -207,5 +209,39 @@ public class HalfLineUtil {
         }
 
         return LineUtil.coincide(h1.getA(), h1.getB(), h1.getC(), h2.getA(), h2.getB(), h2.getC(), precision);
+    }
+
+
+    /**
+     * 在给定的射线集内判断是否存在重合的射线
+     *
+     * @param collection 给定的射线集
+     * @param halfLine   给定的射线
+     * @return 若射线集内存在与给定射线在最小精度范围内重合的射线, 则返回true
+     */
+    public static boolean exist(Collection<HalfLine> collection, HalfLine halfLine) {
+        return exist(collection, halfLine, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 在给定的射线集内判断是否存在重合的射线
+     *
+     * @param collection 给定的射线集
+     * @param halfLine   给定的射线
+     * @param precision  给定的精度
+     * @return 若射线集内存在与给定射线在给定精度范围内重合的射线, 则返回true
+     */
+    public static boolean exist(Collection<HalfLine> collection, HalfLine halfLine, double precision) {
+        if (collection == null || halfLine == null) {
+            return false;
+        }
+
+        for (HalfLine h : collection) {
+            if (coincide(h, halfLine, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

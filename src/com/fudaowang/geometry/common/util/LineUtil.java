@@ -6,6 +6,7 @@ import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -938,5 +939,38 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
         return toRelativeCoordinate(a, b, c, originX, originY, space, space);
+    }
+
+    /**
+     * 判断直线集里是否存在与给定直线重合的直线
+     *
+     * @param lines 给定的直线集
+     * @param line  给定的直线
+     * @return 若直线集内存在与给定直线在最小精度范围内重合的直线, 则返回true
+     */
+    public static boolean exist(Collection<Line> lines, Line line) {
+        return exist(lines, line, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断直线集里是否存在与给定直线重合的直线
+     *
+     * @param lines     给定的直线集
+     * @param line      给定的直线
+     * @param precision 给定的精度
+     * @return 若直线集内存在与给定直线在指定精度范围内重合的直线, 则返回true
+     */
+    public static boolean exist(Collection<Line> lines, Line line, double precision) {
+        if (lines == null || line == null) {
+            return false;
+        }
+
+        for (Line l : lines) {
+            if (coincide(l, line, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
