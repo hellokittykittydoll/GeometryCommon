@@ -955,17 +955,17 @@ public class LineUtil {
     /**
      * 判断直线集里是否存在与给定直线重合的直线
      *
-     * @param lines     给定的直线集
-     * @param line      给定的直线
-     * @param precision 给定的精度
+     * @param collection 给定的直线集
+     * @param line       给定的直线
+     * @param precision  给定的精度
      * @return 若直线集内存在与给定直线在指定精度范围内重合的直线, 则返回true
      */
-    public static boolean exist(Collection<Line> lines, Line line, double precision) {
-        if (lines == null || line == null) {
+    public static boolean exist(Collection<Line> collection, Line line, double precision) {
+        if (collection == null || line == null) {
             return false;
         }
 
-        for (Line l : lines) {
+        for (Line l : collection) {
             if (coincide(l, line, precision)) {
                 return true;
             }

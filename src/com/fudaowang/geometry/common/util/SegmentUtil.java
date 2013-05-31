@@ -5,6 +5,9 @@ import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
 
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  * 对线段操作的类
  * Created with IntelliJ IDEA.
@@ -921,5 +924,38 @@ public class SegmentUtil {
         double x = NumberUtil.average(new double[]{x1, x2});
         double y = NumberUtil.average(new double[]{y1, y2});
         return new Point(x, y);
+    }
+
+    /**
+     * 判断线段集中是否存在与给定线段重合的线段
+     *
+     * @param collection 线段集合
+     * @param segment    给定的线段
+     * @return 若线段集合中存在与给定线段在最小精度范围内重合的线段, 则返回true
+     */
+    public static boolean exist(Collection<Segment> collection, Segment segment) {
+        return exist(collection, segment, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断线段集中是否存在与给定线段重合的线段
+     *
+     * @param collection 线段集合
+     * @param segment    给定的线段
+     * @param precision  指定的精度
+     * @return 若线段集合中存在与给定线段在指定精度范围内重合的线段, 则返回true
+     */
+    public static boolean exist(Collection<Segment> collection, Segment segment, double precision) {
+        if (collection == null || segment == null) {
+            return false;
+        }
+
+        for (Segment s : collection) {
+            if (coincide(s, segment, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

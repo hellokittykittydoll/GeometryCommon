@@ -4,6 +4,8 @@ import com.fudaowang.geometry.common.graph.*;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Collection;
+
 /**
  * 对圆进行操作的类
  * Created with IntelliJ IDEA.
@@ -688,5 +690,38 @@ public class RoundUtil {
 
         d = Math.sqrt(d);
         return Pair.of(cx - d, cx + d);
+    }
+
+    /**
+     * 判断圆的集合中是否存在与给定圆重合的圆
+     *
+     * @param collection 圆的集合
+     * @param round      给定的圆
+     * @return 若集合中存在与给定圆在最小精度范围内重合的圆, 则返回true
+     */
+    public static boolean exist(Collection<Round> collection, Round round) {
+        return exist(collection, round, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断圆的集合中是否存在与给定圆重合的圆
+     *
+     * @param collection 圆的集合
+     * @param round      给定的圆
+     * @param precision  给定的精度
+     * @return 若集合中存在与给定圆在指定精度范围内重合的圆, 则返回true
+     */
+    public static boolean exist(Collection<Round> collection, Round round, double precision) {
+        if (collection == null || round == null) {
+            return false;
+        }
+
+        for (Round r : collection) {
+            if (coincide(r, round, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

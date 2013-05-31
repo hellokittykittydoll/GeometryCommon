@@ -4,6 +4,7 @@ import com.fudaowang.geometry.common.graph.*;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -627,5 +628,38 @@ public class ParabolaUtil {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
         return NumberUtil.equal(a1, a2, precision) && NumberUtil.equal(b1, b2, precision) && NumberUtil.equal(c1, c2, precision);
+    }
+
+    /**
+     * 判断抛物线集合中是否存在与给定抛物线重合的抛物线
+     *
+     * @param collection 抛物线集合
+     * @param parabola   给定的抛物线
+     * @return 若集合中存在与给定抛物线在最小精度范围内重合的抛物线, 则返回true
+     */
+    public static boolean exist(Collection<Parabola> collection, Parabola parabola) {
+        return exist(collection, parabola, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断抛物线集合中是否存在与给定抛物线重合的抛物线
+     *
+     * @param collection 抛物线的集合
+     * @param parabola   给定的抛物线
+     * @param precision  指定的精度
+     * @return 若集合中存在与给定抛物线在指定精度范围内重合的抛物线, 则返回true
+     */
+    public static boolean exist(Collection<Parabola> collection, Parabola parabola, double precision) {
+        if (collection == null || parabola == null) {
+            return false;
+        }
+
+        for (Parabola p : collection) {
+            if (coincide(p, parabola, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
