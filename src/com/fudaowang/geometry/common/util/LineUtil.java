@@ -1,12 +1,13 @@
 package com.fudaowang.geometry.common.util;
 
-import com.fudaowang.geometry.common.collection.PointCollection;
 import com.fudaowang.geometry.common.graph.Coordinate;
 import com.fudaowang.geometry.common.graph.Line;
 import com.fudaowang.geometry.common.graph.Point;
 import com.fudaowang.geometry.common.graph.Segment;
-import org.apache.commons.lang.NotImplementedException;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -320,8 +321,8 @@ public class LineUtil {
      * @param points 直线上的点集
      * @return 生成的直线
      */
-    public static Line getLine(List points) {
-        return points == null ? null : getLine((Point[]) points.toArray(new Point[points.size()]));
+    public static Line getLine(List<Point> points) {
+        return points == null ? null : getLine(points.toArray(new Point[points.size()]));
     }
 
     /**
@@ -794,14 +795,32 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection list = new PointCollection();
-        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, originX / spaceX));
-        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY));
+        List<Point> list = new ArrayList<Point>();
 
-        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.toArray();
+        Point p = LineUtil.intersect(a, b, c, 0, 1, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, originX / spaceX);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 0, 1, -originY / spaceY);
+        if (p != null) {
+            list.add(p);
+        }
+
+        Collections.sort(list, PointUtil.xComparator());
+        Collections.sort(list, PointUtil.yComparator());
+
+        Point[] points = list.toArray(new Point[list.size()]);
         if (points.length < 2) {
             return null;
         }
@@ -869,14 +888,31 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
 
-        PointCollection list = new PointCollection();
-        list.add(LineUtil.intersect(a, b, c, 0, 1, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, 0));
-        list.add(LineUtil.intersect(a, b, c, 1, 0, -originX));
-        list.add(LineUtil.intersect(a, b, c, 0, 1, -originY));
+        List<Point> list = new ArrayList<Point>();
+        Point p = LineUtil.intersect(a, b, c, 0, 1, 0);
+        if (p != null) {
+            list.add(p);
+        }
 
-        list.sort(PointUtil.xComparator()).sort(PointUtil.yComparator());
-        Point[] points = list.toArray();
+        p = LineUtil.intersect(a, b, c, 1, 0, 0);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 1, 0, -originX);
+        if (p != null) {
+            list.add(p);
+        }
+
+        p = LineUtil.intersect(a, b, c, 0, 1, -originY);
+        if (p != null) {
+            list.add(p);
+        }
+
+        Collections.sort(list, PointUtil.xComparator());
+        Collections.sort(list, PointUtil.yComparator());
+
+        Point[] points = list.toArray(new Point[list.size()]);
         if (points.length < 2) {
             return null;
         }
@@ -903,5 +939,38 @@ public class LineUtil {
             throw new IllegalArgumentException("直线的系数a和b不能同时为0");
         }
         return toRelativeCoordinate(a, b, c, originX, originY, space, space);
+    }
+
+    /**
+     * 判断直线集里是否存在与给定直线重合的直线
+     *
+     * @param lines 给定的直线集
+     * @param line  给定的直线
+     * @return 若直线集内存在与给定直线在最小精度范围内重合的直线, 则返回true
+     */
+    public static boolean exist(Collection<Line> lines, Line line) {
+        return exist(lines, line, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断直线集里是否存在与给定直线重合的直线
+     *
+     * @param collection 给定的直线集
+     * @param line       给定的直线
+     * @param precision  给定的精度
+     * @return 若直线集内存在与给定直线在指定精度范围内重合的直线, 则返回true
+     */
+    public static boolean exist(Collection<Line> collection, Line line, double precision) {
+        if (collection == null || line == null) {
+            return false;
+        }
+
+        for (Line l : collection) {
+            if (coincide(l, line, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,6 +1,5 @@
 package com.fudaowang.geometry.common.graph;
 
-import com.fudaowang.geometry.common.tuple.DoubleTriple;
 import com.fudaowang.geometry.common.util.NumberUtil;
 
 /**
@@ -56,18 +55,18 @@ public class Hyperbola {
      *
      * @param triple 参数的double组合
      */
-    public Hyperbola(DoubleTriple triple) {
+    public Hyperbola(Triple<Double, Double, Double> triple) {
         if (triple == null) {
             throw new NullPointerException("参数为null");
         }
 
-        if (NumberUtil.isZero(triple.getNumber1())) {
+        if (NumberUtil.isZero(triple.getItem1())) {
             throw new IllegalArgumentException("反比例函数的系数k不能为0");
         }
 
-        this.k = triple.getNumber1();
-        this.x = triple.getNumber2();
-        this.y = triple.getNumber3();
+        this.k = triple.getItem1();
+        this.x = triple.getItem2();
+        this.y = triple.getItem3();
     }
 
     /**

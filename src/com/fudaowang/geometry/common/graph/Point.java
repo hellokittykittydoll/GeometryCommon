@@ -1,6 +1,6 @@
 package com.fudaowang.geometry.common.graph;
 
-import com.fudaowang.geometry.common.tuple.DoubleTuple;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * 表示平面直角坐标系中的一个点
@@ -36,13 +36,13 @@ public class Point {
      *
      * @param tuple 表示坐标数值的参数对
      */
-    public Point(DoubleTuple tuple) {
+    public Point(Pair<Double, Double> tuple) {
         if (tuple == null) {
             throw new NullPointerException("参数组为null");
         }
 
-        this.x = tuple.getNumber1();
-        this.y = tuple.getNumber2();
+        this.x = tuple.getLeft();
+        this.y = tuple.getRight();
     }
 
     /**

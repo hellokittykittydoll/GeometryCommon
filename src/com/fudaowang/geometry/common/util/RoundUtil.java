@@ -1,8 +1,10 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
-import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Collection;
 
 /**
  * 对圆进行操作的类
@@ -31,8 +33,8 @@ public class RoundUtil {
      * 求直线lax+lby+lc=0与圆(x-cx)^2+(y-cy)^2=radius^2的交点
      *
      * @param la     直线的系数a
-     * @param lb     直线的系数a
-     * @param lc     直线的系数a
+     * @param lb     直线的系数b
+     * @param lc     直线的系数c
      * @param cx     圆心的横坐标
      * @param cy     圆心的纵坐标
      * @param radius 圆的半径
@@ -637,7 +639,7 @@ public class RoundUtil {
      * @param x     x值
      * @return 对应的y值
      */
-    public static DoubleTuple getY(Round round, double x) {
+    public static Pair<Double, Double> getY(Round round, double x) {
         return round == null ? null : getY(round.getX(), round.getY(), round.getRadius(), x);
     }
 
@@ -650,14 +652,14 @@ public class RoundUtil {
      * @param x      给定的x值
      * @return 对应的y值
      */
-    public static DoubleTuple getY(double cx, double cy, double radius, double x) {
+    public static Pair<Double, Double> getY(double cx, double cy, double radius, double x) {
         double d = Math.pow(radius, 2) - Math.pow(x - cx, 2);
         if (d < 0) {
             return null;
         }
 
         d = Math.sqrt(d);
-        return new DoubleTuple(cy - d, cy + d);
+        return Pair.of(cy - d, cy + d);
     }
 
     /**
@@ -667,7 +669,7 @@ public class RoundUtil {
      * @param y     给定的y值
      * @return 对应的x值
      */
-    public static DoubleTuple getX(Round round, double y) {
+    public static Pair<Double, Double> getX(Round round, double y) {
         return round == null ? null : getX(round.getX(), round.getY(), round.getRadius(), y);
     }
 
@@ -680,13 +682,46 @@ public class RoundUtil {
      * @param y      给定的y值
      * @return 对应的x值
      */
-    public static DoubleTuple getX(double cx, double cy, double radius, double y) {
+    public static Pair<Double, Double> getX(double cx, double cy, double radius, double y) {
         double d = Math.pow(radius, 2) - Math.pow(y - cy, 2);
         if (d < 0) {
             return null;
         }
 
         d = Math.sqrt(d);
-        return new DoubleTuple(cx - d, cx + d);
+        return Pair.of(cx - d, cx + d);
+    }
+
+    /**
+     * 判断圆的集合中是否存在与给定圆重合的圆
+     *
+     * @param collection 圆的集合
+     * @param round      给定的圆
+     * @return 若集合中存在与给定圆在最小精度范围内重合的圆, 则返回true
+     */
+    public static boolean exist(Collection<Round> collection, Round round) {
+        return exist(collection, round, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断圆的集合中是否存在与给定圆重合的圆
+     *
+     * @param collection 圆的集合
+     * @param round      给定的圆
+     * @param precision  给定的精度
+     * @return 若集合中存在与给定圆在指定精度范围内重合的圆, 则返回true
+     */
+    public static boolean exist(Collection<Round> collection, Round round, double precision) {
+        if (collection == null || round == null) {
+            return false;
+        }
+
+        for (Round r : collection) {
+            if (coincide(r, round, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

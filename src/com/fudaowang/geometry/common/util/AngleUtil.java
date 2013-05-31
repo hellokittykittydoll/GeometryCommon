@@ -141,4 +141,99 @@ public class AngleUtil {
     public static boolean pointInAngle(double x, double y, double vx, double vy, double x1, double y1, double x2, double y2) {
         return java.awt.geom.Line2D.linesIntersect(x, y, vx, vy, x1, y1, x2, y2);
     }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param angle 被判断的角
+     * @return 若角的弧度值与直角弧度值在最小精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(Angle angle) {
+        if (angle == null) {
+            throw new NullPointerException("角为null");
+        }
+
+        return isRightAngle(angle.getVertex(), angle.getP1(), angle.getP2());
+    }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param vertex 被判断的角的顶点
+     * @param point1 被判断的角的第一个端点
+     * @param point2 被判断的角的第二个端点
+     * @return 若角的弧度值与直角弧度值在最小精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(Point vertex, Point point1, Point point2) {
+        if (vertex == null || point1 == null || point2 == null) {
+            throw new NullPointerException("角的端点为null");
+        }
+
+        return isRightAngle(vertex.getX(), vertex.getY(), point1.getX(), point1.getY(), point2.getX(), point2.getY());
+    }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param vx 被判断的角的顶点的横坐标
+     * @param vy 被判断的角的顶点的纵坐标
+     * @param x1 被判断的角的第一个端点的横坐标
+     * @param y1 被判断的角的第一个端点的纵坐标
+     * @param x2 被判断的角的第二个端点的横坐标
+     * @param y2 被判断的角的第二个端点的纵坐标
+     * @return 若角的弧度值与直角弧度值在最小精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(double vx, double vy, double x1, double y1, double x2, double y2) {
+        double angle = AngleUtil.getAngleRadians(vx, vy, x1, y1, x2, y2);
+        return NumberUtil.equal(angle, Math.PI / 2);
+    }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param angle     被判断的角
+     * @param precision 给定的精度
+     * @return 若角的角度值与90度在给定精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(Angle angle, double precision) {
+        if (angle == null) {
+            throw new NullPointerException("角为null");
+        }
+
+        return isRightAngle(angle.getVertex(), angle.getP1(), angle.getP2(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param vertex    被判断的角的顶点
+     * @param point1    被判断的角的第一个端点
+     * @param point2    被判断的角的第二个端点
+     * @param precision 给定的精度
+     * @return 若角的角度值与90度在给定精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(Point vertex, Point point1, Point point2, double precision) {
+        if (vertex == null || point1 == null || point2 == null) {
+            throw new NullPointerException("角的端点为null");
+        }
+
+        return isRightAngle(vertex.getX(), vertex.getY(), point1.getX(), point1.getY(), point2.getX(), point2.getY(), precision);
+    }
+
+    /**
+     * 在最小精度范围内判断一个角是否为直角
+     *
+     * @param vx        被判断的角的顶点的横坐标
+     * @param vy        被判断的角的顶点的纵坐标
+     * @param x1        被判断的角的第一个端点的横坐标
+     * @param y1        被判断的角的第一个端点的纵坐标
+     * @param x2        被判断的角的第二个端点的横坐标
+     * @param y2        被判断的角的第二个端点的纵坐标
+     * @param precision 给定的精度
+     * @return 若角的角度值与90度在给定精度范围内相等, 则返回true
+     */
+    public static boolean isRightAngle(double vx, double vy, double x1, double y1, double x2, double y2, double precision) {
+        double angle = AngleUtil.getAngleDegrees(vx, vy, x1, y1, x2, y2);
+        return NumberUtil.equal(angle, 90, precision);
+    }
 }

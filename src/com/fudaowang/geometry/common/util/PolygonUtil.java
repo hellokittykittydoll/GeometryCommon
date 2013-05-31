@@ -7,6 +7,8 @@ import com.fudaowang.geometry.common.graph.Segment;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 
+import java.util.Collection;
+
 /**
  * 对多边形的操作类
  * Created with IntelliJ IDEA.
@@ -183,5 +185,38 @@ public class PolygonUtil {
      */
     public static boolean coincide(Point[] source, final Point[] target) {
         return coincide(source, target, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断集合中是否存在与给定双曲线重合的双曲线
+     *
+     * @param collection 双曲线集合
+     * @param polygon    给定的双曲线
+     * @return 若集合中存在与给定双曲线在最小精度范围内重合的双曲线, 则返回true
+     */
+    public static boolean exist(Collection<Polygon> collection, Polygon polygon) {
+        return exist(collection, polygon, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断集合中是否存在与给定双曲线重合的双曲线
+     *
+     * @param collection 双曲线集合
+     * @param polygon    给定的双曲线
+     * @param precision  指定的精度
+     * @return 若集合中存在与给定双曲线在指定精度范围内重合的双曲线, 则返回true
+     */
+    public static boolean exist(Collection<Polygon> collection, Polygon polygon, double precision) {
+        if (collection == null || polygon == null) {
+            return false;
+        }
+
+        for (Polygon p : collection) {
+            if (coincide(p, polygon, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -70,7 +70,7 @@ public class HyperbolaUtil {
         double px2 = (-b0 - Math.sqrt(delta)) / (2.0 * a);
         double py2 = getY(k, x, y, px2);
 
-        List list = new ArrayList();
+        List<Point> list = new ArrayList<Point>();
         if (!Double.isNaN(py1)) {
             list.add(new Point(px1, py1));
         }

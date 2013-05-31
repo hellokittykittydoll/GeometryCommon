@@ -1,6 +1,5 @@
 package com.fudaowang.geometry.common.graph;
 
-import com.fudaowang.geometry.common.tuple.DoubleTriple;
 import com.fudaowang.geometry.common.util.NumberUtil;
 
 /**
@@ -73,17 +72,17 @@ public class Parabola {
      *
      * @param triple 参数组合
      */
-    public Parabola(DoubleTriple triple) {
+    public Parabola(Triple<Double, Double, Double> triple) {
         if (triple == null) {
             throw new NullPointerException("参数组为null");
         }
 
-        if (NumberUtil.isZero(triple.getNumber1())) {
+        if (NumberUtil.isZero(triple.getItem1())) {
             throw new IllegalArgumentException("抛物线方程系数a不能为0");
         }
 
-        this.a = triple.getNumber1();
-        this.b = triple.getNumber2();
-        this.c = triple.getNumber3();
+        this.a = triple.getItem1();
+        this.b = triple.getItem2();
+        this.c = triple.getItem3();
     }
 }

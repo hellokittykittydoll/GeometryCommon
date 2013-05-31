@@ -1,11 +1,10 @@
 package com.fudaowang.geometry.common.util;
 
 import com.fudaowang.geometry.common.graph.*;
-import com.fudaowang.geometry.common.tuple.DoubleTuple;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.lang.NotImplementedException;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,8 +39,8 @@ public class ParabolaUtil {
      * @param points 抛物线上的点集
      * @return 生成的抛物线
      */
-    public static Parabola getParabola(List points) {
-        return points == null ? null : getParabola((Point[]) points.toArray(new Point[points.size()]));
+    public static Parabola getParabola(List<Point> points) {
+        return points == null ? null : getParabola(points.toArray(new Point[points.size()]));
     }
 
     /**
@@ -178,7 +177,7 @@ public class ParabolaUtil {
      * @param y        给定的y值
      * @return 抛物线对应的x值
      */
-    public static DoubleTuple getX(Parabola parabola, double y) {
+    public static Pair<Double, Double> getX(Parabola parabola, double y) {
         if (parabola == null) {
             return null;
         }
@@ -194,7 +193,7 @@ public class ParabolaUtil {
      * @param y 给定的y值
      * @return 抛物线对应的x值
      */
-    public static DoubleTuple getX(double a, double b, double c, double y) {
+    public static Pair<Double, Double> getX(double a, double b, double c, double y) {
         if (NumberUtil.isZero(a)) {
             return null;
         }
@@ -202,7 +201,7 @@ public class ParabolaUtil {
         double delta = b * b - 4.0 * a * (c - y);
         double x = -b / (2.0 * a);
         if (NumberUtil.isZero(delta)) {
-            return new DoubleTuple(x, x);
+            return Pair.of(x, x);
         }
 
         if (delta < 0) {
@@ -212,7 +211,7 @@ public class ParabolaUtil {
         delta = Math.sqrt(delta);
         double x1 = (-b - delta) / (2.0 * a);
         double x2 = (-b + delta) / (2.0 * a);
-        return new DoubleTuple(x1, x2);
+        return Pair.of(x1, x2);
     }
 
     /**
@@ -568,7 +567,7 @@ public class ParabolaUtil {
         if (NumberUtil.isZero(a)) {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
-        throw new NotImplementedException();
+        return toRelativeCoordinate(a, b, c, originX, originY, space, space);
     }
 
     /**
@@ -629,5 +628,38 @@ public class ParabolaUtil {
             throw new IllegalArgumentException("抛物线的系数a不能为0");
         }
         return NumberUtil.equal(a1, a2, precision) && NumberUtil.equal(b1, b2, precision) && NumberUtil.equal(c1, c2, precision);
+    }
+
+    /**
+     * 判断抛物线集合中是否存在与给定抛物线重合的抛物线
+     *
+     * @param collection 抛物线集合
+     * @param parabola   给定的抛物线
+     * @return 若集合中存在与给定抛物线在最小精度范围内重合的抛物线, 则返回true
+     */
+    public static boolean exist(Collection<Parabola> collection, Parabola parabola) {
+        return exist(collection, parabola, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 判断抛物线集合中是否存在与给定抛物线重合的抛物线
+     *
+     * @param collection 抛物线的集合
+     * @param parabola   给定的抛物线
+     * @param precision  指定的精度
+     * @return 若集合中存在与给定抛物线在指定精度范围内重合的抛物线, 则返回true
+     */
+    public static boolean exist(Collection<Parabola> collection, Parabola parabola, double precision) {
+        if (collection == null || parabola == null) {
+            return false;
+        }
+
+        for (Parabola p : collection) {
+            if (coincide(p, parabola, precision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
