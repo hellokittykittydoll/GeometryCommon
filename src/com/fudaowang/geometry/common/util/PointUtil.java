@@ -662,4 +662,31 @@ public class PointUtil {
 
         return false;
     }
+
+    /**
+     * 向点集合中添加点,集合内的点在最小精度范围内坐标唯一
+     *
+     * @param collection 点的集合
+     * @param point      需要添加的点
+     * @return 若添加成功则返回true
+     */
+    public static boolean addUnique(Collection<Point> collection, Point point) {
+        return addUnique(collection, point, NumberUtil.MIN_VALUE);
+    }
+
+    /**
+     * 向点集合中添加点,集合内的点在指定精度范围内坐标唯一
+     *
+     * @param collection 点的集合
+     * @param point      需要添加的点
+     * @param precision  指定的精度
+     * @return 若添加成功则返回true
+     */
+    public static boolean addUnique(Collection<Point> collection, Point point, double precision) {
+        if (collection == null || point == null) {
+            return false;
+        }
+
+        return !exist(collection, point) && collection.add(point);
+    }
 }
