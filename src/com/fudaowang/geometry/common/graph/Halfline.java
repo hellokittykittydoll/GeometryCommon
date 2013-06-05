@@ -26,7 +26,7 @@ public class HalfLine extends Line {
      * @param y           端点的纵坐标
      * @param orientation 射线的主要增长方向
      */
-    public HalfLine(double a, double b, double c, double x, double y, Orientation orientation) {
+    public HalfLine(double a, double b, double c, double x, double y, HalfLine.Orientation orientation) {
         super(a, b, c);
         this.x = x;
         this.y = y;
