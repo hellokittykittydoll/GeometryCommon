@@ -45,7 +45,8 @@ public class LineUtilTest {
         assertTrue(PointUtil.coincide(p, p01));
         p = LineUtil.intersect(l1, l_1);
         assertNull(p);
-        p = SegmentUtil.intersect(segment, l1, true);
+        p = LineUtil.intersect(segment, l1);
+        assertTrue(SegmentUtil.inSegment(p, segment));
         assertTrue(PointUtil.coincide(p, p_10));
     }
 

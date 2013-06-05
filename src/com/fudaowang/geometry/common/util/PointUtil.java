@@ -687,6 +687,29 @@ public class PointUtil {
             return false;
         }
 
-        return !exist(collection, point) && collection.add(point);
+        return !exist(collection, point, precision) && collection.add(point);
+    }
+
+    /**
+     * 向点集合中添加点,集合内的点在最小精度范围内坐标唯一
+     *
+     * @param collection 点的集合
+     * @param points     需要添加的点集
+     */
+    public static void addUnique(Collection<Point> collection, Point... points) {
+        addUnique(collection, NumberUtil.MIN_VALUE, points);
+    }
+
+    /**
+     * 向点集合中添加点,集合内的点在指定精度范围内坐标唯一
+     *
+     * @param collection 点的集合
+     * @param precision  指定的精度
+     * @param points     需要添加的点集
+     */
+    public static void addUnique(Collection<Point> collection, double precision, Point... points) {
+        for (Point p : points) {
+            addUnique(collection, p, precision);
+        }
     }
 }
